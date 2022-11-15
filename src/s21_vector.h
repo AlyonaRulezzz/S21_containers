@@ -31,13 +31,6 @@ private:
   iterator arr_;
   // allocator_type allocator_;
 
-  // additional methods
-  void CleanMemory_() {  // can I use it function ????????
-  for (int i = 0; i < capacity_; i++) {  // or size_ ????
-    delete[] arr_[i];
-  }
-  delete[] arr_;
-}
 
   // void remove_vector_() {  //  exactly equal ~Vector()
   // if (arr_) {
@@ -79,7 +72,7 @@ public:
   ~Vector() {
     // remove_vector_();
     if (arr_) {
-      CleanMemory_();
+      delete[] arr_;
     }
     size_ = 0;
     capacity_ = 0;
@@ -91,7 +84,9 @@ public:
     arr_ = other.arr_;
     size_ = other.size_;
     capacity_ = other.capacity_;
-    other.~Vector();
+    other.arr_ = nullptr;
+    other.size_ = 0;
+    other.capacity_ = 0;
     return *this;
   }
 
