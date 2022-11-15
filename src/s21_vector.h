@@ -32,21 +32,21 @@ private:
   // allocator_type allocator_;
 
   // additional methods
-  void CleanMemory_() {
+  void CleanMemory_() {  // can I use it function ????????
   for (int i = 0; i < capacity_; i++) {  // or size_ ????
     delete[] arr_[i];
   }
   delete[] arr_;
 }
 
-  void remove_vector_() {
-  if (arr_) {
-    CleanMemory_();
-  }
-  size_ = 0;
-  capacity_ = 0;
-  arr_ = nullptr;
-  }
+  // void remove_vector_() {  //  exactly equal ~Vector()
+  // if (arr_) {
+  //   CleanMemory_();
+  // }
+  // size_ = 0;
+  // capacity_ = 0;
+  // arr_ = nullptr;
+  // }
 
 
 public:
@@ -77,8 +77,24 @@ public:
   }
 
   ~Vector() {
-    remove_vector_();
+    // remove_vector_();
+    if (arr_) {
+      CleanMemory_();
+    }
+    size_ = 0;
+    capacity_ = 0;
+    arr_ = nullptr;
   }
+
+  Vector& operator=(Vector &&other) {
+    ~Vector();  // remove_vector_();
+    arr_ = other.arr_;
+    size_ = other.size_;
+    capacity_ = other.capacity_;
+    other.~Vector();
+    return *this;
+  }
+
 
 };
 } // namespace s21
