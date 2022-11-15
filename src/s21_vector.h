@@ -1,3 +1,8 @@
+//  47 min ??
+// выде
+
+
+
 #ifndef S21_VECTOR_H_
 #define S21_VECTOR_H_
 
@@ -26,6 +31,24 @@ private:
   iterator arr_;
   // allocator_type allocator_;
 
+  // additional methods
+  void CleanMemory_() {
+  for (int i = 0; i < capacity_; i++) {  // or size_ ????
+    delete[] arr_[i];
+  }
+  delete[] arr_;
+}
+
+  void remove_vector_() {
+  if (arr_) {
+    CleanMemory_();
+  }
+  size_ = 0;
+  capacity_ = 0;
+  arr_ = nullptr;
+  }
+
+
 public:
   // functions (constructors and operator overload)
   Vector() noexcept : size_(0), capacity_(0), arr_(nullptr) {}
@@ -45,6 +68,16 @@ public:
 
   Vector(const Vector& other) noexcept : Vector(other.size_) {
     std::copy(other.arr_, other.arr_ + other.size_, arr_);
+  }
+
+  Vector(Vector &&other) noexcept : size_(other.size_), capacity_(other.capacity_), arr_(other.arr_) {
+    other.arr_ = nullptr;
+    other.size_ = 0;
+    other.capacity_ = 0;
+  }
+
+  ~Vector() {
+    remove_vector_();
   }
 
 };
