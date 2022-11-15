@@ -37,13 +37,16 @@ public:
     }
   }
 
-  Vector(std::initializer_list<value_type> const &items) {
+  Vector(std::initializer_list<value_type> const &items) : Vector(items.size()){
+    std::copy(items.begin(), items.end(), arr_);
     // Vector<int> x{1, 2, 3, 4, 5};
     // equal Vector<int> x = {1, 2, 3, 4, 5};
-
   }
 
-  
+  Vector(const Vector& other) noexcept : Vector(other.size_) {
+    std::copy(other.arr_, other.arr_ + other.size_, arr_);
+  }
+
 };
 } // namespace s21
 
