@@ -10,6 +10,8 @@
 #include <initializer_list>
 #include <stdexcept>
 
+using std::out_of_range;
+
 namespace s21 {
 // template <typename T, class Allocator = std::allocator<T>> class Vector {
 template <typename T> class Vector {
@@ -43,6 +45,12 @@ private:
 
 
 public:
+  // additional functions
+  // size_type GetSize() const {return size_; }
+  // size_type GetCapacity() const {return capacity_; }
+  // iterator GetArr() const {return arr_; }
+
+
   // functions (constructors and operator overload)
   Vector() noexcept : size_(0), capacity_(0), arr_(nullptr) {}
 
@@ -90,6 +98,13 @@ public:
     return *this;
   }
 
+  // element access
+  reference at(size_type pos) {
+    if (pos < 0 || pos >= size_) {
+      throw out_of_range("Index is out of range");
+    }
+    return arr_[pos];
+  }
 
 };
 } // namespace s21
