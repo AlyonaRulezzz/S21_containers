@@ -1,8 +1,6 @@
 //  47 min ??
 // выде
 
-
-
 #ifndef S21_VECTOR_H_
 #define S21_VECTOR_H_
 
@@ -33,7 +31,6 @@ private:
   iterator arr_;
   // allocator_type allocator_;
 
-
   // void remove_vector_() {  //  exactly equal ~Vector()
   // if (arr_) {
   //   CleanMemory_();
@@ -43,13 +40,11 @@ private:
   // arr_ = nullptr;
   // }
 
-
 public:
   // additional functions
   // size_type GetSize() const {return size_; }
   // size_type GetCapacity() const {return capacity_; }
   // iterator GetArr() const {return arr_; }
-
 
   // functions (constructors and operator overload)
   Vector() noexcept : size_(0), capacity_(0), arr_(nullptr) {}
@@ -61,17 +56,19 @@ public:
     }
   }
 
-  Vector(std::initializer_list<value_type> const &items) : Vector(items.size()){
+  Vector(std::initializer_list<value_type> const &items)
+      : Vector(items.size()) {
     std::copy(items.begin(), items.end(), arr_);
     // Vector<int> x{1, 2, 3, 4, 5};
     // equal Vector<int> x = {1, 2, 3, 4, 5};
   }
 
-  Vector(const Vector& other) noexcept : Vector(other.size_) {
+  Vector(const Vector &other) noexcept : Vector(other.size_) {
     std::copy(other.arr_, other.arr_ + other.size_, arr_);
   }
 
-  Vector(Vector &&other) noexcept : size_(other.size_), capacity_(other.capacity_), arr_(other.arr_) {
+  Vector(Vector &&other) noexcept
+      : size_(other.size_), capacity_(other.capacity_), arr_(other.arr_) {
     other.arr_ = nullptr;
     other.size_ = 0;
     other.capacity_ = 0;
@@ -87,8 +84,8 @@ public:
     arr_ = nullptr;
   }
 
-  Vector& operator=(Vector &&other) {
-    ~Vector();  // remove_vector_();
+  Vector &operator=(Vector &&other) {
+    ~Vector(); // remove_vector_();
     arr_ = other.arr_;
     size_ = other.size_;
     capacity_ = other.capacity_;
@@ -106,6 +103,15 @@ public:
     return arr_[pos];
   }
 
+  reference operator[](size_type pos) { return arr_[pos]; }
+
+  const_reference front() { return arr_[0]; }
+
+  const_reference back() { return arr_[size_ - 1]; }
+
+  iterator noexcept data() { return arr_; }
+
+  
 };
 } // namespace s21
 
