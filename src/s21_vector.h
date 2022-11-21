@@ -1,6 +1,3 @@
-//  47 min ??
-// выде
-
 #ifndef S21_VECTOR_H_
 #define S21_VECTOR_H_
 
@@ -49,7 +46,7 @@ public:
   // functions (constructors and operator overload)
   Vector() noexcept : size_(0), capacity_(0), arr_(nullptr) {}
 
-  Vector(size_type n) : size_(n) {
+  Vector(size_type n) : size_(n), capacity_(n), arr_(nullptr) {
     arr_ = new value_type[size_];
     for (size_t i = 0; i < size_; i++) {
       arr_[i] = value_type();
@@ -92,6 +89,7 @@ public:
     other.arr_ = nullptr;
     other.size_ = 0;
     other.capacity_ = 0;
+    // std::move(&other);
     return *this;
   }
 
@@ -109,9 +107,46 @@ public:
 
   const_reference back() { return arr_[size_ - 1]; }
 
-  iterator noexcept data() { return arr_; }
+  iterator data() noexcept { return arr_; }
 
-  
+  // iterators
+  iterator begin() noexcept { return arr_; }
+  const_iterator cbegin() const noexcept { return arr_; }  // really??
+  iterator end() noexcept { return arr_ + size_; }
+  const_iterator cend() const noexcept { return arr_ + size_; }  // really??
+
+  // vector capacity
+  bool empty() const noexcept {
+      return size_ == 0;
+    }
+
+  size_type size() const noexcept {
+    return size_;
+  }
+
+  size_type max_size() const noexcept {
+    std::allocator<value_type> Alloc;
+    return Alloc.max_size();
+  }
+
+  void reserve(size_type new_capacity) {  //  ??????? WTF or its unok???
+    if (new_capacity > max_size()) {
+      std::length_error("error: new_cap > max_size()");     
+    }
+    if (new_capacity > capacity_) {
+      value_type *buff = new value_type[new_capacity];
+      for (size_t i = 0; i < size_; ++i) buff[i] = std::move(arr_[i]);
+      delete[] arr_;
+      arr_ = buff;
+      capacity_ = new_capacity;
+    }
+  }
+
+  size_type capacity() const noexcept {
+    return capacity_;
+  }
+
+
 };
 } // namespace s21
 
