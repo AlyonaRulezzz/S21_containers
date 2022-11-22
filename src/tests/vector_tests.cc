@@ -4,16 +4,25 @@
 
 TEST(Constructor, Default) {
   s21::Vector<double> v1;
-  // int s1 = v1.size();
   EXPECT_EQ(0, v1.size());
 }
 
-TEST(Constructor, With_parameters) {
+TEST(Constructor, With_parameter) {
   s21::Vector<int> v1(4);
   EXPECT_EQ(4, v1.size());
   EXPECT_EQ(4, v1.capacity());
 
   EXPECT_ANY_THROW(s21::Vector<int> v2(-4));
+}
+
+TEST(Constructor, Initializer_list) {
+  std::vector<double> v1 = {1, 2, 3, 4.356, 5.0};
+  s21::Vector<double> v2 = {1, 2, 3, 4.356, 5.0};
+  for (size_t i = 0; i < v1.size(); ++i) {
+    EXPECT_EQ(v1[i], v2[i]);
+  }
+  EXPECT_EQ(v1.size(), v2.size());
+  EXPECT_EQ(v1.capacity(), v2.capacity());
 }
 
 // // TEST(Constructor, Copy) {
