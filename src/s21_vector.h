@@ -44,7 +44,7 @@ public:
   // iterator GetArr() const {return arr_; }
 
   // functions (constructors and operator overload)
-  Vector() noexcept : size_(0), capacity_(0), arr_(nullptr) {}
+  Vector() : size_(0), capacity_(0), arr_(nullptr) {}
 
   Vector(size_type n) : size_(n), capacity_(n), arr_(nullptr) {
     arr_ = new value_type[size_];
@@ -60,7 +60,7 @@ public:
     // equal Vector<int> x = {1, 2, 3, 4, 5};
   }
 
-  Vector(const Vector &other) noexcept : Vector(other.size_) {
+  Vector(const Vector &other) : Vector(other.size_) {
     std::copy(other.arr_, other.arr_ + other.size_, arr_);
   }
 

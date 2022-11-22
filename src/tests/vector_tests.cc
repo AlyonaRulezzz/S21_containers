@@ -2,24 +2,21 @@
 #include <vector>
 #include "../s21_vector.h"
 
-// // TEST(Constructors, Default) {
-// //   // s21::Vector<int> v1();
-// //   // EXPECT_EQ(0, (*v1).size());
-// //   // EXPECT_EQ(0, (*v1).capacity());
-// //   // EXPECT_EQ(nullptr, v1.GetArr());
-// // }
+TEST(Constructor, Default) {
+  s21::Vector<double> v1;
+  // int s1 = v1.size();
+  EXPECT_EQ(0, v1.size());
+}
 
-// // TEST(Constructors, With_parameters) {
-// //   s21::Vector<int> m1(4, 5);
-// //   EXPECT_EQ(4, m1.GetSize());
-// //   EXPECT_EQ(5, m1.GetCapacity());
-// //   EXPECT_NO_THROW(s21::Vector<int> m1(4, 5));
+TEST(Constructor, With_parameters) {
+  s21::Vector<int> v1(4);
+  EXPECT_EQ(4, v1.size());
+  EXPECT_EQ(4, v1.capacity());
 
-// //   EXPECT_ANY_THROW(s21::Vector<int> m2(0, 8));
-// //   EXPECT_ANY_THROW(s21::Vector<int>(-8, 8));
-// // }
+  EXPECT_ANY_THROW(s21::Vector<int> v2(-4));
+}
 
-// // TEST(Constructors, Copy) {
+// // TEST(Constructor, Copy) {
 // //   s21::Vector<int> test1;
 // //   test1.Fill(5);
 
@@ -33,7 +30,7 @@
 // //   }
 // // }
 
-// // TEST(Constructors, Move) {
+// // TEST(Constructor, Move) {
 // //   s21::Vector<int> test1(4, 5);
 // //   test1.Fill(0, 2);
 // //   s21::Vector<int> res1(test1);
@@ -44,7 +41,7 @@
 // //   EXPECT_EQ(false, m1.EqMatrix(test1));
 // // }
 
-TEST(vector_test, at) {
+TEST(vector_element, at) {
     std::vector<double> v1 = {1.366, 2, 3};
     s21::Vector<double> v2 = {1.366, 2, 3};
     for (size_t i = 0; i < v1.size(); ++i) {
@@ -54,7 +51,7 @@ TEST(vector_test, at) {
     EXPECT_ANY_THROW(v2.at(3));
 }
 
-TEST(vector_test, brackets) {
+TEST(vector_element, brackets) {
     std::vector<double> v1 = {1.366, 2, 3};
     s21::Vector<double> v2 = {1.366, 2, 3};
     for (size_t i = 0; i < v1.size(); ++i) {
@@ -62,14 +59,14 @@ TEST(vector_test, brackets) {
     }
 }
 
-TEST(vector_test, front_and_back) {
+TEST(vector_element, front_and_back) {
     std::vector<double> v1 = {1.366, 2, 3};
     s21::Vector<double> v2 = {1.366, 2, 3};
     EXPECT_EQ(v1.front(), v2.front());
     EXPECT_EQ(v1.back(), v2.back());
 }
 
-TEST(vector_test, data) {
+TEST(vector_element, data) {
   s21::Vector<int> v1;
   EXPECT_EQ(v1.data(), nullptr);
 
@@ -78,7 +75,7 @@ TEST(vector_test, data) {
   EXPECT_EQ(*v2.data(), *v3.data());
 }
 
-TEST(vector_test, begin) {
+TEST(vector_iterator, begin) {
   std::vector<int> v1 = {1, 2, 3, 4, 5};
   s21::Vector<int> v2 = {1, 2, 3, 4, 5};
   auto iter1 = v1.begin();
@@ -86,7 +83,7 @@ TEST(vector_test, begin) {
   EXPECT_EQ(*iter1, *iter2);
 }
 
-TEST(vector_test, end) {
+TEST(vector_iterator, end) {
   std::vector<int> v1 = {1, 2, 3, 4, 5};
   s21::Vector<int> v2 = {1, 2, 3, 4, 5};
   auto iter1 = v1.end();
