@@ -44,10 +44,30 @@
 // //   EXPECT_EQ(false, m1.EqMatrix(test1));
 // // }
 
+TEST(vector_test, begin) {
+    s21::Vector<int> v1 = {1, 2, 3, 4, 5};
+    std::vector<int> v2 = {1, 2, 3, 4, 5};
+    auto iter1 = v1.begin();
+    auto iter2 = v2.begin();
+    EXPECT_EQ(*iter1, *iter2);
+}
+
+TEST(vector_test, end) {
+    s21::Vector<int> v1 = {1, 2, 3, 4, 5};
+    std::vector<int> v2 = {1, 2, 3, 4, 5};
+    auto iter1 = v1.end();
+    auto iter2 = v2.end();
+    EXPECT_EQ(*(iter1 - 1), *(iter2 - 1));
+}
+
 TEST(Vector_capacity, empty) {
   std::vector<int> v1 = {1, 2, 3, 4, 5};
   s21::Vector<int> v2 = {1, 2, 3, 4, 5};
   EXPECT_EQ(v1.empty(), v2.empty());
+
+  std::vector<int> v3 = {};
+  s21::Vector<int> v4 = {};
+  EXPECT_EQ(v3.empty(), v4.empty());
 }
 
 TEST(Vector_capacity, size) {
