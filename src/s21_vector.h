@@ -146,6 +146,11 @@ public:
     return capacity_;
   }
 
+  void shrink_to_fit() noexcept {
+    if (capacity_ != size_) {
+      reserve(size_);
+    }
+  }
 
 };
 } // namespace s21

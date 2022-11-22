@@ -76,7 +76,15 @@ TEST(Vector_capacity, reserve_and_capacity) {
   EXPECT_EQ(v1.capacity(), v2.capacity());
 
   EXPECT_ANY_THROW(v2.reserve(-7));
-  
+}
+
+TEST(Vector_capacity, shrink_to_fit) {
+  std::vector<int> v1 = {1, 2, 3, 4, 5};
+  s21::Vector<int> v2 = {1, 2, 3, 4, 5};
+  v1.shrink_to_fit();
+  v2.shrink_to_fit();
+  EXPECT_EQ(v1.size(), v1.capacity());
+  EXPECT_EQ(v2.size(), v2.capacity());
 }
 
 
