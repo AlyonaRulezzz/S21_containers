@@ -64,7 +64,7 @@ public:
     std::copy(other.arr_, other.arr_ + other.size_, arr_);
   }
 
-  Vector(Vector &&other) noexcept
+  Vector(Vector &&other)
       : size_(other.size_), capacity_(other.capacity_), arr_(other.arr_) {
     other.arr_ = nullptr;
     other.size_ = 0;

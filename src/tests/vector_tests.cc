@@ -27,24 +27,33 @@ TEST(Constructor, Initializer_list) {
 }
 
 TEST(Constructor, Copy) {
-  s21::Vector<double> v2 = {1, 2, 3, 4.356, 5.0};
-  s21::Vector<double> v1(v2);
+  s21::Vector<int> v2 = {1, 2, 3, 4, 5};
+  s21::Vector<int> v1(v2);
 
   for (size_t i = 0; i < v1.size(); ++i) {
     EXPECT_EQ(v1.at(i), v1.at(i));
   }
 }
 
-// // TEST(Constructor, Move) {
-// //   s21::Vector<int> test1(4, 5);
-// //   test1.Fill(0, 2);
-// //   s21::Vector<int> res1(test1);
-// //   s21::Vector<int> m1(std::move(test1));
-// //   EXPECT_EQ(m1.GetSize(), res1.GetSize());
-// //   EXPECT_EQ(m1.GetCapacity(), res1.GetCapacity());
-// //   EXPECT_EQ(true, m1.EqMatrix(res1));
-// //   EXPECT_EQ(false, m1.EqMatrix(test1));
-// // }
+// TEST(Constructor, Move) {
+//   s21::Vector<int> v2 = {1, 2, 3, 4, 5};
+//   s21::Vector<int> v1(v2);
+
+//   for (size_t i = 0; i < v1.size(); ++i) {
+//     EXPECT_EQ(v1.at(i), v1.at(i));
+//   }
+// }
+
+TEST(Constructor, Assign_operator) {
+  s21::Vector<int> v2 = {1, 2, 3, 4, 5};
+  s21::Vector<int> v1 = v2;
+
+  for (size_t i = 0; i < v1.size(); ++i) {
+    EXPECT_EQ(v1.at(i), v1.at(i));
+  }
+  EXPECT_EQ(v1.size(), v2.size());
+  EXPECT_EQ(v1.capacity(), v2.capacity());
+}
 
 TEST(vector_element, at) {
     std::vector<double> v1 = {1.366, 2, 3};
@@ -158,22 +167,22 @@ TEST(Vector_capacity, shrink_to_fit) {
 }
 
 
-// int main(int argc, char **argv) {
-//     ::testing::InitGoogleTest(&argc, argv);
-//     return RUN_ALL_TESTS();
-// }
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
 
 
 
 ///////////////////////////////
-#include <iostream>
+// #include <iostream>
 
-int main() {
-  s21::Vector<double> v2 = {1, 2, 3, 4.356, 5.0};
-  s21::Vector<double> v1(v2);
+// int main() {
+//   s21::Vector<double> v2 = {1, 2, 3, 4.356, 5.0};
+//   s21::Vector<double> v1(v2);
 
-  for (size_t i = 0; i < v1.size(); ++i) {
-    EXPECT_EQ(v1.at(i), v1.at(i));
-    std::cout << v1.at(i) << std::endl;
-  }
-}
+//   for (size_t i = 0; i < v1.size(); ++i) {
+//     EXPECT_EQ(v1.at(i), v1.at(i));
+//     std::cout << v1.at(i) << std::endl;
+//   }
+// }
