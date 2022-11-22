@@ -95,7 +95,7 @@ public:
 
   // element access
   reference at(size_type pos) {
-    if (pos < 0 || pos >= size_) {
+    if (pos >= size_) {
       throw out_of_range("Index is out of range");
     }
     return arr_[pos];

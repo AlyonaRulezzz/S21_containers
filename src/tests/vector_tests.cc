@@ -44,20 +44,54 @@
 // //   EXPECT_EQ(false, m1.EqMatrix(test1));
 // // }
 
+TEST(vector_test, at) {
+    std::vector<double> v1 = {1.366, 2, 3};
+    s21::Vector<double> v2 = {1.366, 2, 3};
+    for (size_t i = 0; i < v1.size(); ++i) {
+        EXPECT_EQ(v1.at(i), v2.at(i));
+    }
+    EXPECT_ANY_THROW(v2.at(-8));
+    EXPECT_ANY_THROW(v2.at(3));
+}
+
+TEST(vector_test, brackets) {
+    std::vector<double> v1 = {1.366, 2, 3};
+    s21::Vector<double> v2 = {1.366, 2, 3};
+    for (size_t i = 0; i < v1.size(); ++i) {
+        EXPECT_EQ(v1[i], v2[i]);
+    }
+}
+
+TEST(vector_test, front_and_back) {
+    std::vector<double> v1 = {1.366, 2, 3};
+    s21::Vector<double> v2 = {1.366, 2, 3};
+    EXPECT_EQ(v1.front(), v2.front());
+    EXPECT_EQ(v1.back(), v2.back());
+}
+
+TEST(vector_test, data) {
+  s21::Vector<int> v1;
+  EXPECT_EQ(v1.data(), nullptr);
+
+  std::vector<double> v2 = {1.366, 2, 3, 4, 5};
+  s21::Vector<double> v3 = {1.366, 2, 3, 4, 5};
+  EXPECT_EQ(*v2.data(), *v3.data());
+}
+
 TEST(vector_test, begin) {
-    s21::Vector<int> v1 = {1, 2, 3, 4, 5};
-    std::vector<int> v2 = {1, 2, 3, 4, 5};
-    auto iter1 = v1.begin();
-    auto iter2 = v2.begin();
-    EXPECT_EQ(*iter1, *iter2);
+  std::vector<int> v1 = {1, 2, 3, 4, 5};
+  s21::Vector<int> v2 = {1, 2, 3, 4, 5};
+  auto iter1 = v1.begin();
+  auto iter2 = v2.begin();
+  EXPECT_EQ(*iter1, *iter2);
 }
 
 TEST(vector_test, end) {
-    s21::Vector<int> v1 = {1, 2, 3, 4, 5};
-    std::vector<int> v2 = {1, 2, 3, 4, 5};
-    auto iter1 = v1.end();
-    auto iter2 = v2.end();
-    EXPECT_EQ(*(iter1 - 1), *(iter2 - 1));
+  std::vector<int> v1 = {1, 2, 3, 4, 5};
+  s21::Vector<int> v2 = {1, 2, 3, 4, 5};
+  auto iter1 = v1.end();
+  auto iter2 = v2.end();
+  EXPECT_EQ(*(iter1 - 1), *(iter2 - 1));
 }
 
 TEST(Vector_capacity, empty) {
