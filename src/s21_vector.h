@@ -152,6 +152,12 @@ public:
     }
   }
 
+  void clear() noexcept {
+    size_ = 0;
+    delete[] arr_;  // ask ask ask!!!
+    arr_ = nullptr;  // ask ask ask!!!
+  }
+
 };
 } // namespace s21
 

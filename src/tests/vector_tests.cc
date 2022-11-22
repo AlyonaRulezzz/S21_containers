@@ -166,6 +166,16 @@ TEST(Vector_capacity, shrink_to_fit) {
   EXPECT_EQ(v2.size(), v2.capacity());
 }
 
+TEST(Vector_modifier, clear) {
+  std::vector<int> v1 = {1, 2, 3, 4, 5};
+  s21::Vector<int> v2 = {1, 2, 3, 4, 5};
+  v1.clear();
+  v2.clear();
+
+  EXPECT_EQ(v1.size(), v2.size());
+  EXPECT_EQ(v1.capacity(), v2.capacity());
+}
+
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
