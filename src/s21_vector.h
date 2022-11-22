@@ -129,7 +129,7 @@ public:
     return Alloc.max_size();
   }
 
-  void reserve(size_type new_capacity) {  //  ??????? WTF or its unok???
+  void reserve(size_type new_capacity) {
     if (new_capacity > max_size()) {
       std::length_error("error: new_cap > max_size()");     
     }

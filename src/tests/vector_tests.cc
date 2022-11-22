@@ -62,34 +62,23 @@ TEST(Vector_capacity, max_size) {
   EXPECT_EQ(v1.max_size(), v2.max_size());
 }
 
-// TEST(Vector_capacity, reserve_and_capacity) {
-//   std::vector<int> v1 = {1, 2, 3, 4, 5};
-//   s21::Vector<int> v2 = {1, 2, 3, 4, 5};
-//   v1.reserve(30);
-//   v2.reserve(30);
-//   EXPECT_EQ(v1.size(), v2.size());
-//   EXPECT_EQ(v1.capacity(), v2.capacity());
+TEST(Vector_capacity, reserve_and_capacity) {
+  std::vector<int> v1 = {1, 2, 3, 4, 5};
+  s21::Vector<int> v2 = {1, 2, 3, 4, 5};
+  v1.reserve(30);
+  v2.reserve(30);
+  EXPECT_EQ(v1.size(), v2.size());
+  EXPECT_EQ(v1.capacity(), v2.capacity());
 
-//   v1.reserve(0);
-//   v2.reserve(0);
-//   EXPECT_EQ(v1.size(), v2.size());
-//   EXPECT_EQ(v1.capacity(), v2.capacity());
+  v1.reserve(0);
+  v2.reserve(0);
+  EXPECT_EQ(v1.size(), v2.size());
+  EXPECT_EQ(v1.capacity(), v2.capacity());
 
-//   EXPECT_ANY_THROW(v2.reserve(-7));
+  EXPECT_ANY_THROW(v2.reserve(-7));
   
-// }
-
-TEST(vector, 5) {
-  s21::Vector<double> v = {1, 2, 3, 4, 5, 6};
-  std::vector<double> vc = {1, 2, 3, 4, 5, 6};
-  v.reserve(30);
-  vc.reserve(30);
-
-  ASSERT_EQ(v.empty(), vc.empty());
-  ASSERT_EQ(v.size(), vc.size());
-  ASSERT_EQ(v.max_size(), vc.max_size());
-  ASSERT_EQ(v.capacity(), vc.capacity());
 }
+
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
