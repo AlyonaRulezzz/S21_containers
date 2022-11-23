@@ -176,6 +176,34 @@ TEST(Vector_modifier, clear) {
   EXPECT_EQ(v1.capacity(), v2.capacity());
 }
 
+TEST(Vector_modifier, insert) {
+    s21::Vector<int> v1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    std::vector<int> v2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    auto iter1 = v1.begin();
+    auto iter2 = v2.begin();
+    v1.insert(iter1, 11);
+    // v2.insert(iter2, 11);
+    // EXPECT_EQ(v1[10], v2[10]);
+    // EXPECT_EQ(v1.size(), v2.size());
+    // EXPECT_EQ(v1.capacity(), v2.capacity());
+
+    for (size_t i = 0; i < v1.size(); ++i) {
+      // EXPECT_EQ(v1.at(i), v2.at(i));
+      std::cout << v1.at(i) << std::endl;
+    }
+
+    // iter1 = v1.begin();
+    // iter2 = v2.begin();
+    // v1.insert(iter1 + 5, 11);
+    // v2.insert(iter2 + 5, 11);
+    // EXPECT_EQ(v1[5], v2[5]);
+    // EXPECT_EQ(v1.size(), v2.size());
+    // EXPECT_EQ(v1.capacity(), v2.capacity());
+
+    // EXPECT_ANY_THROW(v1.insert(iter1 - 500, 11));
+    // EXPECT_ANY_THROW(v1.insert(iter1 + 500, 11));
+}
+
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
@@ -185,14 +213,32 @@ int main(int argc, char **argv) {
 
 
 ///////////////////////////////
-// #include <iostream>
+#include <iostream>
 
 // int main() {
-//   s21::Vector<double> v2 = {1, 2, 3, 4.356, 5.0};
-//   s21::Vector<double> v1(v2);
+//     s21::Vector<int> v1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+//     std::vector<int> v2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+//     auto iter1 = v1.end();
+//     auto iter2 = v2.end();
+//     // v1.insert(iter1, 11);
+//     v2.insert(iter2, 11);
 
-//   for (size_t i = 0; i < v1.size(); ++i) {
-//     EXPECT_EQ(v1.at(i), v1.at(i));
-//     std::cout << v1.at(i) << std::endl;
+//     for (size_t i = 0; i < v2.size(); ++i) {
+//       EXPECT_EQ(v2.at(i), v2.at(i));
+//       std::cout << v2.at(i) << std::endl;
 //   }
+
+//     iter1 = v1.begin();
+//     iter2 = v2.begin();
+//     // v1.insert(iter1 + 5, 11);
+//     v2.insert(iter2 + 5, 1001);
+
+
+//   for (size_t i = 0; i < v2.size(); ++i) {
+//     EXPECT_EQ(v2.at(i), v2.at(i));
+//     std::cout << v2.at(i) << std::endl;
+//   }
+
+//   std::cout << '\n' << std::endl;
+//   std::cout << *(iter2 + 5) << std::endl;
 // }
