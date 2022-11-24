@@ -55,7 +55,7 @@ TEST(Constructor, Assign_operator) {
   EXPECT_EQ(v1.capacity(), v2.capacity());
 }
 
-TEST(vector_element, at) {
+TEST(vector_element, At) {
     std::vector<double> v1 = {1.366, 2, 3};
     s21::Vector<double> v2 = {1.366, 2, 3};
 
@@ -66,7 +66,7 @@ TEST(vector_element, at) {
     EXPECT_ANY_THROW(v2.at(3));
 }
 
-TEST(vector_element, brackets) {
+TEST(vector_element, Brackets) {
     std::vector<double> v1 = {1.366, 2, 3};
     s21::Vector<double> v2 = {1.366, 2, 3};
     
@@ -75,7 +75,7 @@ TEST(vector_element, brackets) {
     }
 }
 
-TEST(vector_element, front_and_back) {
+TEST(vector_element, Front_and_back) {
     std::vector<double> v1 = {1.366, 2, 3};
     s21::Vector<double> v2 = {1.366, 2, 3};
 
@@ -83,7 +83,7 @@ TEST(vector_element, front_and_back) {
     EXPECT_EQ(v1.back(), v2.back());
 }
 
-TEST(vector_element, data) {
+TEST(vector_element, Data) {
   s21::Vector<int> v1;
 
   EXPECT_EQ(v1.data(), nullptr);
@@ -94,7 +94,7 @@ TEST(vector_element, data) {
   EXPECT_EQ(*v2.data(), *v3.data());
 }
 
-TEST(vector_iterator, begin) {
+TEST(vector_iterator, Begin) {
   std::vector<int> v1 = {1, 2, 3, 4, 5};
   s21::Vector<int> v2 = {1, 2, 3, 4, 5};
   auto iter1 = v1.begin();
@@ -103,7 +103,7 @@ TEST(vector_iterator, begin) {
   EXPECT_EQ(*iter1, *iter2);
 }
 
-TEST(vector_iterator, end) {
+TEST(vector_iterator, End) {
   std::vector<int> v1 = {1, 2, 3, 4, 5};
   s21::Vector<int> v2 = {1, 2, 3, 4, 5};
   auto iter1 = v1.end();
@@ -112,7 +112,7 @@ TEST(vector_iterator, end) {
   EXPECT_EQ(*(iter1 - 1), *(iter2 - 1));
 }
 
-TEST(Vector_capacity, empty) {
+TEST(Vector_capacity, Empty) {
   std::vector<int> v1 = {1, 2, 3, 4, 5};
   s21::Vector<int> v2 = {1, 2, 3, 4, 5};
 
@@ -124,21 +124,21 @@ TEST(Vector_capacity, empty) {
   EXPECT_EQ(v3.empty(), v4.empty());
 }
 
-TEST(Vector_capacity, size) {
+TEST(Vector_capacity, Size) {
   std::vector<int> v1 = {1, 2, 3, 4, 5};
   s21::Vector<int> v2 = {1, 2, 3, 4, 5};
 
   EXPECT_EQ(v1.size(), v2.size());
 }
 
-TEST(Vector_capacity, max_size) {
+TEST(Vector_capacity, Max_size) {
   std::vector<int> v1 = {1, 2, 3, 4, 5};
   s21::Vector<int> v2 = {1, 2, 3, 4, 5};
 
   EXPECT_EQ(v1.max_size(), v2.max_size());
 }
 
-TEST(Vector_capacity, reserve_and_capacity) {
+TEST(Vector_capacity, Reserve_and_capacity) {
   std::vector<int> v1 = {1, 2, 3, 4, 5};
   s21::Vector<int> v2 = {1, 2, 3, 4, 5};
   v1.reserve(30);
@@ -156,7 +156,7 @@ TEST(Vector_capacity, reserve_and_capacity) {
   EXPECT_ANY_THROW(v2.reserve(-7));
 }
 
-TEST(Vector_capacity, shrink_to_fit) {
+TEST(Vector_capacity, Shrink_to_fit) {
   std::vector<int> v1 = {1, 2, 3, 4, 5};
   s21::Vector<int> v2 = {1, 2, 3, 4, 5};
   v1.shrink_to_fit();
@@ -166,7 +166,7 @@ TEST(Vector_capacity, shrink_to_fit) {
   EXPECT_EQ(v2.size(), v2.capacity());
 }
 
-TEST(Vector_modifier, clear) {
+TEST(Vector_modifier, Clear) {
   std::vector<int> v1 = {1, 2, 3, 4, 5};
   s21::Vector<int> v2 = {1, 2, 3, 4, 5};
   v1.clear();
@@ -176,9 +176,9 @@ TEST(Vector_modifier, clear) {
   EXPECT_EQ(v1.capacity(), v2.capacity());
 }
 
-TEST(Vector_modifier, insert) {
-    s21::Vector<int> v1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    std::vector<int> v2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+TEST(Vector_modifier, Insert) {
+    std::vector<int> v1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    s21::Vector<int> v2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     auto iter1 = v1.end();
     auto iter2 = v2.end();
     v1.insert(iter1, 11);
@@ -200,9 +200,36 @@ TEST(Vector_modifier, insert) {
     EXPECT_EQ(v1.size(), v2.size());
     EXPECT_EQ(v1.capacity(), v2.capacity());
 
-    EXPECT_ANY_THROW(v1.insert(iter1 - 500, 11));
-    EXPECT_ANY_THROW(v1.insert(iter1 + 500, 11));
+    EXPECT_ANY_THROW(v2.insert(iter2 - 500, 11));
+    EXPECT_ANY_THROW(v2.insert(iter2 + 500, 11));
 }
+
+// TEST(Vector_modifier, Erase) {
+//     s21::Vector<int> v1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+//     std::vector<int> v2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+//     auto iter1 = v1.end();
+//     auto iter2 = v2.end();
+//     v1.erase(iter1 - 1);
+//     v2.erase(iter2 - 1);
+//     EXPECT_EQ(v1[8], v2[8]);
+//     EXPECT_EQ(v1.size(), v2.size());
+//     EXPECT_EQ(v1.capacity(), v2.capacity());
+
+//     iter1 = v1.begin();
+//     iter2 = v2.begin();
+//     v1.erase(iter1);
+//     v2.erase(iter2);
+//     EXPECT_EQ(v1[0], v2[0]);
+//     EXPECT_EQ(v1.size(), v2.size());
+//     EXPECT_EQ(v1.capacity(), v2.capacity());
+
+//     try {
+//         vec1.erase(iter1 + 500);
+//         FAIL() << "Expected std::out_of_range";
+//     } catch (std::out_of_range const &err) {
+//         EXPECT_EQ(err.what(), std::string("Out of range"));
+//     }
+// }
 
 
 int main(int argc, char **argv) {

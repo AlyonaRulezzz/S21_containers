@@ -176,9 +176,13 @@ public:
     // for (auto i = pos + 1; i < end(); ++i) {
     //   i = i - 1;
     // }
-    std::cout << pos << std::endl;
-    std::cout << begin() << std::endl;
+    // std::cout << pos << std::endl;
+    // std::cout << begin() << std::endl;
     return pos;
+  }
+
+  void erase(iterator pos) {
+
   }
 
 };
