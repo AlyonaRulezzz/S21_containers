@@ -162,20 +162,22 @@ public:
     if (pos < begin() || pos > end()) {
       throw std::out_of_range("Out of range");
     }
-    if (size_ == capacity_) {
-      reserve(size_ == 0 ? 1 : size_ * 2);
-    }
+
     size_++;
-    for (int i = size_ - 1; i >= pos - begin() && i >= 0; i--) {
+    for (int i = size_ - 1; i > pos - begin(); i--) {
       arr_[i] = arr_[i - 1];
     }
     arr_[pos - begin()] = value;
 
+    if (size_ - 1 == capacity_) {
+      reserve(size_ == 0 ? 1 : capacity_ * 2);
+    }
     
     // for (auto i = pos + 1; i < end(); ++i) {
     //   i = i - 1;
-    // }// std::cout << at(pos - begin()) << std::endl;
-
+    // }
+    std::cout << pos << std::endl;
+    std::cout << begin() << std::endl;
     return pos;
   }
 
