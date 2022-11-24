@@ -204,32 +204,32 @@ TEST(Vector_modifier, Insert) {
     EXPECT_ANY_THROW(v2.insert(iter2 + 500, 11));
 }
 
-// TEST(Vector_modifier, Erase) {
-//     s21::Vector<int> v1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-//     std::vector<int> v2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-//     auto iter1 = v1.end();
-//     auto iter2 = v2.end();
-//     v1.erase(iter1 - 1);
-//     v2.erase(iter2 - 1);
-//     EXPECT_EQ(v1[8], v2[8]);
-//     EXPECT_EQ(v1.size(), v2.size());
-//     EXPECT_EQ(v1.capacity(), v2.capacity());
+TEST(Vector_modifier, Erase) {
+    std::vector<int> v1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    s21::Vector<int> v2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    auto iter1 = v1.end();
+    auto iter2 = v2.end();
+    v1.erase(iter1 - 1);
+    v2.erase(iter2 - 1);
+    EXPECT_EQ(v1[8], v2[8]);
+    EXPECT_EQ(v1.size(), v2.size());
+    EXPECT_EQ(v1.capacity(), v2.capacity());
 
-//     iter1 = v1.begin();
-//     iter2 = v2.begin();
-//     v1.erase(iter1);
-//     v2.erase(iter2);
-//     EXPECT_EQ(v1[0], v2[0]);
-//     EXPECT_EQ(v1.size(), v2.size());
-//     EXPECT_EQ(v1.capacity(), v2.capacity());
+    iter1 = v1.begin();
+    iter2 = v2.begin();
+    v1.erase(iter1);
+    v2.erase(iter2);
+    EXPECT_EQ(v1[0], v2[0]);
+    EXPECT_EQ(v1.size(), v2.size());
+    EXPECT_EQ(v1.capacity(), v2.capacity());
 
-//     try {
-//         vec1.erase(iter1 + 500);
-//         FAIL() << "Expected std::out_of_range";
-//     } catch (std::out_of_range const &err) {
-//         EXPECT_EQ(err.what(), std::string("Out of range"));
-//     }
-// }
+    // try {
+    //     v2.erase(iter2 + 500);
+    //     FAIL() << "Expected std::out_of_range";
+    // } catch (std::out_of_range const &err) {
+    //     EXPECT_EQ(err.what(), std::string("Out of range"));
+    // }
+}
 
 
 int main(int argc, char **argv) {

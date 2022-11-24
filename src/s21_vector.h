@@ -182,7 +182,14 @@ public:
   }
 
   void erase(iterator pos) {
-
+    if (pos < begin() || pos > end()) {
+      throw std::out_of_range("Out of range");
+    }
+    for (size_type i = pos - begin(); i < size_ - 1; i++) {
+      arr_[i] = arr_[i + 1];
+    }
+    
+    size_--;
   }
 
 };
