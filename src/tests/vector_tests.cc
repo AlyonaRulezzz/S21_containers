@@ -228,21 +228,40 @@ TEST(Vector_modifier, Erase) {
     auto iter3 = v3.begin();
     auto iter4 = v4.begin();
     v3.erase(iter3);
-    // v4.erase(iter4);
-    // EXPECT_EQ(v3[0], v4[0]);
-    // EXPECT_EQ(v3.size(), v4.size());
-    // EXPECT_EQ(v3.capacity(), v4.capacity());
+    v4.erase(iter4);
+    EXPECT_EQ(v3[0], v4[0]);
+    EXPECT_EQ(v3.size(), v4.size());
+    EXPECT_EQ(v3.capacity(), v4.capacity());
 
     EXPECT_ANY_THROW(v2.erase(iter2 - 500));
     EXPECT_ANY_THROW(v2.erase(iter2 + 500));
 
-    // try {
-    //     v2.erase(iter2 + 500);
-    //     FAIL() << "Expected std::out_of_range";
-    // } catch (std::out_of_range const &err) {
-    //     EXPECT_EQ(err.what(), std::string("Out of range"));
-    // }
+    try {
+        v2.erase(iter2 + 500);
+        FAIL() << "Expected std::out_of_range";
+    } catch (std::out_of_range const &err) {
+        EXPECT_EQ(err.what(), std::string("Out of range"));
+    }
 }
+
+TEST(Vector_modifier, Push_back) {
+    std::vector<int> v1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    s21::Vector<int> v2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    v1.push_back(11);
+    v2.push_back(11);
+    EXPECT_EQ(v1[10], v2[10]);
+    EXPECT_EQ(v1.size(), v2.size());
+    EXPECT_EQ(v1.capacity(), v2.capacity());
+
+    std::vector<int> v3 = {};
+    s21::Vector<int> v4 = {};
+    v3.push_back(11);
+    v4.push_back(11);
+    EXPECT_EQ(v3[0], v4[0]);
+    EXPECT_EQ(v3.size(), v4.size());
+    EXPECT_EQ(v3.capacity(), v4.capacity());
+}
+
 
 
 int main(int argc, char **argv) {

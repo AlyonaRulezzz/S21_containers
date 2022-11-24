@@ -154,8 +154,6 @@ public:
 
   void clear() noexcept {
     size_ = 0;
-    delete[] arr_;  // ask ask ask!!!
-    arr_ = nullptr;  // ask ask ask!!!
   }
 
   iterator insert(iterator pos, const_reference value) {
@@ -188,8 +186,20 @@ public:
     for (size_type i = pos - begin(); i < size_ - 1; i++) {
       arr_[i] = arr_[i + 1];
     }
-    
     size_--;
+  }
+
+  void push_back(const_reference value) {
+    if (size_ == capacity_) {
+      reserve(size_ == 0 ? 1 : capacity_ * 2);
+    }
+    size_++;
+    if (size_ == 1) {
+      arr_[0] = value;
+    } else {
+      arr_[size_ - 1] = value;
+    }
+
   }
 
 };
