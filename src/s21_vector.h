@@ -1,7 +1,6 @@
 #ifndef S21_VECTOR_H_
 #define S21_VECTOR_H_
 
-#include "iterators/vector_iterator.h"
 #include <initializer_list>
 #include <stdexcept>
 
