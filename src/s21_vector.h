@@ -160,6 +160,9 @@ public:
       throw std::out_of_range("Out of range");
     }
 
+    //
+    auto dif = pos - begin();
+    //
     size_++;
     for (int i = size_ - 1; i > pos - begin(); i--) {
       arr_[i] = arr_[i - 1];
@@ -175,7 +178,7 @@ public:
     // }
     // std::cout << pos << std::endl;
     // std::cout << begin() << std::endl;
-    return pos;
+    return begin() + dif;
   }
 
   void erase(iterator pos) {
@@ -231,6 +234,18 @@ public:
   bool operator!=(iterator other_iter) noexcept {
     return arr_ != other_iter;
   }
+
+  template <typename... Args>
+  iterator emplace(iterator pos, Args&&... args) {
+    auto dif_emp = pos - begin();
+    auto shift = 0; 
+    for (auto &i: {args...}) {
+      insert(begin() + dif_emp + shift, i);
+      shift++;
+    }
+    return begin() + dif_emp;
+  }
+
 };
 } // namespace s21
 

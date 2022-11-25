@@ -332,6 +332,30 @@ TEST(Vector_iterator, operator_not_equal) {
     EXPECT_TRUE(v1.begin() != v1.end());
 }
 
+TEST(Vector_dop, emplace) {
+  // std::vector<double> v1 = {-2, 6, 5, 8};
+  // auto pos1 = v1.begin();
+  // ++ ++pos1;
+  // v1.emplace(pos1, 8, 1, 4, 12, -6);
+
+  // EXPECT_EQ(v1.size(), 9);
+  // EXPECT_EQ(v1.at(3), 5);
+
+  s21::Vector<double> v2 = {-2, 6, 5, 8};
+  auto pos2 = v2.begin();
+  pos2 += 1;
+  v2.emplace(pos2, 8, 1, 4, 12, -6);
+
+  EXPECT_EQ(v2.size(), 9);
+  EXPECT_EQ(v2.at(6), 6);
+
+  std::cout << '\n' << std::endl;
+  for (size_t i = 0; i < v2.size(); ++i) {
+    // EXPECT_EQ(v2.at(i), v2.at(i));
+    std::cout << v2.at(i) << std::endl;
+  }
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
