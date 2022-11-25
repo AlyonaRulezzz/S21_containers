@@ -1,7 +1,6 @@
 #include <gtest/gtest.h>
 #include <vector>
 #include "../s21_vector.h"
-// #include "iterators/vector_iterator.h"
 
 TEST(Constructor, Default) {
   s21::Vector<double> v1;
@@ -297,6 +296,40 @@ TEST(Vector_modifier, Swap) {
       EXPECT_EQ(v2.at(i), v4.at(i));
       // std::cout << v2.at(i) << std::endl;
   }
+}
+
+TEST(Vector_iterator, operator_dereferencing) {
+    std::vector<int> v1 = {1, 2, 3, 9};
+    s21::Vector<int> v2 = {1, 2, 3, 9};
+    auto x = v2.begin();
+    x++;
+    EXPECT_EQ(*++v1.begin(), *x);
+}
+
+TEST(Vector_iterator, operator_plusplus) {
+    std::vector<int> v1 = {1, 2, 3, 9};
+    s21::Vector<int> v2 = {1, 2, 3, 9};
+    auto x = v2.begin();
+    EXPECT_EQ(*++v1.begin(), *++x);
+}
+
+TEST(Vector_iterator, operator_minusminus) {
+    std::vector<int> v1 = {1, 2, 3, 9};
+    s21::Vector<int> v2 = {1, 2, 3, 9};
+    auto x = v2.end();
+    EXPECT_EQ(*--v1.end(), *--x);
+}
+
+TEST(Vector_iterator, operator_equal) {
+    s21::Vector<int> v1 = {1, 2, 3, 9};
+    EXPECT_TRUE(v1.begin() == v1.begin());
+    EXPECT_FALSE(v1.begin() == v1.end());
+}
+
+TEST(Vector_iterator, operator_not_equal) {
+    s21::Vector<int> v1 = {1, 2, 3, 9};
+    EXPECT_FALSE(v1.begin() != v1.begin());
+    EXPECT_TRUE(v1.begin() != v1.end());
 }
 
 int main(int argc, char **argv) {

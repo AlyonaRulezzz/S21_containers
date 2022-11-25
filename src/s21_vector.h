@@ -210,6 +210,27 @@ public:
     std::swap(arr_, other.arr_);
   }
 
+  // iterator's operators
+  reference operator*() const noexcept {
+    // std::cout << arr_ << std::endl;
+    return *arr_;
+  }
+
+  reference operator++() noexcept {
+    return *(arr_ + 1);
+  }
+
+  reference operator--() noexcept {
+    return *(arr_ - 1);
+  }
+
+  bool operator==(iterator other_iter) noexcept {
+    return arr_ == other_iter;
+  }
+
+  bool operator!=(iterator other_iter) noexcept {
+    return arr_ != other_iter;
+  }
 };
 } // namespace s21
 

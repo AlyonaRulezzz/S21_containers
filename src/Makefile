@@ -55,4 +55,4 @@ style:
 	clang-format -n  *.c *.h *.hpp *.cc *.cpp iterators/* tests/*
 
 leak:
-	CK_FORK=no leaks -atExit -- ./gcov_test
+	CK_FORK=no leaks -atExit -- ./test_vector
