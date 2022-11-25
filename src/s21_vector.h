@@ -205,6 +205,12 @@ public:
     size_--;
   }
 
+  void swap(Vector& other) {
+    std::swap(capacity_, other.capacity_);
+    std::swap(size_, other.size_);
+    std::swap(arr_, other.arr_);
+  }
+
 };
 } // namespace s21
 

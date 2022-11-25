@@ -283,6 +283,20 @@ TEST(Vector_modifier, Pop_back) {
     EXPECT_EQ(v3.capacity(), v4.capacity());
 }
 
+TEST(Vector_modifier, Swap) {
+    std::vector<int> v1 = {1, 2, 3, 9};
+    std::vector<int> v2 = {4, 5, 6};
+    v1.swap(v2);
+    s21::Vector<int> v3 = {1, 2, 3, 9};
+    s21::Vector<int> v4 = {4, 5, 6};
+    v3.swap(v4);
+
+    for (size_t i = 0; i < v1.size(); ++i) {
+      EXPECT_EQ(v1.at(i), v3.at(i));
+      EXPECT_EQ(v2.at(i), v4.at(i));
+      // std::cout << v2.at(i) << std::endl;
+  }
+}
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
