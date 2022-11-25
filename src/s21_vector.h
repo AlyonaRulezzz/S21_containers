@@ -111,9 +111,9 @@ public:
 
   // iterators
   iterator begin() noexcept { return arr_; }
-  const_iterator cbegin() const noexcept { return arr_; }  // really??
+  const_iterator cbegin() const noexcept { return arr_; }
   iterator end() noexcept { return arr_ + size_; }
-  const_iterator cend() const noexcept { return arr_ + size_; }  // really??
+  const_iterator cend() const noexcept { return arr_ + size_; }
 
   // vector capacity
   bool empty() const noexcept {
@@ -199,7 +199,10 @@ public:
     } else {
       arr_[size_ - 1] = value;
     }
+  }
 
+  void pop_back() noexcept {
+    size_--;
   }
 
 };

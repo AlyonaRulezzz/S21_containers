@@ -129,6 +129,11 @@ TEST(Vector_capacity, Size) {
   s21::Vector<int> v2 = {1, 2, 3, 4, 5};
 
   EXPECT_EQ(v1.size(), v2.size());
+
+  std::vector<int> v3;
+  s21::Vector<int> v4;
+
+  EXPECT_EQ(v3.size(), v4.size());
 }
 
 TEST(Vector_capacity, Max_size) {
@@ -262,6 +267,21 @@ TEST(Vector_modifier, Push_back) {
     EXPECT_EQ(v3.capacity(), v4.capacity());
 }
 
+TEST(Vector_modifier, Pop_back) {
+    std::vector<int> v1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    s21::Vector<int> v2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    v1.pop_back();
+    v2.pop_back();
+    EXPECT_EQ(v1.size(), v2.size());
+    EXPECT_EQ(v1.capacity(), v2.capacity());
+
+    std::vector<int> v3;
+    s21::Vector<int> v4;
+    v3.pop_back();
+    v4.pop_back();
+    EXPECT_EQ(v3.size(), v4.size());
+    EXPECT_EQ(v3.capacity(), v4.capacity());
+}
 
 
 int main(int argc, char **argv) {
