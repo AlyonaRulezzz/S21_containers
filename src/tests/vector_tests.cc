@@ -342,12 +342,18 @@ TEST(Vector_dop, emplace) {
   // EXPECT_EQ(v1.at(3), 5);
 
   s21::Vector<double> v2 = {-2, 6, 5, 8};
-  auto pos2 = v2.begin();
-  pos2 += 1;
-  v2.emplace(pos2, 8, 1, 4, 12, -6);
+  // s21::Vector<double> v2 = {-2};
 
-  EXPECT_EQ(v2.size(), 9);
-  EXPECT_EQ(v2.at(6), 6);
+  // auto pos2 = v2.begin();
+  // pos2 += 1;
+  auto pos2 = v2.end();
+  pos2 -= 1;
+  v2.emplace(pos2, 9, 1, 4, 12, -6, 2, 7, 10);
+  // v2.emplace(pos2, 9, -1);
+
+
+  // EXPECT_EQ(v2.size(), 12);
+  // EXPECT_EQ(v2.at(6), 7);
 
   std::cout << '\n' << std::endl;
   for (size_t i = 0; i < v2.size(); ++i) {

@@ -237,13 +237,51 @@ public:
 
   template <typename... Args>
   iterator emplace(iterator pos, Args&&... args) {
-    auto dif_emp = pos - begin();
-    auto shift = 0; 
+    // if (size_ == capacity_) {
+    //   reserve(size_ == 0 ? 1 : capacity_ * 2);
+    // }
+    value_type end2 = arr_[size_ -1];
+    value_type end3;
+    int dif_emp = pos - begin();
+    int shift = 0; 
     for (auto &i: {args...}) {
+      // std::cout << *(begin() + dif_emp + shift) << std::endl;
       insert(begin() + dif_emp + shift, i);
       shift++;
+      end3 = i;
     }
-    return begin() + dif_emp;
+      arr_[size_ - 1] = (begin() + dif_emp + shift != end()) ? end2 : end3;
+
+    // std::cout << *(begin() + dif_emp + shift - 1) << std::endl;
+    return begin() + dif_emp + shift - 1;
+  }
+
+
+
+  iterator insert1(iterator pos, const_reference value) {
+    if (pos < begin() || pos > end()) {
+      throw std::out_of_range("Out of range");
+    }
+
+    //
+    auto dif = pos - begin();
+    //
+    size_++;
+    for (int i = size_ - 1; i > pos - begin(); i--) {
+      arr_[i] = arr_[i - 1];
+    }
+    arr_[pos - begin()] = value;
+
+    if (size_ - 1 == capacity_) {
+      reserve(size_ == 0 ? 1 : capacity_ * 2);
+    }
+    
+    // for (auto i = pos + 1; i < end(); ++i) {
+    //   i = i - 1;
+    // }
+    // std::cout << pos << std::endl;
+    // std::cout << begin() << std::endl;
+    return begin() + dif;
   }
 
 };
