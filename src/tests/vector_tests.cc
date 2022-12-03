@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
+
 #include <vector>
+
 #include "../s21_vector.h"
 
 TEST(Constructor, Default) {
@@ -56,31 +58,31 @@ TEST(Constructor, Assign_operator) {
 }
 
 TEST(vector_element, At) {
-    std::vector<double> v1 = {1.366, 2, 3};
-    s21::Vector<double> v2 = {1.366, 2, 3};
+  std::vector<double> v1 = {1.366, 2, 3};
+  s21::Vector<double> v2 = {1.366, 2, 3};
 
-    for (size_t i = 0; i < v1.size(); ++i) {
-        EXPECT_EQ(v1.at(i), v2.at(i));
-    }
-    EXPECT_ANY_THROW(v2.at(-8));
-    EXPECT_ANY_THROW(v2.at(3));
+  for (size_t i = 0; i < v1.size(); ++i) {
+    EXPECT_EQ(v1.at(i), v2.at(i));
+  }
+  EXPECT_ANY_THROW(v2.at(-8));
+  EXPECT_ANY_THROW(v2.at(3));
 }
 
 TEST(vector_element, Brackets) {
-    std::vector<double> v1 = {1.366, 2, 3};
-    s21::Vector<double> v2 = {1.366, 2, 3};
-    
-    for (size_t i = 0; i < v1.size(); ++i) {
-        EXPECT_EQ(v1[i], v2[i]);
-    }
+  std::vector<double> v1 = {1.366, 2, 3};
+  s21::Vector<double> v2 = {1.366, 2, 3};
+
+  for (size_t i = 0; i < v1.size(); ++i) {
+    EXPECT_EQ(v1[i], v2[i]);
+  }
 }
 
 TEST(vector_element, Front_and_back) {
-    std::vector<double> v1 = {1.366, 2, 3};
-    s21::Vector<double> v2 = {1.366, 2, 3};
+  std::vector<double> v1 = {1.366, 2, 3};
+  s21::Vector<double> v2 = {1.366, 2, 3};
 
-    EXPECT_EQ(v1.front(), v2.front());
-    EXPECT_EQ(v1.back(), v2.back());
+  EXPECT_EQ(v1.front(), v2.front());
+  EXPECT_EQ(v1.back(), v2.back());
 }
 
 TEST(vector_element, Data) {
@@ -182,160 +184,160 @@ TEST(Vector_modifier, Clear) {
 }
 
 TEST(Vector_modifier, Insert) {
-    std::vector<int> v1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    s21::Vector<int> v2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    auto iter1 = v1.end();
-    auto iter2 = v2.end();
-    v1.insert(iter1, 11);
-    v2.insert(iter2, 11);
-    EXPECT_EQ(v1[10], v2[10]);
-    EXPECT_EQ(v1.size(), v2.size());
-    EXPECT_EQ(v1.capacity(), v2.capacity());
+  std::vector<int> v1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+  s21::Vector<int> v2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+  auto iter1 = v1.end();
+  auto iter2 = v2.end();
+  v1.insert(iter1, 11);
+  v2.insert(iter2, 11);
+  EXPECT_EQ(v1[10], v2[10]);
+  EXPECT_EQ(v1.size(), v2.size());
+  EXPECT_EQ(v1.capacity(), v2.capacity());
 
-    // for (size_t i = 0; i < v1.size(); ++i) {
-    //   // EXPECT_EQ(v1.at(i), v2.at(i));
-    //   std::cout << v1.at(i) << std::endl;
-    // }
+  // for (size_t i = 0; i < v1.size(); ++i) {
+  //   // EXPECT_EQ(v1.at(i), v2.at(i));
+  //   std::cout << v1.at(i) << std::endl;
+  // }
 
-    iter1 = v1.begin();
-    iter2 = v2.begin();
-    v1.insert(iter1 + 5, 11);
-    v2.insert(iter2 + 5, 11);
-    EXPECT_EQ(v1[5], v2[5]);
-    EXPECT_EQ(v1.size(), v2.size());
-    EXPECT_EQ(v1.capacity(), v2.capacity());
+  iter1 = v1.begin();
+  iter2 = v2.begin();
+  v1.insert(iter1 + 5, 11);
+  v2.insert(iter2 + 5, 11);
+  EXPECT_EQ(v1[5], v2[5]);
+  EXPECT_EQ(v1.size(), v2.size());
+  EXPECT_EQ(v1.capacity(), v2.capacity());
 
-    EXPECT_ANY_THROW(v2.insert(iter2 - 500, 11));
-    EXPECT_ANY_THROW(v2.insert(iter2 + 500, 11));
+  EXPECT_ANY_THROW(v2.insert(iter2 - 500, 11));
+  EXPECT_ANY_THROW(v2.insert(iter2 + 500, 11));
 }
 
 TEST(Vector_modifier, Erase) {
-    std::vector<int> v1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    s21::Vector<int> v2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    auto iter1 = v1.end();
-    auto iter2 = v2.end();
-    v1.erase(iter1 - 1);
-    v2.erase(iter2 - 1);
-    EXPECT_EQ(v1[8], v2[8]);
-    EXPECT_EQ(v1.size(), v2.size());
-    EXPECT_EQ(v1.capacity(), v2.capacity());
+  std::vector<int> v1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+  s21::Vector<int> v2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+  auto iter1 = v1.end();
+  auto iter2 = v2.end();
+  v1.erase(iter1 - 1);
+  v2.erase(iter2 - 1);
+  EXPECT_EQ(v1[8], v2[8]);
+  EXPECT_EQ(v1.size(), v2.size());
+  EXPECT_EQ(v1.capacity(), v2.capacity());
 
-    iter1 = v1.begin();
-    iter2 = v2.begin();
-    v1.erase(iter1);
-    v2.erase(iter2);
-    EXPECT_EQ(v1[0], v2[0]);
-    EXPECT_EQ(v1.size(), v2.size());
-    EXPECT_EQ(v1.capacity(), v2.capacity());
+  iter1 = v1.begin();
+  iter2 = v2.begin();
+  v1.erase(iter1);
+  v2.erase(iter2);
+  EXPECT_EQ(v1[0], v2[0]);
+  EXPECT_EQ(v1.size(), v2.size());
+  EXPECT_EQ(v1.capacity(), v2.capacity());
 
-    std::vector<int> v3 = {0};
-    s21::Vector<int> v4 = {0};
-    auto iter3 = v3.begin();
-    auto iter4 = v4.begin();
-    v3.erase(iter3);
-    v4.erase(iter4);
-    EXPECT_EQ(v3[0], v4[0]);
-    EXPECT_EQ(v3.size(), v4.size());
-    EXPECT_EQ(v3.capacity(), v4.capacity());
+  std::vector<int> v3 = {0};
+  s21::Vector<int> v4 = {0};
+  auto iter3 = v3.begin();
+  auto iter4 = v4.begin();
+  v3.erase(iter3);
+  v4.erase(iter4);
+  EXPECT_EQ(v3[0], v4[0]);
+  EXPECT_EQ(v3.size(), v4.size());
+  EXPECT_EQ(v3.capacity(), v4.capacity());
 
-    EXPECT_ANY_THROW(v2.erase(iter2 - 500));
-    EXPECT_ANY_THROW(v2.erase(iter2 + 500));
+  EXPECT_ANY_THROW(v2.erase(iter2 - 500));
+  EXPECT_ANY_THROW(v2.erase(iter2 + 500));
 
-    try {
-        v2.erase(iter2 + 500);
-        FAIL() << "Expected std::out_of_range";
-    } catch (std::out_of_range const &err) {
-        EXPECT_EQ(err.what(), std::string("Out of range"));
-    }
+  try {
+    v2.erase(iter2 + 500);
+    FAIL() << "Expected std::out_of_range";
+  } catch (std::out_of_range const &err) {
+    EXPECT_EQ(err.what(), std::string("Out of range"));
+  }
 }
 
 TEST(Vector_modifier, Push_back) {
-    std::vector<int> v1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    s21::Vector<int> v2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    v1.push_back(11);
-    v2.push_back(11);
-    EXPECT_EQ(v1[10], v2[10]);
-    EXPECT_EQ(v1.size(), v2.size());
-    EXPECT_EQ(v1.capacity(), v2.capacity());
+  std::vector<int> v1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+  s21::Vector<int> v2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+  v1.push_back(11);
+  v2.push_back(11);
+  EXPECT_EQ(v1[10], v2[10]);
+  EXPECT_EQ(v1.size(), v2.size());
+  EXPECT_EQ(v1.capacity(), v2.capacity());
 
-    std::vector<int> v3 = {};
-    s21::Vector<int> v4 = {};
-    v3.push_back(11);
-    v4.push_back(11);
-    EXPECT_EQ(v3[0], v4[0]);
-    EXPECT_EQ(v3.size(), v4.size());
-    EXPECT_EQ(v3.capacity(), v4.capacity());
+  std::vector<int> v3 = {};
+  s21::Vector<int> v4 = {};
+  v3.push_back(11);
+  v4.push_back(11);
+  EXPECT_EQ(v3[0], v4[0]);
+  EXPECT_EQ(v3.size(), v4.size());
+  EXPECT_EQ(v3.capacity(), v4.capacity());
 }
 
 TEST(Vector_modifier, Pop_back) {
-    std::vector<int> v1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    s21::Vector<int> v2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    v1.pop_back();
-    v2.pop_back();
-    EXPECT_EQ(v1.size(), v2.size());
-    EXPECT_EQ(v1.capacity(), v2.capacity());
+  std::vector<int> v1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+  s21::Vector<int> v2 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+  v1.pop_back();
+  v2.pop_back();
+  EXPECT_EQ(v1.size(), v2.size());
+  EXPECT_EQ(v1.capacity(), v2.capacity());
 
-    std::vector<int> v3;
-    s21::Vector<int> v4;
-    v3.pop_back();
-    v4.pop_back();
-    EXPECT_EQ(v3.size(), v4.size());
-    EXPECT_EQ(v3.capacity(), v4.capacity());
+  std::vector<int> v3;
+  s21::Vector<int> v4;
+  v3.pop_back();
+  v4.pop_back();
+  EXPECT_EQ(v3.size(), v4.size());
+  EXPECT_EQ(v3.capacity(), v4.capacity());
 }
 
 TEST(Vector_modifier, Swap) {
-    std::vector<int> v1 = {1, 2, 3, 9};
-    std::vector<int> v2 = {4, 5, 6};
-    v1.swap(v2);
-    s21::Vector<int> v3 = {1, 2, 3, 9};
-    s21::Vector<int> v4 = {4, 5, 6};
-    v3.swap(v4);
+  std::vector<int> v1 = {1, 2, 3, 9};
+  std::vector<int> v2 = {4, 5, 6};
+  v1.swap(v2);
+  s21::Vector<int> v3 = {1, 2, 3, 9};
+  s21::Vector<int> v4 = {4, 5, 6};
+  v3.swap(v4);
 
-    for (size_t i = 0; i < v1.size(); ++i) {
-      EXPECT_EQ(v1.at(i), v3.at(i));
-      EXPECT_EQ(v2.at(i), v4.at(i));
-      // std::cout << v2.at(i) << std::endl;
+  for (size_t i = 0; i < v1.size(); ++i) {
+    EXPECT_EQ(v1.at(i), v3.at(i));
+    EXPECT_EQ(v2.at(i), v4.at(i));
+    // std::cout << v2.at(i) << std::endl;
   }
 }
 
 TEST(Vector_iterator, operator_dereferencing) {
-    std::vector<int> v1 = {1, 2, 3, 9};
-    s21::Vector<int> v2 = {1, 2, 3, 9};
-    auto x = v2.begin();
-    x++;
-    EXPECT_EQ(*++v1.begin(), *x);
+  std::vector<int> v1 = {1, 2, 3, 9};
+  s21::Vector<int> v2 = {1, 2, 3, 9};
+  auto x = v2.begin();
+  x++;
+  EXPECT_EQ(*++v1.begin(), *x);
 }
 
 TEST(Vector_iterator, operator_plusplus) {
-    std::vector<int> v1 = {1, 2, 3, 9};
-    s21::Vector<int> v2 = {1, 2, 3, 9};
-    auto x = v2.begin();
-    EXPECT_EQ(*++v1.begin(), *++x);
+  std::vector<int> v1 = {1, 2, 3, 9};
+  s21::Vector<int> v2 = {1, 2, 3, 9};
+  auto x = v2.begin();
+  EXPECT_EQ(*++v1.begin(), *++x);
 }
 
 TEST(Vector_iterator, operator_minusminus) {
-    std::vector<int> v1 = {1, 2, 3, 9};
-    s21::Vector<int> v2 = {1, 2, 3, 9};
-    auto x = v2.end();
-    EXPECT_EQ(*--v1.end(), *--x);
+  std::vector<int> v1 = {1, 2, 3, 9};
+  s21::Vector<int> v2 = {1, 2, 3, 9};
+  auto x = v2.end();
+  EXPECT_EQ(*--v1.end(), *--x);
 }
 
 TEST(Vector_iterator, operator_equal) {
-    s21::Vector<int> v1 = {1, 2, 3, 9};
-    EXPECT_TRUE(v1.begin() == v1.begin());
-    EXPECT_FALSE(v1.begin() == v1.end());
+  s21::Vector<int> v1 = {1, 2, 3, 9};
+  EXPECT_TRUE(v1.begin() == v1.begin());
+  EXPECT_FALSE(v1.begin() == v1.end());
 }
 
 TEST(Vector_iterator, operator_not_equal) {
-    s21::Vector<int> v1 = {1, 2, 3, 9};
-    EXPECT_FALSE(v1.begin() != v1.begin());
-    EXPECT_TRUE(v1.begin() != v1.end());
+  s21::Vector<int> v1 = {1, 2, 3, 9};
+  EXPECT_FALSE(v1.begin() != v1.begin());
+  EXPECT_TRUE(v1.begin() != v1.end());
 }
 
 TEST(Vector_dop, emplace) {
   // std::vector<double> v1 = {-2, 6, 5, 8};
   // auto pos1 = v1.begin();
-  // ++ ++pos1;
+  // ++++pos1;
   // v1.emplace(pos1, 8, 1, 4, 12, -6);
 
   // EXPECT_EQ(v1.size(), 9);
@@ -349,23 +351,20 @@ TEST(Vector_dop, emplace) {
   v2.emplace(pos2, 9, 1, 4, 12, -6, 2, 7, 10);
   // v2.emplace(pos2, 9, -1);
 
-
   EXPECT_EQ(v2.size(), 12);
   EXPECT_EQ(v2.at(6), 12);
 
-  std::cout << '\n' << std::endl;
-  for (size_t i = 0; i < v2.size(); ++i) {
-    // EXPECT_EQ(v2.at(i), v2.at(i));
-    std::cout << v2.at(i) << std::endl;
-  }
+  // std::cout << '\n' << std::endl;
+  // for (size_t i = 0; i < v2.size(); ++i) {
+  //   // EXPECT_EQ(v2.at(i), v2.at(i));
+  //   std::cout << v2.at(i) << std::endl;
+  // }
 }
 
 int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
 }
-
-
 
 ///////////////////////////////
 #include <iostream>
@@ -387,7 +386,6 @@ int main(int argc, char **argv) {
 //     iter2 = v2.begin();
 //     // v1.insert(iter1 + 5, 11);
 //     v2.insert(iter2 + 5, 1001);
-
 
 //   for (size_t i = 0; i < v2.size(); ++i) {
 //     EXPECT_EQ(v2.at(i), v2.at(i));

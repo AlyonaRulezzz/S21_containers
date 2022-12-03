@@ -8,8 +8,9 @@ using std::out_of_range;
 
 namespace s21 {
 // template <typename T, class Allocator = std::allocator<T>> class Vector {
-template <typename T> class Vector {
-public:
+template <typename T>
+class Vector {
+ public:
   using value_type = T;
   // using allocator_type = Allocator;
   using reference = T &;
@@ -21,7 +22,7 @@ public:
   using const_iterator = const T *;
   using size_type = size_t;
 
-private:
+ private:
   size_type size_;
   size_type capacity_;
   iterator arr_;
@@ -36,7 +37,7 @@ private:
   // arr_ = nullptr;
   // }
 
-public:
+ public:
   // additional functions
   // size_type GetSize() const {return size_; }
   // size_type GetCapacity() const {return capacity_; }
@@ -81,7 +82,7 @@ public:
   }
 
   Vector &operator=(Vector &&other) {
-    ~Vector(); // remove_vector_();
+    ~Vector();  // remove_vector_();
     arr_ = other.arr_;
     size_ = other.size_;
     capacity_ = other.capacity_;
@@ -115,13 +116,9 @@ public:
   const_iterator cend() const noexcept { return arr_ + size_; }
 
   // vector capacity
-  bool empty() const noexcept {
-      return size_ == 0;
-    }
+  bool empty() const noexcept { return size_ == 0; }
 
-  size_type size() const noexcept {
-    return size_;
-  }
+  size_type size() const noexcept { return size_; }
 
   size_type max_size() const noexcept {
     std::allocator<value_type> Alloc;
@@ -130,7 +127,7 @@ public:
 
   void reserve(size_type new_capacity) {
     if (new_capacity > max_size()) {
-      std::length_error("error: new_cap > max_size()");     
+      std::length_error("error: new_cap > max_size()");
     }
     if (new_capacity > capacity_) {
       value_type *buff = new value_type[new_capacity];
@@ -141,9 +138,7 @@ public:
     }
   }
 
-  size_type capacity() const noexcept {
-    return capacity_;
-  }
+  size_type capacity() const noexcept { return capacity_; }
 
   void shrink_to_fit() noexcept {
     if (capacity_ != size_) {
@@ -151,9 +146,7 @@ public:
     }
   }
 
-  void clear() noexcept {
-    size_ = 0;
-  }
+  void clear() noexcept { size_ = 0; }
 
   iterator insert(iterator pos, const_reference value) {
     if (pos < begin() || pos > end()) {
@@ -172,7 +165,7 @@ public:
     if (size_ - 1 == capacity_) {
       reserve(size_ == 0 ? 1 : capacity_ * 2);
     }
-    
+
     // for (auto i = pos + 1; i < end(); ++i) {
     //   i = i - 1;
     // }
@@ -203,11 +196,9 @@ public:
     }
   }
 
-  void pop_back() noexcept {
-    size_--;
-  }
+  void pop_back() noexcept { size_--; }
 
-  void swap(Vector& other) {
+  void swap(Vector &other) {
     std::swap(capacity_, other.capacity_);
     std::swap(size_, other.size_);
     std::swap(arr_, other.arr_);
@@ -219,72 +210,35 @@ public:
     return *arr_;
   }
 
-  reference operator++() noexcept {
-    return *(arr_ + 1);
-  }
+  reference operator++() noexcept { return *(arr_ + 1); }
 
-  reference operator--() noexcept {
-    return *(arr_ - 1);
-  }
+  reference operator--() noexcept { return *(arr_ - 1); }
 
-  bool operator==(iterator other_iter) noexcept {
-    return arr_ == other_iter;
-  }
+  bool operator==(iterator other_iter) noexcept { return arr_ == other_iter; }
 
-  bool operator!=(iterator other_iter) noexcept {
-    return arr_ != other_iter;
-  }
+  bool operator!=(iterator other_iter) noexcept { return arr_ != other_iter; }
 
   template <typename... Args>
-  iterator emplace(iterator pos, Args&&... args) {
+  iterator emplace(iterator pos, Args &&...args) {
     // if (size_ == capacity_) {
     //   reserve(size_ == 0 ? 1 : capacity_ * 2);
     // }
-    value_type end2 = arr_[size_ -1];
+    value_type end2 = arr_[size_ - 1];
     value_type end3;
     int dif_emp = pos - begin();
-    int shift = 0; 
-    for (auto &i: {args...}) {
+    int shift = 0;
+    for (auto &i : {args...}) {
       // std::cout << *(begin() + dif_emp + shift) << std::endl;
       insert(begin() + dif_emp + shift, i);
       shift++;
       end3 = i;
     }
-      arr_[size_ - 1] = (begin() + dif_emp + shift != end()) ? end2 : end3;
+    arr_[size_ - 1] = (begin() + dif_emp + shift != end()) ? end2 : end3;
 
     // std::cout << *(begin() + dif_emp + shift - 1) << std::endl;
     return begin() + dif_emp + shift - 1;
   }
-
-
-
-  iterator insert1(iterator pos, const_reference value) {
-    if (pos < begin() || pos > end()) {
-      throw std::out_of_range("Out of range");
-    }
-
-    //
-    auto dif = pos - begin();
-    //
-    size_++;
-    for (int i = size_ - 1; i > pos - begin(); i--) {
-      arr_[i] = arr_[i - 1];
-    }
-    arr_[pos - begin()] = value;
-
-    if (size_ - 1 == capacity_) {
-      reserve(size_ == 0 ? 1 : capacity_ * 2);
-    }
-    
-    // for (auto i = pos + 1; i < end(); ++i) {
-    //   i = i - 1;
-    // }
-    // std::cout << pos << std::endl;
-    // std::cout << begin() << std::endl;
-    return begin() + dif;
-  }
-
 };
-} // namespace s21
+}  // namespace s21
 
-#endif // S21_VECTOR_H_
+#endif  // S21_VECTOR_H_
