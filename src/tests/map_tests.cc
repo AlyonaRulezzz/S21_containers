@@ -4,12 +4,18 @@
 
 #include "../s21_map.h"
 
+TEST(Constructor, Default) {
+  s21::Map<std::string, int> s_tree;
+  std::map<std::string, int> o_tree;
 
+  EXPECT_EQ(s_tree.size(), o_tree.size());
+  EXPECT_EQ(s_tree.empty(), o_tree.empty());
+}
 
 
 int main(int argc, char **argv) {
-//   ::testing::InitGoogleTest(&argc, argv);
-//   return RUN_ALL_TESTS();
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
 }
 
 ///////////////////////////////

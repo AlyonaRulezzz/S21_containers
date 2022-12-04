@@ -20,12 +20,31 @@ template <typename Key, typename T>
 class Tree {
 public:
   using size_type = size_t;
-  using iterator = MainIterator<Key, T>;
-
+  // using iterator = MainIterator<Key, T>;
+  // constructor
   Tree() : head_(nullptr), begin_(nullptr), end_(nullptr) {}
 
+  //  tree capacity
+  bool empty()  const noexcept {
+    return size() == 0;
+  }
+
+  size_type size()  const noexcept {
+    auto size = counter(head_);
+    return size;
+  }
+
+  //  dop function
+  int counter(tree_el_<Key, T> *cur_el) const {
+    if (cur_el == nullptr) {
+      return 0;
+    }
+    return 1 + counter(cur_el->left) + counter(cur_el->right);
+  }
+
+
 protected:
-    tree_element_<Key, T> *head_, *begin_, *end_;
+    tree_el_<Key, T> *head_, *begin_, *end_;
 };
 
 
