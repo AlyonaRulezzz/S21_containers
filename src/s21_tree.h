@@ -4,6 +4,10 @@
 #include "iterators/tree_iterator.h"
 
 namespace s21 {
+// declaration
+template <typename Key, typename T>
+class TreeIterator;
+
 // tree element
 template <typename Key, typename T>
 class tree_el_ {

@@ -5,13 +5,26 @@
 #include "../s21_map.h"
 
 TEST(Constructor, Default) {
-  s21::Map<std::string, int> s_tree;
-  std::map<std::string, int> o_tree;
+  s21::Map<std::string, int> s;
+  std::map<std::string, int> b;
 
-  EXPECT_EQ(s_tree.size(), o_tree.size());
-  EXPECT_EQ(s_tree.empty(), o_tree.empty());
+  EXPECT_EQ(s.size(), b.size());
+  EXPECT_EQ(s.empty(), b.empty());
 }
 
+TEST(Map_iterator, operator_dereferencing) {
+  // s21::Map<std::string, int> s = {
+  //     {10, "ten"},   {20, "twenty"}, {30, "thirty"}, {40, "fourty"},
+  //     {50, "fifty"}, {60, "sixty"},  {70, "seventy"}};
+  // ;
+  // std::map<std::string, int> b = {
+  //     {10, "ten"},   {20, "twenty"}, {30, "thirty"}, {40, "fourty"},
+  //     {50, "fifty"}, {60, "sixty"},  {70, "seventy"}};
+  // ;
+  // auto x = s.begin();
+  // x++;
+  // EXPECT_EQ(*++b.begin(), *x);
+}
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
