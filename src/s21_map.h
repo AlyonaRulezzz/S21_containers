@@ -2,6 +2,7 @@
 #define S21_MAP_H_
 
 #include "s21_tree.h"
+#include "iterators/map_iterator.h"
 
 #include <initializer_list>
 #include <stdexcept>
@@ -18,15 +19,15 @@ class Map : public Tree<Key, T> {
   using value_type = std::pair<const key_type, mapped_type>;
   using reference = value_type &;
   using const_reference = const value_type &;
-  // using iterator = MapIterator<Key, T>;
+  using iterator = MapIterator<Key, T>;
   using size_type = size_t;
 
 //  Map Member functions
 Map() {}
 
-Map(std::initializer_list<value_type> const &items) {
+// Map(std::initializer_list<value_type> const &items) {
 
-}
+// }
 
 
 

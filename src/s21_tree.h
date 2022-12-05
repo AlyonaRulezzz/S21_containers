@@ -1,6 +1,8 @@
 #ifndef S21_TREE_H_
 #define S21_TREE_H_
 
+#include "iterators/tree_iterator.h"
+
 namespace s21 {
 // tree element
 template <typename Key, typename T>
@@ -20,7 +22,7 @@ template <typename Key, typename T>
 class Tree {
 public:
   using size_type = size_t;
-  // using iterator = MainIterator<Key, T>;
+  using iterator = TreeIterator<Key, T>;
   // constructor
   Tree() : head_(nullptr), begin_(nullptr), end_(nullptr) {}
 
