@@ -7,6 +7,8 @@
 #include <stdexcept>
 
 #include "../s21_tree.h"
+#include "tree_iterator.h"
+#include "../s21_map.h"
 
 using std::out_of_range;
 
@@ -14,9 +16,12 @@ namespace s21 {
 template <typename Key, typename T>
 class MapIterator : public TreeIterator<Key, T> {
  public:
+ // iterator's operator
   std::pair<Key, T>& operator*() { return this->iter->values; }
+
   // iterator's constructor
   MapIterator() { this->iter = nullptr; }
+
   MapIterator(tree_el_<Key, T>* cur_iter) { this->iter = cur_iter; }
 
 

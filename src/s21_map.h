@@ -2,6 +2,7 @@
 #define S21_MAP_H_
 
 #include "s21_tree.h"
+#include "iterators/tree_iterator.h"
 #include "iterators/map_iterator.h"
 
 #include <initializer_list>

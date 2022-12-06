@@ -3,6 +3,7 @@
 #include <map>
 
 #include "../s21_map.h"
+#include "../iterators/map_iterator.h"
 
 TEST(Constructor, Default) {
   s21::Map<std::string, int> s;
