@@ -19,17 +19,22 @@ class Tree;
 template <typename Key, typename T>
 class TreeIterator {
  public:
-  tree_el_<Key, T>* iter;
+  tree_el_<Key, T> *iter;
 
   // constructor
   TreeIterator() : iter(nullptr) {}
-  TreeIterator(tree_el_<Key, T>* cur_iter) : iter(cur_iter) {}
+  TreeIterator(tree_el_<Key, T> *cur_iter) : iter(cur_iter) {}
 
   // iterator's operators
-  
+  bool operator==(const TreeIterator<Key, T> &other_iter) {
+    return iter == other_iter.iter;
+  }
 
+  bool operator!=(const TreeIterator<Key, T> &other_iter) {
+    return iter != other_iter.iter;
+  }
 
-
+  TreeIterator<Key, T> &operator++() { this->iter; }
 };
 }  // namespace s21
 
