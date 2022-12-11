@@ -51,6 +51,35 @@ public:
 
 protected:
     tree_el_<Key, T> *head_, *begin_, *end_;
+
+
+
+
+
+
+
+public:
+//  print tree
+// template<typename Key, typename T>
+    void print_tree(tree_el_<Key, T>* current) {
+        if (current->left != nullptr) {
+            print_tree(current->left);
+        }
+        if (current != this->end_)
+            std::cout << "Value = " << current->values.first << "    adress = " << current <<
+            "    adress back = " << current->back << "   from = " << current->back->values.first<< std::endl;
+        if (current->right != nullptr) {
+            print_tree(current->right);
+        }
+    }
+
+    // template<typename Key, typename T>
+    void print() {
+        print_tree(this->head_);
+    }
+
+
+
 };
 
 
