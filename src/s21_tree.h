@@ -11,26 +11,34 @@ template <typename Key, typename T>
 class TreeIterator;
 
 // tree element
+enum TreeColor { Black, Red };
 template <typename Key, typename T>
 class tree_el_ {
  public:
   std::pair<Key, T> values;
-  tree_el_ *parent;
-  tree_el_ *left;
-  tree_el_ *right;
+  TreeColor color;
+  tree_el_* parent;
+  tree_el_* left;
+  tree_el_* right;
 
-  tree_el_() : tree_el_(Key(), T()){};
-  tree_el_(Key k, T val);
+  // tree_el_() : tree_el_(Key(), T()){};
+  tree_el_(Key k, T t, TreeColor c, tree_el_* p, tree_el_* l, tree_el_* r) :
+          values(k, t), color(c), parent(p), left(l), right(r) {};
 };
 
 // Tree
 template <typename Key, typename T>
 class Tree {
+protected:
+    tree_el_<Key, T>* root_;
 public:
   using size_type = size_t;
   using iterator = TreeIterator<Key, T>;
+  // void print();
   // constructor
-  Tree() : root_(nullptr), begin_(nullptr), end_(nullptr) {}
+  Tree() : root_(nullptr) {
+    // root_ = nullptr;
+  }
 
   //  tree capacity
   bool empty()  const noexcept {
@@ -51,16 +59,7 @@ public:
   }
 
 
-protected:
-    tree_el_<Key, T> *root_, *begin_, *end_;
-
-
-
-
-
-
-
-public:
+// public:
 // //  print tree by Andrey & Danil
 // // template<typename Key, typename T>
 //     void print_tree(tree_el_<Key, T>* current) {
@@ -81,13 +80,13 @@ public:
 //     }
 
 //  print tree by russianblogs
-void print() {
-	if (root_ == NULL)
-		std::cout << "empty RBtree\n";
-	else
-		print(root_);
+void print() const {
+	// if (root_ == NULL)
+		std::cout << "empty RBtree\n" << std::endl;
+	// else
+		// print(root_);
 }
-private:
+// private:
 void print(Tree<Key, T>* node)const {
 	if (node == NULL)
 		return;
@@ -105,10 +104,9 @@ void print(Tree<Key, T>* node)const {
 	print(node->right);
 }
 
+
+
 };
-
-
-
 }  // namespace s21
 
 #endif  // S21_TREE_H_

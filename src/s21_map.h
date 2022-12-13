@@ -24,7 +24,11 @@ class Map : public Tree<Key, T> {
   using size_type = size_t;
 
 //  Map Member functions
-Map() {}
+Map() 
+//  : root_(NULL) 
+{
+  this->root_ = nullptr;
+}
 
 // Map(std::initializer_list<value_type> const &items) {
 
