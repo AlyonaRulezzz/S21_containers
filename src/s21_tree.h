@@ -80,25 +80,25 @@ public:
 //     }
 
 //  print tree by russianblogs
-void print() const {
-	// if (root_ == NULL)
-		std::cout << "empty RBtree\n" << std::endl;
-	// else
-		// print(root_);
+void print() const noexcept {
+	if (root_ == NULL)
+		std::cout << "\nempty RBtree\n" << std::endl;
+	else
+		print(root_);
 }
-// private:
-void print(Tree<Key, T>* node)const {
+private:
+void print(tree_el_<Key, T>* node)const {
 	if (node == NULL)
 		return;
 	if (node->parent == NULL)
-		std::cout << node->key << "(" << node->color << ") is root" << std::endl;
+		std::cout << node->values.first << "(" << node->color << ") is root" << std::endl;
 	else if(node->parent->left==node)
 	{
-		std::cout << node->key << "(" << node->color << ") is "<<node->parent->key<<"'s "<<"left child" << std::endl;
+		std::cout << node->values.first << "(" << node->color << ") is "<<node->parent->values.first<<"'s "<<"left child" << std::endl;
 	}
 	else
 	{
-		std::cout << node->key << "(" << node->color << ") is " << node->parent->key << "'s " << "right child" << std::endl;
+		std::cout << node->values.first << "(" << node->color << ") is " << node->parent->values.first << "'s " << "right child" << std::endl;
 	}
 	print(node->left);
 	print(node->right);
