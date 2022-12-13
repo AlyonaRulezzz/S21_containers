@@ -61,21 +61,30 @@ public:
 //  tree balancing
 void insert(const std::pair<Key, T> val) {
   tree_el_<Key, T>* new_node = new tree_el_<Key, T>(val, Red, nullptr, nullptr, nullptr);
+  tree_el_<Key, T>* copy_nn = new tree_el_<Key, T>(val, Red, nullptr, nullptr, nullptr);
   if (empty()) {
     root_ = new_node;
-    root_->color = Black;
   } else {
     if (new_node->values.second > root_->values.second) {
-      tree_el_<Key, T>* more = root_->right;
-      while (more->right) {
+      // if (root_->right) {
+      //   tree_el_<Key, T>* more = root_->right;
+      // }
+      while ((more->right) && (more->values.second < new_node->values.second)) {
         more = more->right;
       }
-      if (more->values.second < val.second) {
-        more->right = new_node;
+      if (more->values.second < new_node->values.second) {
         new_node->parent = more;
-      }
+        new_node->right = more->right;
+        more->right = copy_nn;
+        more->right->parent = copy_nn;
+        copy_nn = new_node;
+      } 
+      // else {
+
+      // }
     }
   }
+  root_->color = Black;
 }
 
 // public:
