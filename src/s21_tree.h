@@ -22,8 +22,8 @@ class tree_el_ {
   tree_el_* right;
 
   // tree_el_() : tree_el_(Key(), T()){};
-  tree_el_(Key k, T t, TreeColor c, tree_el_* p, tree_el_* l, tree_el_* r) :
-          values(k, t), color(c), parent(p), left(l), right(r) {};
+  tree_el_(std::pair<Key, T> val, TreeColor c, tree_el_* p, tree_el_* l, tree_el_* r) :
+          values(val), color(c), parent(p), left(l), right(r) {};
 };
 
 // Tree
@@ -58,6 +58,12 @@ public:
     return 1 + counter(cur_el->left) + counter(cur_el->right);
   }
 
+//  tree balancing
+void insert(const std::pair<Key, T> val) {
+  if (empty()) {
+    root_ = new tree_el_<Key, T>(val, Black, nullptr, nullptr, nullptr);
+  }
+}
 
 // public:
 // //  print tree by Andrey & Danil
@@ -91,7 +97,7 @@ void print(tree_el_<Key, T>* node)const {
 	if (node == NULL)
 		return;
 	if (node->parent == NULL)
-		std::cout << node->values.first << "(" << node->color << ") is root" << std::endl;
+		std::cout << "\n" << node->values.first << "(" << node->color << ") is a root" << std::endl;
 	else if(node->parent->left==node)
 	{
 		std::cout << node->values.first << "(" << node->color << ") is "<<node->parent->values.first<<"'s "<<"left child" << std::endl;
