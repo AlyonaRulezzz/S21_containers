@@ -77,7 +77,7 @@ int main() {
 // t1.print();
 
 s21::Map<int, int> m1;
-m1.insert({10, 1});
+m1.insert({24, 1});
 m1.print();
 
 

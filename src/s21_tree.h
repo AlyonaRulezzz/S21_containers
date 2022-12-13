@@ -22,7 +22,7 @@ class tree_el_ {
   tree_el_* right;
 
   // tree_el_() : tree_el_(Key(), T()){};
-  tree_el_(std::pair<Key, T> val, TreeColor c, tree_el_* p, tree_el_* l, tree_el_* r) :
+  tree_el_(std::pair<Key, T> val, TreeColor c, tree_el_<Key, T>* p, tree_el_<Key, T>* l, tree_el_<Key, T>* r) :
           values(val), color(c), parent(p), left(l), right(r) {};
 };
 
@@ -60,8 +60,21 @@ public:
 
 //  tree balancing
 void insert(const std::pair<Key, T> val) {
+  tree_el_<Key, T>* new_node = new tree_el_<Key, T>(val, Red, nullptr, nullptr, nullptr);
   if (empty()) {
-    root_ = new tree_el_<Key, T>(val, Black, nullptr, nullptr, nullptr);
+    root_ = new_node;
+    root_->color = Black;
+  } else {
+    if (new_node->values.second > root_->values.second) {
+      tree_el_<Key, T>* more = root_->right;
+      while (more->right) {
+        more = more->right;
+      }
+      if (more->values.second < val.second) {
+        more->right = new_node;
+        new_node->parent = more;
+      }
+    }
   }
 }
 
