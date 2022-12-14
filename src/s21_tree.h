@@ -59,30 +59,49 @@ public:
   }
 
 //  tree balancing
+void insert(tree_el_<Key, T>* root_, tree_el_<Key, T>* new_node) {
+  if (new_node->values.first < root_->values.first) {
+      if (root_->left == nullptr) {
+        root_->left = new_node;
+        new_node->parent = root_;
+      } else {
+        insert(root_->left, new_node);
+      }
+  } else if (new_node->values.first > root_->values.first) {
+      if (root_->right == nullptr) {
+        root_->right = new_node;
+        new_node->parent = root_;
+      } else {
+        insert(root_->right, new_node);
+      }
+  }
+}
+
 void insert(const std::pair<Key, T> val) {
   tree_el_<Key, T>* new_node = new tree_el_<Key, T>(val, Red, nullptr, nullptr, nullptr);
-  tree_el_<Key, T>* copy_nn = new tree_el_<Key, T>(val, Red, nullptr, nullptr, nullptr);
+  // tree_el_<Key, T>* copy_nn = new tree_el_<Key, T>(val, Red, nullptr, nullptr, nullptr);
   if (empty()) {
     root_ = new_node;
   } else {
-    if (new_node->values.second > root_->values.second) {
+    insert(root_, new_node);
+    // if (new_node->values.first > root_->values.first) {
       // if (root_->right) {
       //   tree_el_<Key, T>* more = root_->right;
       // }
-      while ((more->right) && (more->values.second < new_node->values.second)) {
-        more = more->right;
-      }
-      if (more->values.second < new_node->values.second) {
-        new_node->parent = more;
-        new_node->right = more->right;
-        more->right = copy_nn;
-        more->right->parent = copy_nn;
-        copy_nn = new_node;
-      } 
+      // while ((more->right) && (more->values.first < new_node->values.first)) {
+      //   more = more->right;
+      // }
+      // if (more->values.first < new_node->values.first) {
+      //   new_node->parent = more;
+      //   new_node->right = more->right;
+      //   more->right = copy_nn;
+      //   more->right->parent = copy_nn;
+      //   copy_nn = new_node;
+      // } 
       // else {
 
       // }
-    }
+    // }
   }
   root_->color = Black;
 }
