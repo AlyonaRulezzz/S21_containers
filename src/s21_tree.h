@@ -58,7 +58,7 @@ public:
     return 1 + counter(cur_el->left) + counter(cur_el->right);
   }
 
-//  tree balancing
+//  tree balancing & insert
 void insert(tree_el_<Key, T>* root_, tree_el_<Key, T>* new_node) {
   if (new_node->values.first < root_->values.first) {
       if (root_->left == nullptr) {
@@ -75,56 +75,46 @@ void insert(tree_el_<Key, T>* root_, tree_el_<Key, T>* new_node) {
         insert(root_->right, new_node);
       }
   }
+  balance(new_node);
 }
 
 void insert(const std::pair<Key, T> val) {
   tree_el_<Key, T>* new_node = new tree_el_<Key, T>(val, Red, nullptr, nullptr, nullptr);
-  // tree_el_<Key, T>* copy_nn = new tree_el_<Key, T>(val, Red, nullptr, nullptr, nullptr);
   if (empty()) {
     root_ = new_node;
   } else {
     insert(root_, new_node);
-    // if (new_node->values.first > root_->values.first) {
-      // if (root_->right) {
-      //   tree_el_<Key, T>* more = root_->right;
-      // }
-      // while ((more->right) && (more->values.first < new_node->values.first)) {
-      //   more = more->right;
-      // }
-      // if (more->values.first < new_node->values.first) {
-      //   new_node->parent = more;
-      //   new_node->right = more->right;
-      //   more->right = copy_nn;
-      //   more->right->parent = copy_nn;
-      //   copy_nn = new_node;
-      // } 
-      // else {
-
-      // }
-    // }
   }
   root_->color = Black;
 }
 
-// public:
-// //  print tree by Andrey & Danil
-// // template<typename Key, typename T>
-//     void print_tree(tree_el_<Key, T>* current) {
-//         if (current->left != nullptr) {
-//             print_tree(current->left);
-//         }
-//         if (current != this->end_)
-//             std::cout << "Value = " << current->values.first << "    adress = " << current <<
-//             "    adress back = " << current->back << "   from = " << current->back->values.first<< std::endl;
-//         if (current->right != nullptr) {
-//             print_tree(current->right);
-//         }
-//     }
+void balance(tree_el_<Key, T>* new_node) {
+  if (new_node->parent != nullptr) {
+    if (new_node->color == Red && 
+        new_node == new_node->parent->right &&
+        ((new_node->parent->left == nullptr) || (new_node->parent->left->color == Black))) {
+          left_turn(new_node->parent);
+    }
+    
+    else if (new_node->parent->parent != nullptr) {
+      if (new_node->color == Red && new_node->parent->color == Red &&
+          new_node == new_node->parent->left &&
+          new_node->parent == new_node->parent->parent->left) {
+        right_turn(new_node->parent->parent);
+      }
+    }
 
-//     // template<typename Key, typename T>
-//     void print() {
-//         print_tree(this->root_);
-//     }
+    if (new_node->parent->left && new_node->parent->right && new_node->parent->color == Black) {
+      if (new_node->parent->left->color == Red && new_node->parent->right->color == Red) {
+        new_node->parent->color == Red;
+        new_node->parent->left->color == Black;
+        new_node->parent->right->color == Black;
+      }
+    }
+
+    balance(new_node->parent);
+  }
+}
 
 //  print tree by russianblogs
 void print() const noexcept {
