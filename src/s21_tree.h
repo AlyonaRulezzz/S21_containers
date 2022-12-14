@@ -128,12 +128,12 @@ void left_turn(tree_el_<Key, T>* &root, tree_el_<Key, T>* x) {
 	y->parent = x->parent;
 	// if (x->parent == NULL)
 	// 	root = y;
-	else {
+	// else {
 		if (x == x->parent->left)
 			x->parent->left = y;
 		else
 			x->parent->right = y;
-	}
+	// }
 	y->left = x;
 	x->parent = y;
 
@@ -143,8 +143,8 @@ void left_turn(tree_el_<Key, T>* &root, tree_el_<Key, T>* x) {
 }
 
 void right_turn(tree_el_<Key, T>* &root, tree_el_<Key, T>* y) {
-  x->color = Red;
-  x->left->color = Black;
+  y->color = Red;
+  y->left->color = Black;
 
 	tree_el_<Key, T>* x = y->left;
 	y->left = x->right;
@@ -154,12 +154,12 @@ void right_turn(tree_el_<Key, T>* &root, tree_el_<Key, T>* y) {
 	x->parent = y->parent;
 	// if (y->parent == NULL)
 	// 	root = x;
-	else {
+	// else {
 		if  (y == y->parent->right)
 			y->parent->right = x;
 		else
 			y->parent->left = x;
-	}
+	// }
 	x->right = y;
 	y->parent = x;
 
