@@ -116,6 +116,13 @@ void balance(tree_el_<Key, T>* new_node) {
   }
 }
 
+void left_turn(tree_el_<Key, T>* node, tree_el_<Key, T>* parent_node) {
+  tree_el_<Key, T>* tmp = parent_node->right;
+  parent_node->right = tmp->left;
+  node->color = Black;
+  parent_node->color = Red;
+}
+
 //  print tree by russianblogs
 void print() const noexcept {
 	if (root_ == NULL)
