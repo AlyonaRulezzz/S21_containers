@@ -93,14 +93,14 @@ void balance(tree_el_<Key, T>* new_node) {
     if (new_node->color == Red && 
         new_node == new_node->parent->right &&
         ((new_node->parent->left == nullptr) || (new_node->parent->left->color == Black))) {
-          left_turn(new_node->parent);
+          left_turn(root_, new_node->parent);
     }
     
     else if (new_node->parent->parent != nullptr) {
       if (new_node->color == Red && new_node->parent->color == Red &&
           new_node == new_node->parent->left &&
           new_node->parent == new_node->parent->parent->left) {
-        right_turn(new_node->parent->parent);
+        right_turn(root_, new_node->parent->parent);
       }
     }
 
@@ -116,11 +116,56 @@ void balance(tree_el_<Key, T>* new_node) {
   }
 }
 
-void left_turn(tree_el_<Key, T>* node, tree_el_<Key, T>* parent_node) {
-  tree_el_<Key, T>* tmp = parent_node->right;
-  parent_node->right = tmp->left;
-  node->color = Black;
-  parent_node->color = Red;
+void left_turn(tree_el_<Key, T>* &root, tree_el_<Key, T>* x) {
+  x->color = Red;
+  x->right->color = Black;
+
+  tree_el_<Key, T>* y = x->right;
+	x->right = y->left;
+	if (y->left != NULL)
+		y->left->parent = x;
+
+	y->parent = x->parent;
+	// if (x->parent == NULL)
+	// 	root = y;
+	else {
+		if (x == x->parent->left)
+			x->parent->left = y;
+		else
+			x->parent->right = y;
+	}
+	y->left = x;
+	x->parent = y;
+
+  if (root_->parent != nullptr) {
+    root_ = root_->parent;
+  }
+}
+
+void right_turn(tree_el_<Key, T>* &root, tree_el_<Key, T>* y) {
+  x->color = Red;
+  x->left->color = Black;
+
+	tree_el_<Key, T>* x = y->left;
+	y->left = x->right;
+	if (x->right != NULL)
+		x->right->parent = y;
+
+	x->parent = y->parent;
+	// if (y->parent == NULL)
+	// 	root = x;
+	else {
+		if  (y == y->parent->right)
+			y->parent->right = x;
+		else
+			y->parent->left = x;
+	}
+	x->right = y;
+	y->parent = x;
+
+  if (root_->parent != nullptr) {
+    root_ = root_->parent;
+  }
 }
 
 //  print tree by russianblogs
