@@ -85,8 +85,12 @@ m1.insert({15, 2});
 m1.insert({3, 2});
 m1.insert({8, 2});
 // m1.insert({11, 2});
-// m1.insert({7, 2});
 m1.print();
+auto iter1 = --(++++m1.begin());
+
+
+std::cout << iter1.iter->values.first << std::endl;
+
 
 // std::cout << m2.end()._M_node << std::endl;
 // std::cout << m2.end()._M_node->_M_left << std::endl;
@@ -94,6 +98,10 @@ m1.print();
 // std::cout << m2.end()._M_node->_M_parent << std::endl;
 // std::cout << (--m2.end())._M_node << std::endl;
 // std::cout << m2.begin()._M_node << std::endl;
+
+// std::cout << m2.begin() << std::endl;
+
+// m2.begin();
 
 return 0;
 }

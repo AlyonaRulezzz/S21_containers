@@ -43,8 +43,8 @@ class TreeIterator {
       }
     } else if (iter->parent && iter == iter->parent->left) {
       iter = iter->parent;
-    } else if (iter->parent && iter->paren->parent && iter == iter->parent->right) {
-      iter = iter->paren->parent;
+    } else if (iter->parent && iter->parent->parent && iter == iter->parent->right) {
+      iter = iter->parent->parent;
     } 
     // else if (iter == root_) {  // ??????
       
@@ -61,14 +61,16 @@ class TreeIterator {
       }
     } else if (iter->parent && iter == iter->parent->right) {
       iter = iter->parent;
-    } else if (iter->parent && iter->paren->parent && iter == iter->parent->left) {
-      iter = iter->paren->parent;
+    } else if (iter->parent && iter->parent->parent && iter == iter->parent->left) {
+      iter = iter->parent->parent;
     } 
     // else if (iter == root_) {  // ??????
       
     // }
     return *this;
   }
+
+
 
 };
 }  // namespace s21

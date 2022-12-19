@@ -31,6 +31,19 @@ Map() : Tree<Key, T>() {}
 // }
 
 
+  MapIterator<Key, T> begin() const noexcept {
+    MapIterator<Key, T> iterator(this->root_);
+    if (!this->empty()) {
+      while (iterator.iter->left) {
+        iterator.iter = iterator.iter->left;
+      }
+    }
+    // else if (iter == root_) {  // ??????
+      
+    // }
+    return iterator;
+  }
+
 
 };
 }  // namespace s21
