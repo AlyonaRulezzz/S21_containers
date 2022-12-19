@@ -19,11 +19,11 @@ class Tree;
 template <typename Key, typename T>
 class TreeIterator {
  public:
-  tree_el_<Key, T> *iter;
+  tree_el_<Key, T>* iter;
 
   // constructor
   TreeIterator() : iter(nullptr) {}
-  TreeIterator(tree_el_<Key, T> *cur_iter) : iter(cur_iter) {}
+  TreeIterator(tree_el_<Key, T>* cur_iter) : iter(cur_iter) {}
 
   // iterator's operators
   bool operator==(const TreeIterator<Key, T> &other_iter) {
@@ -34,7 +34,42 @@ class TreeIterator {
     return iter != other_iter.iter;
   }
 
-  TreeIterator<Key, T> &operator++() { this->iter; }
+  TreeIterator<Key, T> operator++() {
+    if (iter->right) {
+      if (iter->right->left) {
+        iter = iter->right->left;
+      } else {
+        iter = iter->right;
+      }
+    } else if (iter->parent && iter == iter->parent->left) {
+      iter = iter->parent;
+    } else if (iter->parent && iter->paren->parent && iter == iter->parent->right) {
+      iter = iter->paren->parent;
+    } 
+    // else if (iter == root_) {  // ??????
+      
+    // }
+    return *this;
+  }
+
+  TreeIterator<Key, T> operator--() {
+    if (iter->left) {
+      if (iter->left->right) {
+        iter = iter->left->right;
+      } else {
+        iter = iter->left;
+      }
+    } else if (iter->parent && iter == iter->parent->right) {
+      iter = iter->parent;
+    } else if (iter->parent && iter->paren->parent && iter == iter->parent->left) {
+      iter = iter->paren->parent;
+    } 
+    // else if (iter == root_) {  // ??????
+      
+    // }
+    return *this;
+  }
+
 };
 }  // namespace s21
 

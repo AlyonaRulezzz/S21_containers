@@ -20,9 +20,11 @@ class MapIterator : public TreeIterator<Key, T> {
   std::pair<Key, T>& operator*() { return this->iter->values; }
 
   // iterator's constructor
-  MapIterator() { this->iter = nullptr; }
+  MapIterator() : TreeIterator<Key, T>() {}
+  // { this->iter = nullptr; }
 
-  MapIterator(tree_el_<Key, T>* cur_iter) { this->iter = cur_iter; }
+  MapIterator(tree_el_<Key, T>* cur_iter) : TreeIterator<Key, T>(cur_iter) {}
+  // { this->iter = cur_iter; }
 
 
 };

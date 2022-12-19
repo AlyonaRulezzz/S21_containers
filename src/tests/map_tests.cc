@@ -29,6 +29,7 @@
 // //   // EXPECT_EQ(*++b.begin(), *x);
 // // }
 
+
 // int main(int argc, char **argv) {
 //   ::testing::InitGoogleTest(&argc, argv);
 //   return RUN_ALL_TESTS();
@@ -42,9 +43,9 @@ int main() {
 //   //     {10, 1},   {20, 2}, {30, 3}, {40, 4},
 //   //     {50, 5}, {60, 6},  {70, 7}};
 
-//   std::map<int, int> m2 = {
-//       {10, 1},   {20, 2}, {30, 3}, {40, 4},
-//       {50, 5}, {60, 6},  {70, 7}};
+  std::map<int, int> m2 = {
+      {10, 1},   {20, 2}, {30, 3}, {40, 4},
+      {50, 5}, {60, 6},  {70, 7}};
 //     // auto iter1 = m1.end();
 //     auto iter2 = m2.end();
 //     ----iter2;
@@ -83,8 +84,16 @@ m1.insert({1, 2});
 m1.insert({15, 2});
 m1.insert({3, 2});
 m1.insert({8, 2});
+// m1.insert({11, 2});
+// m1.insert({7, 2});
 m1.print();
 
+// std::cout << m2.end()._M_node << std::endl;
+// std::cout << m2.end()._M_node->_M_left << std::endl;
+// std::cout << m2.end()._M_node->_M_right << std::endl;
+// std::cout << m2.end()._M_node->_M_parent << std::endl;
+// std::cout << (--m2.end())._M_node << std::endl;
+// std::cout << m2.begin()._M_node << std::endl;
 
 return 0;
 }

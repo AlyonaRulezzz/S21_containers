@@ -120,7 +120,7 @@ void balance(tree_el_<Key, T>* new_node) {
   }
 }
 
-void left_turn(tree_el_<Key, T>* &root, tree_el_<Key, T>* x) {
+void left_turn(tree_el_<Key, T>* &root_, tree_el_<Key, T>* x) {
   x->color = Red;
   x->right->color = Black;
 
@@ -131,7 +131,7 @@ void left_turn(tree_el_<Key, T>* &root, tree_el_<Key, T>* x) {
 
 	y->parent = x->parent;
 	if (x->parent == NULL)
-		root = y;
+		root_ = y;
 	else {
 		if (x == x->parent->left)
 			x->parent->left = y;
@@ -146,7 +146,7 @@ void left_turn(tree_el_<Key, T>* &root, tree_el_<Key, T>* x) {
   // }
 }
 
-void right_turn(tree_el_<Key, T>* &root, tree_el_<Key, T>* y) {
+void right_turn(tree_el_<Key, T>* &root_, tree_el_<Key, T>* y) {
   y->color = Red;
   y->left->color = Black;
 
@@ -157,7 +157,7 @@ void right_turn(tree_el_<Key, T>* &root, tree_el_<Key, T>* y) {
 
 	x->parent = y->parent;
 	if (y->parent == NULL)
-		root = x;
+		root_ = x;
 	else {
 		if  (y == y->parent->right)
 			y->parent->right = x;
