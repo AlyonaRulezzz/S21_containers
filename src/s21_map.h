@@ -30,19 +30,18 @@ Map() : Tree<Key, T>() {}
 
 // }
 
+//  iterators
+MapIterator<Key, T> begin() const noexcept {
+  MapIterator<Key, T> iterator(this->end_->right);
+  return iterator;
+}
 
-  MapIterator<Key, T> begin() const noexcept {
-    MapIterator<Key, T> iterator(this->root_);
-    if (!this->empty()) {
-      while (iterator.iter->left) {
-        iterator.iter = iterator.iter->left;
-      }
-    }
-    // else if (iter == root_) {  // ??????
-      
-    // }
-    return iterator;
-  }
+MapIterator<Key, T> end() {
+  MapIterator<Key, T> iterator(this->end_);
+  return iterator;
+}
+
+
 
 
 };

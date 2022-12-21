@@ -10,6 +10,18 @@ namespace s21 {
 template <typename Key, typename T>
 class TreeIterator;
 
+template <typename Key, typename T>
+class tree_el_;
+
+template <typename Key, typename T>
+class tree_end_el_ {
+ public:
+  tree_el_<Key, T>* last_el;
+
+  // tree_el_() : tree_el_(Key(), T()){};
+  tree_end_el_(tree_el_<Key, T>* l) : last_el(l) {};
+};
+
 // tree element
 enum TreeColor { Black, Red };
 template <typename Key, typename T>
@@ -22,7 +34,8 @@ class tree_el_ {
   tree_el_* right;
 
   // tree_el_() : tree_el_(Key(), T()){};
-  tree_el_(std::pair<Key, T> val, TreeColor c, tree_el_<Key, T>* p, tree_el_<Key, T>* l, tree_el_<Key, T>* r) :
+  tree_el_(std::pair<Key, T> val, TreeColor c,
+  tree_el_<Key, T>* p, tree_el_<Key, T>* l, tree_el_<Key, T>* r) :
           values(val), color(c), parent(p), left(l), right(r) {};
 };
 
@@ -31,12 +44,14 @@ template <typename Key, typename T>
 class Tree {
 protected:
     tree_el_<Key, T>* root_;
+    tree_el_<Key, T>* end_;
+
 public:
   using size_type = size_t;
   using iterator = TreeIterator<Key, T>;
   // void print();
   // constructor
-  Tree() : root_(nullptr) {
+  Tree() : root_(nullptr), end_(nullptr) {
     // root_ = nullptr;
   }
 
@@ -58,32 +73,53 @@ public:
     return 1 + counter(cur_el->left) + counter(cur_el->right);
   }
 
+  // int counter(tree_el_<Key, T> *cur_el) const {
+  //   if (cur_el == nullptr) {
+  //     return 0;
+  //   }
+  //   for (; begin())
+  // }
+
 //  tree balancing & insert
 void insert(tree_el_<Key, T>* root_, tree_el_<Key, T>* new_node) {
   if (new_node->values.first < root_->values.first) {
-      if (root_->left == nullptr) {
-        root_->left = new_node;
-        new_node->parent = root_;
-      } else {
-        insert(root_->left, new_node);
-      }
+    if (root_->left == nullptr) {
+      root_->left = new_node;
+      new_node->parent = root_;
+    } else {
+      insert(root_->left, new_node);
+    }
   } else if (new_node->values.first > root_->values.first) {
-      if (root_->right == nullptr) {
-        root_->right = new_node;
-        new_node->parent = root_;
-      } else {
-        insert(root_->right, new_node);
-      }
+    if (root_->right == nullptr) {
+      root_->right = new_node;
+      new_node->parent = root_;
+    } else {
+      insert(root_->right, new_node);
+    }
   }
   balance(new_node);
+
+  //////////
+
 }
 
 void insert(const std::pair<Key, T> val) {
   tree_el_<Key, T>* new_node = new tree_el_<Key, T>(val, Red, nullptr, nullptr, nullptr);
+  tree_el_<Key, T>* new_end = new tree_el_<Key, T>(val, Red, nullptr, new_node, new_node);
+
   if (empty()) {
     root_ = new_node;
+    end_ = new_end;
   } else {
     insert(root_, new_node);
+
+    if (new_node->values.first > end_->left->values.first) {
+      end_->left = new_node;
+    }
+    if (new_node->values.first < end_->right->values.first) {
+      end_->right = new_node;
+    }
+
   }
   root_->color = Black;
 }
@@ -178,6 +214,10 @@ void print() const noexcept {
 		std::cout << "\nempty RBtree\n" << std::endl;
 	else
 		print(root_);
+
+// std::cout << end_->left->values.first << std::endl;
+// std::cout << end_->right->values.first << std::endl;
+
 }
 private:
 void print(tree_el_<Key, T>* node)const {

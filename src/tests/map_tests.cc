@@ -44,7 +44,9 @@ int main() {
 //   //     {50, 5}, {60, 6},  {70, 7}};
 
   std::map<int, int> m2 = {
-      {10, 1},   {20, 2}, {30, 3}, {40, 4},
+      {10, 1}
+//   };
+      ,   {20, 2}, {30, 3}, {40, 4},
       {50, 5}, {60, 6},  {70, 7}};
 //     // auto iter1 = m1.end();
 //     auto iter2 = m2.end();
@@ -86,22 +88,35 @@ m1.insert({3, 2});
 m1.insert({8, 2});
 // m1.insert({11, 2});
 m1.print();
-auto iter1 = --(++++m1.begin());
+// auto iter1 = --(++++m1.begin());
+auto iter1 = m1.begin();
+auto iter2 = --m1.end();
 
 
 std::cout << iter1.iter->values.first << std::endl;
+std::cout << iter2.iter->values.first << std::endl;
+// std::cout << iter1.iter->values.first << std::endl;
+// std::cout << iter2.iter->values.first << std::endl;
 
+std::cout << m1.size() << std::endl;
 
-// std::cout << m2.end()._M_node << std::endl;
-// std::cout << m2.end()._M_node->_M_left << std::endl;
-// std::cout << m2.end()._M_node->_M_right << std::endl;
-// std::cout << m2.end()._M_node->_M_parent << std::endl;
-// std::cout << (--m2.end())._M_node << std::endl;
-// std::cout << m2.begin()._M_node << std::endl;
+// m1.print();
 
-// std::cout << m2.begin() << std::endl;
+// // std::cout << m2.end()._M_node << std::endl;
+// // std::cout << m2.end()._M_node->_M_left << std::endl;
+// // std::cout << m2.end()._M_node->_M_right << std::endl;
+// // std::cout << m2.end()._M_node->_M_parent << std::endl;
+// // std::cout << (--m2.end())._M_node << std::endl;
+std::cout << m2.begin()._M_node << std::endl;
+std::cout << (m2.end())._M_node->_M_left << std::endl;
 
-// m2.begin();
+std::cout << (--m2.end())._M_node << std::endl;
+std::cout << (m2.end())._M_node->_M_right << std::endl;
+// // std::cout << (--m2.end())._M_node->_M_parent << std::endl;
+// // std::cout << (--m2.end())._M_node->_M_left << std::endl;
+// // std::cout << (--m2.end())._M_node->_M_right << std::endl;
+
+// m2.end();
 
 return 0;
 }

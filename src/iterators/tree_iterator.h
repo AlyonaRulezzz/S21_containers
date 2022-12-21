@@ -12,6 +12,8 @@ using std::out_of_range;
 namespace s21 {
 // declaration
 template <typename Key, typename T>
+class tree_end_el_;
+template <typename Key, typename T>
 class tree_el_;
 template <typename Key, typename T>
 class Tree;
@@ -34,7 +36,7 @@ class TreeIterator {
     return iter != other_iter.iter;
   }
 
-  TreeIterator<Key, T> operator++() {
+  TreeIterator<Key, T> &operator++() {
     if (iter->right) {
       if (iter->right->left) {
         iter = iter->right->left;
@@ -52,7 +54,7 @@ class TreeIterator {
     return *this;
   }
 
-  TreeIterator<Key, T> operator--() {
+  TreeIterator<Key, T> &operator--() {
     if (iter->left) {
       if (iter->left->right) {
         iter = iter->left->right;
