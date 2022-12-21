@@ -16,7 +16,7 @@ TEST(Constructor, Default) {
   EXPECT_EQ(s.empty(), b.empty());
 }
 
-TEST(Map_iterator, operator_dereferencing) {
+TEST(Map_iterator, operator_dereferencing_initializer_list_plusplus_minusminus_begin_end) {
   s21::Map<int, std::string> s = {
       {10, "ten"},   {20, "twenty"}, {30, "thirty"}, {40, "fourty"},
       {50, "fifty"}, {60, "sixty"},  {70, "seventy"}};
@@ -31,6 +31,13 @@ TEST(Map_iterator, operator_dereferencing) {
     EXPECT_EQ((*si).first, (*bi).first);
     EXPECT_EQ((*si).second, (*bi).second);
   }
+
+  si = s.end();
+  bi = b.end();
+  ----si;
+  ----bi;
+  EXPECT_EQ((*si).first, (*bi).first);
+  // EXPECT_EQ((*si).second, (*bi).second);  ??????????????? why sega???
 
   EXPECT_EQ(s.size(), b.size());
   EXPECT_EQ(s.empty(), b.empty());
