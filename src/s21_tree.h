@@ -13,14 +13,14 @@ class TreeIterator;
 template <typename Key, typename T>
 class tree_el_;
 
-template <typename Key, typename T>
-class tree_end_el_ {
- public:
-  tree_el_<Key, T>* last_el;
+// template <typename Key, typename T>
+// class tree_end_el_ {
+//  public:
+//   tree_el_<Key, T>* last_el;
 
   // tree_el_() : tree_el_(Key(), T()){};
-  tree_end_el_(tree_el_<Key, T>* l) : last_el(l) {};
-};
+//   tree_end_el_(tree_el_<Key, T>* l) : last_el(l) {};
+// };
 
 // tree element
 enum TreeColor { Black, Red };
@@ -52,7 +52,12 @@ public:
   // void print();
   // constructor
   Tree() : root_(nullptr), end_(nullptr) {
-    // root_ = nullptr;
+  }
+
+  Tree(std::initializer_list<std::pair<const Key, T>> const& items) {
+    for (auto it = items.begin(); it != items.end(); ++it) {
+      insert(*it);
+    }
   }
 
   //  tree capacity

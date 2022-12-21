@@ -26,9 +26,7 @@ class Map : public Tree<Key, T> {
 //  Map Member functions
 Map() : Tree<Key, T>() {}
 
-// Map(std::initializer_list<value_type> const &items) {
-
-// }
+Map(std::initializer_list<value_type> const &items) : Tree<Key, T>(items){}
 
 //  iterators
 MapIterator<Key, T> begin() const noexcept {
@@ -36,7 +34,7 @@ MapIterator<Key, T> begin() const noexcept {
   return iterator;
 }
 
-MapIterator<Key, T> end() {
+MapIterator<Key, T> end() const noexcept{
   MapIterator<Key, T> iterator(this->end_);
   return iterator;
 }
