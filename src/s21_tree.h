@@ -70,17 +70,44 @@ public:
 //     return *this;
 // }
 
-void erase(iterator pos) {
-  if (pos.iter == root_) {
-    if (size() > 1) {
-      root_->left->parent = nullptr;
-      root_ = root_->left;
-    }
-  }
+// void erase(iterator pos) {
+//   if (size() > 1) {
+//     if (pos.iter == root_) {
+//       if (root_->left) {
+//         insert(root_->left, root_->right);
+//         root_ = root_->left;
+//       } else {
+//         root_ = root_->right;
+//       }
+//       root_->parent = nullptr;
+//       root_->color = Black;
+//     } else {
+//       if (pos.iter == begin()) {
+//         end_->right = ++begin();
+//       }
+//       // if (pos == end()) {
+//       //   end_->left = --end();
+//       // }
 
-  delete pos.iter;
-  pos.iter = nullptr;
-}
+//       if (pos.iter->parent->left == pos.iter) {
+//         pos.iter->parent->left = nullptr;
+//       }
+//       if (pos.iter->parent->right == pos.iter) {
+//         pos.iter->parent->right = nullptr;
+//       }
+
+//       if (pos.iter->left) {
+//         insert(root_, pos.iter->left);
+//       }
+//       if (pos.iter->right) {
+//         insert(root_, pos.iter->right);
+//       }
+//     }
+//   }
+
+//   delete pos.iter;
+//   pos.iter = nullptr;
+// }
 
 
 

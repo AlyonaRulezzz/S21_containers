@@ -48,9 +48,49 @@ MapIterator<Key, T> end() const noexcept{
 }
 
   //  modifiers
-  void erase(iterator pos) {
-    Tree<Key, T>::erase(pos);
+  // void erase(iterator pos) {
+  //   Tree<Key, T>::erase(pos);
+  // }
+void erase(iterator pos) {
+  auto itb = ++begin();
+  auto ite = ----end();
+  if (this->size() > 1) {
+    if (pos.iter == this->root_) {
+      if (this->root_->left) {
+        this->insert(this->root_->left, this->root_->right);
+        this->root_ = this->root_->left;
+      } else {
+        this->root_ = this->root_->right;
+      }
+      this->root_->parent = nullptr;
+      this->root_->color = Black;
+    } else {
+      if (pos == begin()) {
+        this->end_->right = itb.iter;
+      }
+      if (pos == --end()) {
+        this->end_->left = ite.iter;
+      }
+
+      if (pos.iter->parent->left == pos.iter) {
+        pos.iter->parent->left = nullptr;
+      }
+      if (pos.iter->parent->right == pos.iter) {
+        pos.iter->parent->right = nullptr;
+      }
+
+      if (pos.iter->left) {
+        this->insert(this->root_, pos.iter->left);
+      }
+      if (pos.iter->right) {
+        this->insert(this->root_, pos.iter->right);
+      }
+    }
   }
+
+  delete pos.iter;
+  pos.iter = nullptr;
+}
 
   void clear() {
     for (auto it = begin(); it != end(); ++it) {
