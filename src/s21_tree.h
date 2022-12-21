@@ -55,7 +55,10 @@ public:
   }
 
   Tree(std::initializer_list<std::pair<const Key, T>> const& items) {
+    root_ = nullptr;
+    end_ = nullptr;
     for (auto it = items.begin(); it != items.end(); ++it) {
+      // auto it = items.begin();
       insert(*it);
     }
   }

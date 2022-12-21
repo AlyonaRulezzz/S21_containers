@@ -31,7 +31,8 @@ vector_test.o:
 
 map_test: map_test.o
 	$(CC) $(FLAGS) map_test.o -o test_map
-	./test_map --gtest_brief=1
+	./test_map 
+#--gtest_brief=1
 
 map_test.o:
 	$(CC) $(FLAGS) -c $(MAP) -o map_test.o
