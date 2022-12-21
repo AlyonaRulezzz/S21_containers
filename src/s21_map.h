@@ -28,6 +28,14 @@ Map() : Tree<Key, T>() {}
 
 Map(std::initializer_list<value_type> const &items) : Tree<Key, T>(items){}
 
+Map &operator=(Map &other) {
+    this->clear();
+    for (auto it = other.begin(); it != other.end(); ++it) insert(*it);
+    return *this;
+}
+
+Map(Map &other) : Tree<Key, T>(other) {}
+
 //  iterators
 MapIterator<Key, T> begin() const noexcept {
   MapIterator<Key, T> iterator(this->end_->right);
@@ -38,6 +46,22 @@ MapIterator<Key, T> end() const noexcept{
   MapIterator<Key, T> iterator(this->end_);
   return iterator;
 }
+
+  //  modifiers
+  void erase(iterator pos) {
+    Tree<Key, T>::erase(pos);
+  }
+
+  void clear() {
+    for (auto it = begin(); it != end(); ++it) {
+      erase(it);
+    }
+    delete this->root_;
+    delete this->end_;
+    this->root_ = nullptr;
+    this->end_ = nullptr;
+  }
+
 
 
 

@@ -60,6 +60,41 @@ public:
     }
   }
 
+  Tree(Tree &other) {
+    *this = other;
+  }
+
+//   Tree<Key, T> &operator=(Tree &other) {
+//     this->clear();
+//     for (auto it = other.begin(); it != other.end(); ++it) insert(*it);
+//     return *this;
+// }
+
+void erase(iterator pos) {
+  if (pos.iter == root_) {
+    if (size() > 1) {
+      root_->left->parent = nullptr;
+      root_ = root_->left;
+    }
+  }
+
+  delete pos.iter;
+  pos.iter = nullptr;
+}
+
+
+
+  //   //  iterators
+  // TreeIterator<Key, T> begin() const noexcept {
+  //   TreeIterator<Key, T> iterator(this->end_->right);
+  //   return iterator;
+  // }
+
+  // TreeIterator<Key, T> end() const noexcept{
+  //   TreeIterator<Key, T> iterator(this->end_);
+  //   return iterator;
+  // }
+
   //  tree capacity
   bool empty()  const noexcept {
     return size() == 0;
@@ -69,6 +104,8 @@ public:
     auto size = counter(root_);
     return size;
   }
+
+
 
   //  dop function
   int counter(tree_el_<Key, T> *cur_el) const {
