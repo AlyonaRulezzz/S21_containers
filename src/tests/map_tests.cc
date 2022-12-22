@@ -121,11 +121,11 @@ int main() {
 
   s21::Map<std::string, int> m1 = {
       {"zero", 0}, {"one", 1}, {"two", 2},   {"three", 3}, {"four", 4},
-      {"five", 5}, {"six", 6}, {"seven", 7}, {"eight", 8}, {"nine", 9}};
+      {"five", 5}, {"six", 6}, {"seven", 7}, {"eight", 8}, {"nine", 9}, {"zzz", 10}};
 
-std::map<std::string, int> m2 = {
+  std::map<std::string, int> m2 = {
         {"zero", 0}, {"one", 1}, {"two", 2},   {"three", 3}, {"four", 4},
-      {"five", 5}, {"six", 6}, {"seven", 7}, {"eight", 8}, {"nine", 9}};
+      {"five", 5}, {"six", 6}, {"seven", 7}, {"eight", 8}, {"nine", 9}, {"zzz", 10}};
 
 //   std::map<int, int> m2 = {
 //       {10, 1}
@@ -155,7 +155,9 @@ std::map<std::string, int> m2 = {
 // //   }
 
   // for (auto iter1 = m1.begin(); iter1 != m1.end(); ++iter1) {
-    auto iter1 = ++++++++++++++++m1.begin();
+    // auto iter1 = ++++++++++++++m1.begin();
+    auto iter1 = --------m1.end();
+
   std::cout << iter1.iter->values.first << ' ' << iter1.iter->values.second << std::endl;
   // }
   std::cout << '\n' << std::endl;
