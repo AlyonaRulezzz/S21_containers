@@ -40,20 +40,19 @@ class TreeIterator {
     if (iter->right) {
       if (iter->right->left) {
         iter = iter->right->left;
+        while (iter->left) {
+          iter = iter->left;
+        };
       } else {
         iter = iter->right;
       }
     } else if (iter->parent && iter == iter->parent->left) {
       iter = iter->parent;
-    } else if (iter->parent && iter->parent->parent && iter == iter->parent->right) {
-      //  ??????
-      if (iter->parent == iter->parent->parent->left) {
-        iter = iter->parent->parent;
+    } else if (iter->parent && iter == iter->parent->right) {
+      while (iter->parent && iter->parent->parent && iter->parent == iter->parent->parent->right) {
+        iter = iter->parent;
       }
-            //  ??????
-      if (iter->parent == iter->parent->parent->right) {
-        iter = iter->parent->parent->parent;
-      }
+      iter = iter->parent->parent;
     }
     return *this;
   }
