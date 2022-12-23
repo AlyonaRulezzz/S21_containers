@@ -160,6 +160,15 @@ TEST(MapElementAccess, Brackets) {
   // EXPECT_EQ(s_tree["SSD"], o_tree["SSD"]);
 }
 
+TEST(MapLookup, Contains) {
+  s21::Map<std::string, int> s_tree = {
+      {"zero", 0}, {"one", 1}, {"two", 2},   {"three", 3}, {"four", 4},
+      {"five", 5}, {"six", 6}, {"seven", 7}, {"eight", 8}, {"nine", 9}};
+
+  EXPECT_EQ(s_tree.contains("seven"), true);
+  // EXPECT_EQ(s_tree.contains("seventy"), false);  //  endless cycle
+}
+
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);

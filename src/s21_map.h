@@ -127,7 +127,7 @@ T& at(const Key& key) {
       count++;
       break;
     }
-  };
+  }
   if (count == 0) {
     throw std::out_of_range("No elements with such key");
   }
@@ -157,6 +157,18 @@ T& operator[](const Key& key) {
     // std::cout << (++++this->begin()).iter->values.second  << std::endl;
 
   return element_value;
+}
+
+//  lookup
+bool contains(const Key& key) {
+  // auto e = end();
+  for (auto i = begin(); i != end(); ++i) {
+  // for (auto i = begin(); i != e; ++i) {
+    if ((*i).first == key) {
+      return true;
+    }
+  }
+  return false;
 }
 
 
