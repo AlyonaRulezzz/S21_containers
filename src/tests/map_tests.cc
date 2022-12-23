@@ -141,14 +141,14 @@ TEST(MapElementAccess, At) {
 }
 
 TEST(MapElementAccess, Brackets) {
-  // s21::Map<std::string, std::string> s_tree = {
-  //     {"CPU", "Intel"}, {"GPU", "Nvidia"}, {"RAM", "64GB"}};
+  s21::Map<std::string, std::string> s_tree = {
+      {"CPU", "Intel"}, {"GPU", "Nvidia"}, {"RAM", "64GB"}};
 
-  // std::map<std::string, std::string> o_tree = {
-  //     {"CPU", "Intel"}, {"GPU", "Nvidia"}, {"RAM", "64GB"}};
+  std::map<std::string, std::string> o_tree = {
+      {"CPU", "Intel"}, {"GPU", "Nvidia"}, {"RAM", "64GB"}};
 
-  // EXPECT_EQ(s_tree["CPU"], o_tree["CPU"]);
-  // EXPECT_EQ(s_tree["GPU"], o_tree["GPU"]);
+  EXPECT_EQ(s_tree["CPU"], o_tree["CPU"]);
+  EXPECT_EQ(s_tree["GPU"], o_tree["GPU"]);
   // EXPECT_EQ(s_tree["RAM"], o_tree["RAM"]);
 
   // EXPECT_EQ(s_tree.size(), o_tree.size());

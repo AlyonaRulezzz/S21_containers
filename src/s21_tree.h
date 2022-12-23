@@ -191,6 +191,7 @@ void insert(const std::pair<Key, T> val) {
     }
     if (new_node->values.first < end_->right->values.first) {
       end_->right = new_node;
+      // end_->right->parent = end_;
     }
 
   }

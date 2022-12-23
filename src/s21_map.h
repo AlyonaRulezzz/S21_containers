@@ -138,7 +138,7 @@ T& operator[](const Key& key) {
   static T element_value = T();
   int count = 0;
 
-  auto e = ----end();  //  why exactly end doesnt work????
+  auto e = --end();  //  why exactly end doesnt work????
   for (auto i = begin(); i != e; ++i) {
   // for (auto i = begin(); i != end(); ++i) {
     if ((*i).first == key) {
@@ -152,7 +152,10 @@ T& operator[](const Key& key) {
   }
 
   // this->print();
-    // std::cout << (++++++this->begin()).iter->values.second  << std::endl;
+    // std::cout << (this->begin()).iter->values.second  << std::endl;
+    // std::cout << (++this->begin()).iter->values.second  << std::endl;
+    // std::cout << (++++this->begin()).iter->values.second  << std::endl;
+
   return element_value;
 }
 
