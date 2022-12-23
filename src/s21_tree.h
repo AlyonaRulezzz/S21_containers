@@ -59,13 +59,13 @@ public:
     end_ = nullptr;
     for (auto it = items.begin(); it != items.end(); ++it) {
       // auto it = items.begin();
-      insert(*it);
+      insert_tree(*it);
     }
   }
 
   Tree &operator=(Tree &other) {
       this->clear();
-      for (auto it = other.begin(); it != other.end(); ++it) insert(*it);
+      for (auto it = other.begin(); it != other.end(); ++it) insert_tree(*it);
       return *this;
   }
 
@@ -78,7 +78,7 @@ public:
 //   if (size() > 1) {
 //     if (pos.iter == root_) {
 //       if (root_->left) {
-//         insert(root_->left, root_->right);
+//         insert_tree(root_->left, root_->right);
 //         root_ = root_->left;
 //       } else {
 //         root_ = root_->right;
@@ -101,10 +101,10 @@ public:
 //       }
 
 //       if (pos.iter->left) {
-//         insert(root_, pos.iter->left);
+//         insert_tree(root_, pos.iter->left);
 //       }
 //       if (pos.iter->right) {
-//         insert(root_, pos.iter->right);
+//         insert_tree(root_, pos.iter->right);
 //       }
 //     }
 //   }
@@ -153,21 +153,21 @@ public:
   //   for (; begin())
   // }
 
-//  tree balancing & insert
-void insert(tree_el_<Key, T>* root_, tree_el_<Key, T>* new_node) {
+//  tree balancing & insert_tree
+void insert_tree(tree_el_<Key, T>* root_, tree_el_<Key, T>* new_node) {
   if (new_node->values.first < root_->values.first) {
     if (root_->left == nullptr) {
       root_->left = new_node;
       new_node->parent = root_;
     } else {
-      insert(root_->left, new_node);
+      insert_tree(root_->left, new_node);
     }
   } else if (new_node->values.first > root_->values.first) {
     if (root_->right == nullptr) {
       root_->right = new_node;
       new_node->parent = root_;
     } else {
-      insert(root_->right, new_node);
+      insert_tree(root_->right, new_node);
     }
   }
   balance(new_node);
@@ -176,7 +176,7 @@ void insert(tree_el_<Key, T>* root_, tree_el_<Key, T>* new_node) {
 
 }
 
-void insert(const std::pair<Key, T> val) {
+void insert_tree(const std::pair<Key, T> val) {
   tree_el_<Key, T>* new_node = new tree_el_<Key, T>(val, Red, nullptr, nullptr, nullptr);
   tree_el_<Key, T>* new_end = new tree_el_<Key, T>(val, Red, nullptr, new_node, new_node);
 
@@ -184,7 +184,7 @@ void insert(const std::pair<Key, T> val) {
     root_ = new_node;
     end_ = new_end;
   } else {
-    insert(root_, new_node);
+    insert_tree(root_, new_node);
 
     if (new_node->values.first > end_->left->values.first) {
       end_->left = new_node;

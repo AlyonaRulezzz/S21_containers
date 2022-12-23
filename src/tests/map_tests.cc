@@ -200,9 +200,9 @@ int main(int argc, char **argv) {
 // //     // auto iter1 = m1.end();
 // //     auto iter2 = m2.end();
 // //     ----iter2;
-// //     m2.insert({80, 8});
-// // //     // v1.insert(iter1, 11);
-// // //     v2.insert(iter2, 11);
+// //     m2.insert_tree({80, 8});
+// // //     // v1.insert_tree(iter1, 11);
+// // //     v2.insert_tree(iter2, 11);
 
 // // //     for (size_t i = 0; i < v2.size(); ++i) {
 // // //       EXPECT_EQ(v2.at(i), v2.at(i));
@@ -211,8 +211,8 @@ int main(int argc, char **argv) {
 
 // // //     iter1 = v1.begin();
 // // //     iter2 = v2.begin();
-// // //     // v1.insert(iter1 + 5, 11);
-// // //     v2.insert(iter2 + 5, 1001);
+// // //     // v1.insert_tree(iter1 + 5, 11);
+// // //     v2.insert_tree(iter2 + 5, 1001);
 
 // // //   for (size_t i = 0; i < v2.size(); ++i) {
 // // //     EXPECT_EQ(v2.at(i), v2.at(i));
@@ -235,13 +235,13 @@ int main(int argc, char **argv) {
 // // t1.print();
 
 // // s21::Map<int, int> m1;
-// // m1.insert({24, 1});
-// // m1.insert({5, 2});
-// // m1.insert({1, 2});
-// // m1.insert({15, 2});
-// // m1.insert({3, 2});
-// // m1.insert({8, 2});
-// // // m1.insert({11, 2});
+// // m1.insert_tree({24, 1});
+// // m1.insert_tree({5, 2});
+// // m1.insert_tree({1, 2});
+// // m1.insert_tree({15, 2});
+// // m1.insert_tree({3, 2});
+// // m1.insert_tree({8, 2});
+// // // m1.insert_tree({11, 2});
 // // m1.print();
 // // // auto iter1 = --(++++m1.begin());
 // // auto iter1 = m1.begin();

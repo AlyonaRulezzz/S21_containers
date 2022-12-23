@@ -30,7 +30,7 @@ Map(std::initializer_list<value_type> const &items) : Tree<Key, T>(items){}
 // Map &operator=(Map &other) = default;
 // Map &operator=(Map &other) {
 //     this->clear();
-//     for (auto it = other.begin(); it != other.end(); ++it) insert(*it);
+//     for (auto it = other.begin(); it != other.end(); ++it) insert_tree(*it);
 //     return *this;
 // }
 
@@ -58,7 +58,7 @@ void erase(iterator pos) {
     if (pos.iter == this->root_) {
       if (this->root_->left) {
         // this->root_->right->color = Red;  /////////////////////// ???????????
-        this->insert(this->root_->left, this->root_->right);
+        this->insert_tree(this->root_->left, this->root_->right);
         this->root_ = this->root_->left;
       } else {
         this->root_ = this->root_->right;
@@ -81,10 +81,10 @@ void erase(iterator pos) {
       }
 
       if (pos.iter->left) {
-        this->insert(this->root_, pos.iter->left);
+        this->insert_tree(this->root_, pos.iter->left);
       }
       if (pos.iter->right) {
-        this->insert(this->root_, pos.iter->right);
+        this->insert_tree(this->root_, pos.iter->right);
       }
     }
   }
@@ -148,7 +148,7 @@ T& operator[](const Key& key) {
     }
   }
   if (count == 0) {
-    this->insert({key, T()});
+    this->insert_tree({key, T()});
   }
 
   // this->print();
