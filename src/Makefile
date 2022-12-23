@@ -4,7 +4,8 @@
 #.PHONY если есть файлы с именем как цель, они игнорируются
 
 CC = gcc
-FLAGS = -Wall -Werror -Wextra -lstdc++ -std=c++17 -lgtest -Wno-unused -pedantic -g
+FLAGS = -Wall -Werror -Wextra -lstdc++ -std=c++17 -lgtest -Wno-unused -g
+#  -pedantic
 # TST_LIBS := -lgtest -lm -lpthread
 
 VECTOR = tests/vector_tests.cc

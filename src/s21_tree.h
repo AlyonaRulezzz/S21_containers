@@ -63,15 +63,16 @@ public:
     }
   }
 
-  Tree(Tree &other) {
-    *this = other;
+  Tree &operator=(Tree &other) {
+      this->clear();
+      for (auto it = other.begin(); it != other.end(); ++it) insert(*it);
+      return *this;
   }
 
-//   Tree<Key, T> &operator=(Tree &other) {
-//     this->clear();
-//     for (auto it = other.begin(); it != other.end(); ++it) insert(*it);
-//     return *this;
-// }
+  // Tree(const Tree &other) {
+  //   *this = other;
+  // }
+
 
 // void erase(iterator pos) {
 //   if (size() > 1) {
