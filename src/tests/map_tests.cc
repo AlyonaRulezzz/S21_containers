@@ -188,8 +188,14 @@ TEST(MapModifiers, InsertPair) {
   // s_tree.clear();
   // o_tree.clear();
 
-  auto s_pr = s_tree.insert({"ten", 10});
-  auto o_pr = o_tree.insert({"ten", 10});
+  auto s_pr = s_tree.insert({"zero", 0});
+  auto o_pr = o_tree.insert({"zero", 0});
+  EXPECT_EQ((*(s_pr.first)).first, (*(o_pr.first)).first);
+  EXPECT_EQ((*(s_pr.first)).second, (*(o_pr.first)).second);
+  // EXPECT_EQ(s_pr.second, o_pr.second);
+
+  s_pr = s_tree.insert({"ten", 10});
+  o_pr = o_tree.insert({"ten", 10});
   EXPECT_EQ((*(s_pr.first)).first, (*(o_pr.first)).first);
   EXPECT_EQ((*(s_pr.first)).second, (*(o_pr.first)).second);
   // EXPECT_EQ(s_pr.second, o_pr.second);  //  what is it????????
