@@ -223,7 +223,7 @@ TEST(MapModifiers, InsertPair) {
   EXPECT_EQ(s_tree.empty(), o_tree.empty());
 }
 
-TEST(AAAAAAAAAAAAAAAA, InsertObjects) {
+TEST(MapModifiers, InsertObjects) {
   s21::Map<std::string, int> s_tree;
   std::map<std::string, int> o_tree;
 
@@ -260,6 +260,47 @@ TEST(AAAAAAAAAAAAAAAA, InsertObjects) {
 
   EXPECT_EQ(s_tree.size(), o_tree.size());
   EXPECT_EQ(s_tree.empty(), o_tree.empty());
+}
+
+TEST(AAAAAAAAAAAA, InsertOrAssign) {
+  s21::Map<std::string, int> s_tree = {
+      {"zero", 0}, {"one", 1}, {"two", 2},   {"three", 3}, {"four", 4},
+      {"five", 5}, {"six", 6}, {"seven", 7}, {"eight", 8}, {"nine", 9}};
+
+  std::map<std::string, int> o_tree = {
+      {"zero", 0}, {"one", 1}, {"two", 2},   {"three", 3}, {"four", 4},
+      {"five", 5}, {"six", 6}, {"seven", 7}, {"eight", 8}, {"nine", 9}};
+
+  EXPECT_EQ(s_tree.size(), o_tree.size());
+  EXPECT_EQ(s_tree.empty(), o_tree.empty());
+
+  auto s_pr = s_tree.insert_or_assign("ten", 10);
+  auto o_pr = o_tree.insert_or_assign("ten", 10);
+  // EXPECT_EQ((*(s_pr.first)).first, (*(o_pr.first)).first);
+  EXPECT_EQ((*(s_pr.first)).second, (*(o_pr.first)).second);
+  // // EXPECT_EQ(s_pr.second, o_pr.second);
+
+  s_pr = s_tree.insert_or_assign("zero", -1);
+  o_pr = o_tree.insert_or_assign("zero", -1);
+  EXPECT_EQ((*(s_pr.first)).first, (*(o_pr.first)).first);
+  EXPECT_EQ((*(s_pr.first)).second, (*(o_pr.first)).second);
+  // // EXPECT_EQ(s_pr.second, o_pr.second);
+
+  // s_pr = s_tree.insert_or_assign("seven", 777);
+  // o_pr = o_tree.insert_or_assign("seven", 777);
+  // EXPECT_EQ((*(s_pr.first)).first, (*(o_pr.first)).first);
+  // EXPECT_EQ((*(s_pr.first)).second, (*(o_pr.first)).second);
+  // // EXPECT_EQ(s_pr.second, o_pr.second);
+
+  // auto si = s_tree.begin();
+  // auto oi = o_tree.begin();
+  // for (; si != s_tree.end() && oi != o_tree.end(); ++si, ++oi) {
+  //   EXPECT_EQ((*si).first, (*oi).first);
+  //   EXPECT_EQ((*si).second, (*oi).second);
+  // }
+
+  // EXPECT_EQ(s_tree.size(), o_tree.size());
+  // EXPECT_EQ(s_tree.empty(), o_tree.empty());
 }
 
 int main(int argc, char **argv) {

@@ -133,6 +133,33 @@ std::pair<iterator, bool> insert(const Key& key, const T& obj) {
   return insert(value);
 }
 
+std::pair<iterator, bool> insert_or_assign(const Key& key, const T& obj) {
+  std::pair<Key, T> value = {key, obj};
+  bool insertion = false;
+  iterator insert_iterat = nullptr;
+  if (!this->empty()) {  
+    auto e = --end();  //  why exactly end doesnt work????
+    for (auto i = begin(); i != e; ++i) {
+    // for (auto i = begin(); i != end(); ++i) {
+      if ((*i).first == value.first) {
+        (*i).second = value.second;
+        insert_iterat = i;
+        break;
+      }
+    }
+  }
+  if (insert_iterat == nullptr) {
+    this->insert_tree(value);
+    for (auto i = begin(); i != end(); ++i) {
+      if ((*i).first == value.first) {
+        insert_iterat = i;
+        break;
+      }
+    }
+  }
+  return std::make_pair(insert_iterat, insertion);
+}
+
 //  element access
 T& at(const Key& key) {
   static T element_value = T();
