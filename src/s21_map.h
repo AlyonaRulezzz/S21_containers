@@ -53,7 +53,7 @@ MapIterator<Key, T> end() const noexcept{
   // }
 void erase(iterator pos) {
   auto itb = ++begin();
-  auto ite = ----end();
+  auto ite = ----end();  //  ?????????????????????????????????
   if (this->size() > 1) {
     if (pos.iter == this->root_) {
       if (this->root_->left) {
@@ -89,19 +89,48 @@ void erase(iterator pos) {
     }
   }
 
-  delete pos.iter;
+  if (pos.iter) {delete pos.iter;}
   pos.iter = nullptr;
 }
 
-  void clear() {
-    for (auto it = begin(); it != end(); ++it) {
-      erase(it);
-    }
-    delete this->root_;
-    delete this->end_;
-    this->root_ = nullptr;
-    this->end_ = nullptr;
+void clear() {
+  for (auto it = begin(); it != end(); ++it) {
+    erase(it);
   }
+  if (this->root_) {delete this->root_;}
+  if (this->end_) {delete this->end_;}
+  this->root_ = nullptr;
+  this->end_ = nullptr;
+}
+
+
+
+std::pair<iterator, bool> insert(const value_type &value) {
+  bool insertion = false;
+  iterator insert_iterat = nullptr;
+  if (!this->empty()) {  
+    auto e = --end();  //  why exactly end doesnt work????
+    for (auto i = begin(); i != e; ++i) {
+    // for (auto i = begin(); i != end(); ++i) {
+      if ((*i).first == value.first) {
+        insert_iterat = i;
+        break;
+      }
+    }
+  }
+  if (insert_iterat == nullptr) {
+    this->insert_tree(value);
+    for (auto i = begin(); i != end(); ++i) {
+      if ((*i).first == value.first) {
+        insert_iterat = i;
+        break;
+      }
+    }
+  }
+  return std::make_pair(insert_iterat, insertion);
+}
+
+
 
 //  element access
 T& at(const Key& key) {
@@ -138,9 +167,9 @@ T& operator[](const Key& key) {
   static T element_value = T();
   int count = 0;
 
-  auto e = --end();  //  why exactly end doesnt work????
-  for (auto i = begin(); i != e; ++i) {
-  // for (auto i = begin(); i != end(); ++i) {
+  // auto e = --end();  //  why exactly end doesnt work????
+  // for (auto i = begin(); i != e; ++i) {
+  for (auto i = begin(); i != end(); ++i) {
     if ((*i).first == key) {
       element_value = (*i).second;
       count++;
