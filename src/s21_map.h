@@ -103,8 +103,6 @@ void clear() {
   this->end_ = nullptr;
 }
 
-
-
 std::pair<iterator, bool> insert(const value_type &value) {
   bool insertion = false;
   iterator insert_iterat = nullptr;
@@ -130,7 +128,10 @@ std::pair<iterator, bool> insert(const value_type &value) {
   return std::make_pair(insert_iterat, insertion);
 }
 
-
+std::pair<iterator, bool> insert(const Key& key, const T& obj) {
+  std::pair<Key, T> value = {key, obj};
+  return insert(value);
+}
 
 //  element access
 T& at(const Key& key) {

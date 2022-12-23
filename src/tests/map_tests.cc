@@ -223,6 +223,45 @@ TEST(MapModifiers, InsertPair) {
   EXPECT_EQ(s_tree.empty(), o_tree.empty());
 }
 
+TEST(AAAAAAAAAAAAAAAA, InsertObjects) {
+  s21::Map<std::string, int> s_tree;
+  std::map<std::string, int> o_tree;
+
+  EXPECT_EQ(s_tree.size(), o_tree.size());
+  EXPECT_EQ(s_tree.empty(), o_tree.empty());
+
+  // s_tree.clear();
+  // o_tree.clear();
+
+  auto s_pr = s_tree.insert("ten", 10);
+  auto o_pr = o_tree.insert({"ten", 10});
+  EXPECT_EQ((*(s_pr.first)).first, (*(o_pr.first)).first);
+  EXPECT_EQ((*(s_pr.first)).second, (*(o_pr.first)).second);
+  // EXPECT_EQ(s_pr.second, o_pr.second);
+
+  s_pr = s_tree.insert("twelve", 20);
+  o_pr = o_tree.insert({"twelve", 20});
+  EXPECT_EQ((*(s_pr.first)).first, (*(o_pr.first)).first);
+  EXPECT_EQ((*(s_pr.first)).second, (*(o_pr.first)).second);
+  // EXPECT_EQ(s_pr.second, o_pr.second);
+
+  s_pr = s_tree.insert("thirty", 30);
+  o_pr = o_tree.insert({"thirty", 30});
+  EXPECT_EQ((*(s_pr.first)).first, (*(o_pr.first)).first);
+  EXPECT_EQ((*(s_pr.first)).second, (*(o_pr.first)).second);
+  // EXPECT_EQ(s_pr.second, o_pr.second);
+
+  auto si = s_tree.begin();
+  auto oi = o_tree.begin();
+  for (; si != s_tree.end() && oi != o_tree.end(); ++si, ++oi) {
+    EXPECT_EQ((*si).first, (*oi).first);
+    EXPECT_EQ((*si).second, (*oi).second);
+  }
+
+  EXPECT_EQ(s_tree.size(), o_tree.size());
+  EXPECT_EQ(s_tree.empty(), o_tree.empty());
+}
+
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
