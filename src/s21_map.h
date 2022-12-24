@@ -127,9 +127,13 @@ void erase(iterator pos) {
 }
 
 void clear() {
-  for (auto it = begin(); it != end(); ++it) {
-    erase(it);
+  // for (auto i = begin(); i != end(); ++i) {
+  auto e = end(); --e; auto i = end();
+  do {
+    ++i;
+    erase(i);
   }
+  while (i != e);
   if (this->root_) {delete this->root_;}
   if (this->end_) {delete this->end_;}
   this->root_ = nullptr;
@@ -140,24 +144,30 @@ std::pair<iterator, bool> insert(const value_type &value) {
   bool insertion = false;
   iterator insert_iterat = nullptr;
   if (!this->empty()) {  
-    auto e = --end();  //  why exactly end doesnt work????
-    for (auto i = begin(); i != e; ++i) {
     // for (auto i = begin(); i != end(); ++i) {
+    auto e = end(); --e; auto i = end();
+    do {
+      ++i;
       if ((*i).first == value.first) {
         insert_iterat = i;
         break;
       }
     }
+    while (i != e);
   }
   if (insert_iterat == nullptr) {
     this->insert_tree(value);
     insertion = true;
-    for (auto i = begin(); i != end(); ++i) {
+    // for (auto i = begin(); i != end(); ++i) {
+    auto e = end(); --e; auto i = end();
+    do {
+      ++i;
       if ((*i).first == value.first) {
         insert_iterat = i;
         break;
       }
     }
+    while (i != e);
   }
   return std::make_pair(insert_iterat, insertion);
 }
@@ -172,25 +182,31 @@ std::pair<iterator, bool> insert_or_assign(const Key& key, const T& obj) {
   bool insertion = false;
   iterator insert_iterat = nullptr;
   if (!this->empty()) {  
-    auto e = --end();  //  why exactly end doesnt work????
-    for (auto i = begin(); i != e; ++i) {
     // for (auto i = begin(); i != end(); ++i) {
-      if ((*i).first == value.first) {
-        (*i).second = value.second;
-        insert_iterat = i;
-        break;
+    auto e = end(); --e; auto i = end();
+    do {
+      ++i;
+        if ((*i).first == value.first) {
+          (*i).second = value.second;
+          insert_iterat = i;
+          break;
+        }
       }
-    }
+    while (i != e);
   }
   if (insert_iterat == nullptr) {
     this->insert_tree(value);
     insertion = true;
-    for (auto i = begin(); i != end(); ++i) {
+    // for (auto i = begin(); i != end(); ++i) {
+    auto e = end(); --e; auto i = end();
+    do {
+      ++i;
       if ((*i).first == value.first) {
         insert_iterat = i;
         break;
       }
     }
+    while (i != e);
   }
   return std::make_pair(insert_iterat, insertion);
 }
@@ -229,8 +245,7 @@ std::pair<iterator, bool> insert_or_assign(const Key& key, const T& obj) {
 T& at(const Key& key) {
   static T element_value = T();
   int count = 0;
-  auto e = end(); --e;
-  auto i = end();
+  auto e = end(); --e; auto i = end();
   do {
     ++i;
   // std::cout << (*i).first  << std::endl;
@@ -250,16 +265,17 @@ T& at(const Key& key) {
 T& operator[](const Key& key) {
   static T element_value = T();
   int count = 0;
-
-  // auto e = --end();  //  why exactly end doesnt work????
-  // for (auto i = begin(); i != e; ++i) {
-  for (auto i = begin(); i != end(); ++i) {
+  // for (auto i = begin(); i != end(); ++i) {
+  auto e = end(); --e; auto i = end();
+  do {
+    ++i;
     if ((*i).first == key) {
       element_value = (*i).second;
       count++;
       break;
     }
   }
+  while (i != e);
   if (count == 0) {
     this->insert_tree({key, T()});
   }
@@ -274,13 +290,15 @@ T& operator[](const Key& key) {
 
 //  lookup
 bool contains(const Key& key) {
-  // auto e = end();
-  for (auto i = begin(); i != end(); ++i) {
-  // for (auto i = begin(); i != e; ++i) {
+  // for (auto i = begin(); i != end(); ++i) {
+  auto e = end(); --e; auto i = end();
+  do {
+    ++i;
     if ((*i).first == key) {
       return true;
     }
   }
+  while (i != e);
   return false;
 }
 

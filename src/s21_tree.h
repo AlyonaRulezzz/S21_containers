@@ -58,8 +58,7 @@ public:
   Tree &operator=(const Tree &other) {
     this->clear();
     // for (auto i = other.begin(); i != other.end(); ++i) 
-    auto e = other.end(); --e;
-    auto i = other.end();
+    auto e = other.end(); --e; auto i = other.end();
     do {
       ++i;
       insert_tree(*i);

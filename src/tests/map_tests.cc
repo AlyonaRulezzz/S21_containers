@@ -280,8 +280,8 @@ TEST(MapModifiers, InsertOrAssign) {
   EXPECT_EQ((*(s_pr.first)).second, (*(o_pr.first)).second);
   EXPECT_EQ(s_pr.second, o_pr.second);
 
-  s_pr = s_tree.insert_or_assign("one", -1);
-  o_pr = o_tree.insert_or_assign("one", -1);
+  s_pr = s_tree.insert_or_assign("zero", -1);
+  o_pr = o_tree.insert_or_assign("zero", -1);
   EXPECT_EQ((*(s_pr.first)).first, (*(o_pr.first)).first);
   EXPECT_EQ((*(s_pr.first)).second, (*(o_pr.first)).second);
   EXPECT_EQ(s_pr.second, o_pr.second);
