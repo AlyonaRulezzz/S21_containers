@@ -84,9 +84,53 @@ MapIterator<Key, T> end() const noexcept{
   // void erase(iterator pos) {
   //   Tree<Key, T>::erase(pos);
   // }
+// void erase(iterator pos) {
+//   auto itb = ++begin();  //  ok
+//   auto ite = ----end();  //  ok
+//   if (this->size() > 1) {
+//     if (pos.iter == this->root_) {
+//       if (this->root_->left) {
+//         // this->root_->right->color = Red;  /////////////////////// ???????????
+//         this->insert_tree(this->root_->left, this->root_->right);
+//         this->root_ = this->root_->left;
+//       } else {
+//         this->root_ = this->root_->right;
+//       }
+//       this->root_->parent = nullptr;
+//       this->root_->color = Black;
+//     } else {
+//       if (pos == begin()) {
+//         this->end_->right = itb.iter;
+//       }
+//       if (pos == --end()) {
+//         this->end_->left = ite.iter;
+//       }
+
+//       if (pos.iter->parent->left == pos.iter) {
+//         pos.iter->parent->left = nullptr;
+//       }
+//       if (pos.iter->parent->right == pos.iter) {
+//         pos.iter->parent->right = nullptr;
+//       }
+
+//       if (pos.iter->left) {
+//         this->insert_tree(this->root_, pos.iter->left);
+//       }
+//       if (pos.iter->right) {
+//         this->insert_tree(this->root_, pos.iter->right);
+//       }
+//     }
+//   }
+
+//   if (pos.iter) {
+//     delete pos.iter;
+//   }
+//   pos.iter = nullptr;
+// }
+
 void erase(iterator pos) {
-  auto itb = ++begin();
-  auto ite = ----end();  //  ?????????????????????????????????
+  auto itb = ++begin();  //  ok
+  auto ite = ----end();  //  ok
   if (this->size() > 1) {
     if (pos.iter == this->root_) {
       if (this->root_->left) {
@@ -106,10 +150,10 @@ void erase(iterator pos) {
         this->end_->left = ite.iter;
       }
 
-      if (pos.iter->parent->left == pos.iter) {
+      if (pos.iter->parent->left && pos.iter->parent->left == pos.iter) {
         pos.iter->parent->left = nullptr;
       }
-      if (pos.iter->parent->right == pos.iter) {
+      if (pos.iter->parent->right && pos.iter->parent->right == pos.iter) {
         pos.iter->parent->right = nullptr;
       }
 
@@ -122,15 +166,20 @@ void erase(iterator pos) {
     }
   }
 
-  if (pos.iter) {delete pos.iter;}
+  if (pos.iter) {
+    delete pos.iter;
+  }
   pos.iter = nullptr;
 }
 
 void clear() {
   // for (auto i = begin(); i != end(); ++i) {
-  auto e = end(); --e; auto i = end();
+  auto e = end(); ----e; auto i = end(); ++i;
   do {
     ++i;
+    // std::cout << (*i).first <<std::endl;
+    // this->print();
+    // std::cout << "-------------------------\n";
     erase(i);
   }
   while (i != e);
@@ -242,7 +291,7 @@ std::pair<iterator, bool> insert_or_assign(const Key& key, const T& obj) {
 //   return element_value;
 // }
 
-T& at(const Key& key) {
+T& at(const Key& key) { //   need to fix (add & to the element)
   static T element_value = T();
   int count = 0;
   auto e = end(); --e; auto i = end();
@@ -262,7 +311,7 @@ T& at(const Key& key) {
   return element_value;
 }
 
-T& operator[](const Key& key) {
+T& operator[](const Key& key) { //   need to fix (add & to the element)
   static T element_value = T();
   int count = 0;
   // for (auto i = begin(); i != end(); ++i) {
@@ -280,6 +329,13 @@ T& operator[](const Key& key) {
     this->insert_tree({key, T()});
   }
 
+  // i = end();
+  // do {
+  //   ++i;
+  //   std::cout << (*i).first << " " << (*i).second << std::endl;
+  //   // std::cout << (*i).second  << std::endl;
+  // }
+  // while (i != e);
   // this->print();
     // std::cout << (this->begin()).iter->values.second  << std::endl;
     // std::cout << (++this->begin()).iter->values.second  << std::endl;
@@ -287,6 +343,14 @@ T& operator[](const Key& key) {
 
   return element_value;
 }
+
+
+void swap(Map& other) {
+  Map<Key, T> tmp = *this;
+  *this = other;
+  other = tmp;
+}
+
 
 //  lookup
 bool contains(const Key& key) {

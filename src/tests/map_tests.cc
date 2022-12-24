@@ -100,8 +100,8 @@ TEST(MapModifiers, Erase) {
 
   auto si = s_tree.begin();
   auto oi = o_tree.begin();
-  ++++++++++++++++si;
-  ++++++++++++++++oi;
+  // ++++++++++++++++si;
+  // ++++++++++++++++oi;
   for (; si != s_tree.end() && oi != o_tree.end(); ++si, ++oi) {
     EXPECT_EQ((*si).first, (*oi).first);
     EXPECT_EQ((*si).second, (*oi).second);
@@ -136,7 +136,7 @@ TEST(MapElementAccess, At) {
   EXPECT_EQ(8, m1.at("eight"));
   EXPECT_EQ(9, m1.at("nine"));
 
-  EXPECT_ANY_THROW(m1.at("SSD"));  // endless cycle
+  EXPECT_ANY_THROW(m1.at("SSD"));
 
 }
 
@@ -149,15 +149,15 @@ TEST(MapElementAccess, Brackets) {
 
   EXPECT_EQ(s_tree["CPU"], o_tree["CPU"]);
   EXPECT_EQ(s_tree["GPU"], o_tree["GPU"]);
-  // EXPECT_EQ(s_tree["RAM"], o_tree["RAM"]);
+  EXPECT_EQ(s_tree["RAM"], o_tree["RAM"]);
 
-  // EXPECT_EQ(s_tree.size(), o_tree.size());
-  // EXPECT_EQ(s_tree.empty(), o_tree.empty());
+  EXPECT_EQ(s_tree.size(), o_tree.size());
+  EXPECT_EQ(s_tree.empty(), o_tree.empty());
 
-  // // s_tree["SSD"] 
-  // // ;
-  // // = "yyyyy";
-  // EXPECT_EQ(s_tree["SSD"], o_tree["SSD"]);
+  s_tree["SSD"] //   need to fix (add & to the element)
+  ;
+  // = "yyyyy";
+  EXPECT_EQ(s_tree["SSD"], o_tree["SSD"]);
 }
 
 TEST(MapLookup, Contains) {
@@ -166,7 +166,7 @@ TEST(MapLookup, Contains) {
       {"five", 5}, {"six", 6}, {"seven", 7}, {"eight", 8}, {"nine", 9}};
 
   EXPECT_EQ(s_tree.contains("seven"), true);
-  // EXPECT_EQ(s_tree.contains("seventy"), false);  //  endless cycle
+  EXPECT_EQ(s_tree.contains("seventy"), false);
 }
 
 TEST(MapModifiers, InsertPair) {
@@ -303,9 +303,91 @@ TEST(MapModifiers, InsertOrAssign) {
   EXPECT_EQ(s_tree.empty(), o_tree.empty());
 }
 
+TEST(AAAAAAAAA, Swap) {
+  s21::Map<std::string, int> f_s_tree = {
+      {"zero", 0}, {"one", 1}, {"two", 2},   {"three", 3}, {"four", 4},
+      {"five", 5}, {"six", 6}, {"seven", 7}, {"eight", 8}, {"nine", 9}};
+
+  s21::Map<std::string, int> s_s_tree = {
+      {"ten", 10},   {"twenty", 20}, {"thirty", 30}, {"fourty", 40},
+      {"fifty", 50}, {"sixty", 60},  {"seventy", 70}};
+
+  std::map<std::string, int> f_o_tree = {
+      {"zero", 0}, {"one", 1}, {"two", 2},   {"three", 3}, {"four", 4},
+      {"five", 5}, {"six", 6}, {"seven", 7}, {"eight", 8}, {"nine", 9}};
+
+  std::map<std::string, int> s_o_tree = {
+      {"ten", 10},   {"twenty", 20}, {"thirty", 30}, {"fourty", 40},
+      {"fifty", 50}, {"sixty", 60},  {"seventy", 70}};
+
+  EXPECT_EQ(f_s_tree.size(), f_o_tree.size());
+  EXPECT_EQ(f_s_tree.empty(), f_o_tree.empty());
+  EXPECT_EQ(s_s_tree.size(), s_o_tree.size());
+  EXPECT_EQ(s_s_tree.empty(), s_o_tree.empty());
+
+  auto si = f_s_tree.begin();
+  auto oi = f_o_tree.begin();
+  for (; si != f_s_tree.end() && oi != f_o_tree.end(); ++si, ++oi) {
+    EXPECT_EQ((*si).first, (*oi).first);
+    EXPECT_EQ((*si).second, (*oi).second);
+  }
+  si = s_s_tree.begin();
+  oi = s_o_tree.begin();
+  for (; si != s_s_tree.end() && oi != s_o_tree.end(); ++si, ++oi) {
+    EXPECT_EQ((*si).first, (*oi).first);
+    EXPECT_EQ((*si).second, (*oi).second);
+  }
+
+  f_o_tree.swap(s_o_tree);
+  f_s_tree.swap(s_s_tree);
+
+  // EXPECT_EQ(f_s_tree.size(), f_o_tree.size());
+  // EXPECT_EQ(f_s_tree.empty(), f_o_tree.empty());
+  // EXPECT_EQ(s_s_tree.size(), s_o_tree.size());
+  // EXPECT_EQ(s_s_tree.empty(), s_o_tree.empty());
+
+  // si = f_s_tree.begin();
+  // oi = f_o_tree.begin();
+  // for (; si != f_s_tree.end() && oi != f_o_tree.end(); ++si, ++oi) {
+  //   EXPECT_EQ((*si).first, (*oi).first);
+  //   EXPECT_EQ((*si).second, (*oi).second);
+  // }
+  // si = s_s_tree.begin();
+  // oi = s_o_tree.begin();
+  // for (; si != s_s_tree.end() && oi != s_o_tree.end(); ++si, ++oi) {
+  //   EXPECT_EQ((*si).first, (*oi).first);
+  //   EXPECT_EQ((*si).second, (*oi).second);
+  // }
+}
+
+
+
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
+
+  // s21::Map<std::string, int> s_tree
+  // // ;
+  //  = {
+  //     {"zero", 0}, {"one", 1}, {"two", 2},   {"three", 3}, {"four", 4},
+  //     {"five", 5}, {"six", 6}, {"seven", 7}, {"eight", 8}, {"nine", 9}};
+
+  // auto e = s_tree.end(); --e; auto i = s_tree.end();
+  // // do {
+  //   // ++i;
+  //   std::cout << (*e).first <<std::endl;
+  //   s_tree.erase(e);
+    // ++e;
+    // std::cout << (*e).first <<std::endl;
+    // std::cout << (*e).first <<std::endl;
+    // std::cout << (*e).first <<std::endl;
+    // std::cout << (*e).first <<std::endl;
+    // std::cout << (*e).first <<std::endl;
+  // }
+  // while (i != e);
+
+  // s_tree.clear();
+  // s_tree.print();
 }
 
 
