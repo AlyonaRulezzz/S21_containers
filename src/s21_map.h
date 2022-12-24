@@ -196,23 +196,43 @@ std::pair<iterator, bool> insert_or_assign(const Key& key, const T& obj) {
 }
 
 //  element access
+// T& at(const Key& key) {  // with for but doesnt work with clean end()
+//   static T element_value = T();
+//   int count = 0;
+//   // auto e = end();
+//   for (auto i = begin(); i != end(); ++i) {
+//   // for (auto i = begin(); i != e; ++i) {
+//   // for (auto i = (++iterator(this->end_)); i != (iterator(this->end_)); ++i) {
+//     // auto ie = end(); 
+//     // // i;
+//     // auto i = begin(); ++++++++++++++++++++i;
+//   // std::cout << (iterator(this->end_)).iter  << std::endl;
+//   // std::cout << (this->end()).iter  << std::endl;
+//   // std::cout << (++++++++++++++++++++this->begin()).iter  << std::endl;
+//   //   std::cout << (++iterator(this->end_)).iter  << std::endl;
+//   // std::cout << (this->begin()).iter  << std::endl;
+
+//   // std::cout << (*ie).first  << std::endl;
+//   // std::cout << (*i).first  << std::endl;
+//     if ((*i).first == key) {
+//       element_value = (*i).second;
+//       count++;
+//       break;
+//     }
+//   }
+//   if (count == 0) {
+//     throw std::out_of_range("No elements with such key");
+//   }
+//   return element_value;
+// }
+
 T& at(const Key& key) {
   static T element_value = T();
   int count = 0;
-  // auto e = end();
-  for (auto i = begin(); i != end(); ++i) {
-  // for (auto i = begin(); i != e; ++i) {
-  // for (auto i = (++iterator(this->end_)); i != (iterator(this->end_)); ++i) {
-    // auto ie = end(); 
-    // // i;
-    // auto i = begin(); ++++++++++++++++++++i;
-  // std::cout << (iterator(this->end_)).iter  << std::endl;
-  // std::cout << (this->end()).iter  << std::endl;
-  // std::cout << (++++++++++++++++++++this->begin()).iter  << std::endl;
-  //   std::cout << (++iterator(this->end_)).iter  << std::endl;
-  // std::cout << (this->begin()).iter  << std::endl;
-
-  // std::cout << (*ie).first  << std::endl;
+  auto e = end(); --e;
+  auto i = end();
+  do {
+    ++i;
   // std::cout << (*i).first  << std::endl;
     if ((*i).first == key) {
       element_value = (*i).second;
@@ -220,12 +240,13 @@ T& at(const Key& key) {
       break;
     }
   }
+  while (i != e);
   if (count == 0) {
     throw std::out_of_range("No elements with such key");
   }
   return element_value;
 }
-///////////
+
 T& operator[](const Key& key) {
   static T element_value = T();
   int count = 0;

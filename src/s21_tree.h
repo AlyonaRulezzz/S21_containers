@@ -13,14 +13,6 @@ class TreeIterator;
 template <typename Key, typename T>
 class tree_el_;
 
-// template <typename Key, typename T>
-// class tree_end_el_ {
-//  public:
-//   tree_el_<Key, T>* last_el;
-
-  // tree_el_() : tree_el_(Key(), T()){};
-//   tree_end_el_(tree_el_<Key, T>* l) : last_el(l) {};
-// };
 
 // tree element
 enum TreeColor { Black, Red };
@@ -57,17 +49,22 @@ public:
   Tree(std::initializer_list<std::pair<const Key, T>> const& items) {
     root_ = nullptr;
     end_ = nullptr;
-    for (auto it = items.begin(); it != items.end(); ++it) {
-      // auto it = items.begin();
-      insert_tree(*it);
+    //  it's STD INIT LIST begin & end
+    for (auto i = items.begin(); i != items.end(); ++i) {
+      insert_tree(*i);
     }
   }
 
   Tree &operator=(const Tree &other) {
-      this->clear();
-      // auto e = other.end(); --e;
-      // for (auto it = other.begin(); it != e; ++it) insert_tree(*it);
-      for (auto it = other.begin(); it != other.end(); ++it) insert_tree(*it);
+    this->clear();
+    // for (auto i = other.begin(); i != other.end(); ++i) 
+    auto e = other.end(); --e;
+    auto i = other.end();
+    do {
+      ++i;
+      insert_tree(*i);
+    }
+    while (i != e);
       return *this;
   }
 
@@ -193,7 +190,6 @@ void insert_tree(const std::pair<Key, T> val) {
     }
     if (new_node->values.first < end_->right->values.first) {
       end_->right = new_node;
-      // end_->right->parent = end_;
     }
 
   }
