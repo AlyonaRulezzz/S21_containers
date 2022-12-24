@@ -63,14 +63,16 @@ public:
     }
   }
 
-  Tree &operator=(Tree &other) {
+  Tree &operator=(const Tree &other) {
       this->clear();
+      // auto e = other.end(); --e;
+      // for (auto it = other.begin(); it != e; ++it) insert_tree(*it);
       for (auto it = other.begin(); it != other.end(); ++it) insert_tree(*it);
       return *this;
   }
 
   // Tree(const Tree &other) {
-  //   *this = other;
+  //   // *this = other;
   // }
 
 

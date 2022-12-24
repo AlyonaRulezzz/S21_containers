@@ -36,6 +36,39 @@ Map(std::initializer_list<value_type> const &items) : Tree<Key, T>(items){}
 
 // Map(const Map &other) : Tree<Key, T>(other) {}
 
+
+
+//
+
+// Map &operator=(const Map &other) {
+//     this->clear();
+//     auto e = other.end(); --e;
+//     for (auto it = other.begin(); it != e; ++it) this->insert_tree(*it);
+//     // for (auto it = other.begin(); it != other.end(); ++it) insert_tree(*it);
+//     return *this;
+// }
+
+// Map(const Map &other): Tree<Key, T>(other) {
+//   *this = other;
+// }
+
+// Map(Map &&m) {
+//   *this = std::move(m);
+// }
+
+// Map<Key, T> &operator=(Map &&m) {
+//   this->clear();
+//   this->root_ = m.root_;
+//   this->end_ = m.end_;
+
+//   m.root_ = nullptr;
+//   m.end_ = nullptr;
+//   return *this;
+// }
+// //
+
+
+
 //  iterators
 MapIterator<Key, T> begin() const noexcept {
   MapIterator<Key, T> iterator(this->end_->right);
@@ -118,6 +151,7 @@ std::pair<iterator, bool> insert(const value_type &value) {
   }
   if (insert_iterat == nullptr) {
     this->insert_tree(value);
+    insertion = true;
     for (auto i = begin(); i != end(); ++i) {
       if ((*i).first == value.first) {
         insert_iterat = i;
@@ -150,6 +184,7 @@ std::pair<iterator, bool> insert_or_assign(const Key& key, const T& obj) {
   }
   if (insert_iterat == nullptr) {
     this->insert_tree(value);
+    insertion = true;
     for (auto i = begin(); i != end(); ++i) {
       if ((*i).first == value.first) {
         insert_iterat = i;

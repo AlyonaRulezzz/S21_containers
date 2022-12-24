@@ -44,25 +44,25 @@ TEST(Map_iterator, initializer_list_operator_dereferencing_plusplus_minusminus_b
 }
 
 TEST(MapConstructors, Copy) { ///// there is no copy
-  // s21::Map<int, std::string> s_tree = {
-  //     {10, "ten"},   {20, "twenty"}, {30, "thirty"}, {40, "fourty"},
-  //     {50, "fifty"}, {60, "sixty"},  {70, "seventy"}};
-  // s21::Map<int, std::string> cp_s_tree = s_tree;
+  s21::Map<int, std::string> s_tree = {
+      {10, "ten"},   {20, "twenty"}, {30, "thirty"}, {40, "fourty"},
+      {50, "fifty"}, {60, "sixty"},  {70, "seventy"}};
+  s21::Map<int, std::string> cp_s_tree = s_tree;
 
-  // std::map<int, std::string> o_tree = {
-  //     {10, "ten"},   {20, "twenty"}, {30, "thirty"}, {40, "fourty"},
-  //     {50, "fifty"}, {60, "sixty"},  {70, "seventy"}};
-  // std::map<int, std::string> cp_o_tree = o_tree;
+  std::map<int, std::string> o_tree = {
+      {10, "ten"},   {20, "twenty"}, {30, "thirty"}, {40, "fourty"},
+      {50, "fifty"}, {60, "sixty"},  {70, "seventy"}};
+  std::map<int, std::string> cp_o_tree = o_tree;
 
-  // auto si = cp_s_tree.begin();
-  // auto oi = cp_o_tree.begin();
-  // for (; si != cp_s_tree.end() && oi != cp_o_tree.end(); ++si, ++oi) {
-  //   EXPECT_EQ((*si).first, (*oi).first);
-  //   EXPECT_EQ((*si).second, (*oi).second);
-  // }
+  auto si = cp_s_tree.begin();
+  auto oi = cp_o_tree.begin();
+  for (; si != cp_s_tree.end() && oi != cp_o_tree.end(); ++si, ++oi) {
+    EXPECT_EQ((*si).first, (*oi).first);
+    EXPECT_EQ((*si).second, (*oi).second);
+  }
 
-  // EXPECT_EQ(cp_s_tree.size(), cp_o_tree.size());
-  // EXPECT_EQ(cp_s_tree.empty(), cp_o_tree.empty());
+  EXPECT_EQ(cp_s_tree.size(), cp_o_tree.size());
+  EXPECT_EQ(cp_s_tree.empty(), cp_o_tree.empty());
 }
 
 TEST(MapConstructors, Operator_equal) {
@@ -188,29 +188,29 @@ TEST(MapModifiers, InsertPair) {
   // s_tree.clear();
   // o_tree.clear();
 
-  auto s_pr = s_tree.insert({"zero", 0});
-  auto o_pr = o_tree.insert({"zero", 0});
+  auto s_pr = s_tree.insert({"one", 0});
+  auto o_pr = o_tree.insert({"one", 0});
   EXPECT_EQ((*(s_pr.first)).first, (*(o_pr.first)).first);
   EXPECT_EQ((*(s_pr.first)).second, (*(o_pr.first)).second);
-  // EXPECT_EQ(s_pr.second, o_pr.second);
+  EXPECT_EQ(s_pr.second, o_pr.second);
 
   s_pr = s_tree.insert({"ten", 10});
   o_pr = o_tree.insert({"ten", 10});
   EXPECT_EQ((*(s_pr.first)).first, (*(o_pr.first)).first);
   EXPECT_EQ((*(s_pr.first)).second, (*(o_pr.first)).second);
-  // EXPECT_EQ(s_pr.second, o_pr.second);  //  what is it????????
+  EXPECT_EQ(s_pr.second, o_pr.second);
 
   s_pr = s_tree.insert({"twelve", 20});
   o_pr = o_tree.insert({"twelve", 20});
   EXPECT_EQ((*(s_pr.first)).first, (*(o_pr.first)).first);
   EXPECT_EQ((*(s_pr.first)).second, (*(o_pr.first)).second);
-  // EXPECT_EQ(s_pr.second, o_pr.second);
+  EXPECT_EQ(s_pr.second, o_pr.second);
 
   s_pr = s_tree.insert({"thirty", 30});
   o_pr = o_tree.insert({"thirty", 30});
   EXPECT_EQ((*(s_pr.first)).first, (*(o_pr.first)).first);
   EXPECT_EQ((*(s_pr.first)).second, (*(o_pr.first)).second);
-  // EXPECT_EQ(s_pr.second, o_pr.second);
+  EXPECT_EQ(s_pr.second, o_pr.second);
 
   auto si = s_tree.begin();
   auto oi = o_tree.begin();
@@ -237,19 +237,19 @@ TEST(MapModifiers, InsertObjects) {
   auto o_pr = o_tree.insert({"ten", 10});
   EXPECT_EQ((*(s_pr.first)).first, (*(o_pr.first)).first);
   EXPECT_EQ((*(s_pr.first)).second, (*(o_pr.first)).second);
-  // EXPECT_EQ(s_pr.second, o_pr.second);
+  EXPECT_EQ(s_pr.second, o_pr.second);
 
   s_pr = s_tree.insert("twelve", 20);
   o_pr = o_tree.insert({"twelve", 20});
   EXPECT_EQ((*(s_pr.first)).first, (*(o_pr.first)).first);
   EXPECT_EQ((*(s_pr.first)).second, (*(o_pr.first)).second);
-  // EXPECT_EQ(s_pr.second, o_pr.second);
+  EXPECT_EQ(s_pr.second, o_pr.second);
 
   s_pr = s_tree.insert("thirty", 30);
   o_pr = o_tree.insert({"thirty", 30});
   EXPECT_EQ((*(s_pr.first)).first, (*(o_pr.first)).first);
   EXPECT_EQ((*(s_pr.first)).second, (*(o_pr.first)).second);
-  // EXPECT_EQ(s_pr.second, o_pr.second);
+  EXPECT_EQ(s_pr.second, o_pr.second);
 
   auto si = s_tree.begin();
   auto oi = o_tree.begin();
@@ -262,7 +262,7 @@ TEST(MapModifiers, InsertObjects) {
   EXPECT_EQ(s_tree.empty(), o_tree.empty());
 }
 
-TEST(AAAAAAAAAAAA, InsertOrAssign) {
+TEST(MapModifiers, InsertOrAssign) {
   s21::Map<std::string, int> s_tree = {
       {"zero", 0}, {"one", 1}, {"two", 2},   {"three", 3}, {"four", 4},
       {"five", 5}, {"six", 6}, {"seven", 7}, {"eight", 8}, {"nine", 9}};
@@ -276,31 +276,31 @@ TEST(AAAAAAAAAAAA, InsertOrAssign) {
 
   auto s_pr = s_tree.insert_or_assign("ten", 10);
   auto o_pr = o_tree.insert_or_assign("ten", 10);
-  // EXPECT_EQ((*(s_pr.first)).first, (*(o_pr.first)).first);
-  EXPECT_EQ((*(s_pr.first)).second, (*(o_pr.first)).second);
-  // // EXPECT_EQ(s_pr.second, o_pr.second);
-
-  s_pr = s_tree.insert_or_assign("zero", -1);
-  o_pr = o_tree.insert_or_assign("zero", -1);
   EXPECT_EQ((*(s_pr.first)).first, (*(o_pr.first)).first);
   EXPECT_EQ((*(s_pr.first)).second, (*(o_pr.first)).second);
-  // // EXPECT_EQ(s_pr.second, o_pr.second);
+  EXPECT_EQ(s_pr.second, o_pr.second);
 
-  // s_pr = s_tree.insert_or_assign("seven", 777);
-  // o_pr = o_tree.insert_or_assign("seven", 777);
-  // EXPECT_EQ((*(s_pr.first)).first, (*(o_pr.first)).first);
-  // EXPECT_EQ((*(s_pr.first)).second, (*(o_pr.first)).second);
-  // // EXPECT_EQ(s_pr.second, o_pr.second);
+  s_pr = s_tree.insert_or_assign("one", -1);
+  o_pr = o_tree.insert_or_assign("one", -1);
+  EXPECT_EQ((*(s_pr.first)).first, (*(o_pr.first)).first);
+  EXPECT_EQ((*(s_pr.first)).second, (*(o_pr.first)).second);
+  EXPECT_EQ(s_pr.second, o_pr.second);
 
-  // auto si = s_tree.begin();
-  // auto oi = o_tree.begin();
-  // for (; si != s_tree.end() && oi != o_tree.end(); ++si, ++oi) {
-  //   EXPECT_EQ((*si).first, (*oi).first);
-  //   EXPECT_EQ((*si).second, (*oi).second);
-  // }
+  s_pr = s_tree.insert_or_assign("seven", 777);
+  o_pr = o_tree.insert_or_assign("seven", 777);
+  EXPECT_EQ((*(s_pr.first)).first, (*(o_pr.first)).first);
+  EXPECT_EQ((*(s_pr.first)).second, (*(o_pr.first)).second);
+  EXPECT_EQ(s_pr.second, o_pr.second);
 
-  // EXPECT_EQ(s_tree.size(), o_tree.size());
-  // EXPECT_EQ(s_tree.empty(), o_tree.empty());
+  auto si = s_tree.begin();
+  auto oi = o_tree.begin();
+  for (; si != s_tree.end() && oi != o_tree.end(); ++si, ++oi) {
+    EXPECT_EQ((*si).first, (*oi).first);
+    EXPECT_EQ((*si).second, (*oi).second);
+  }
+
+  EXPECT_EQ(s_tree.size(), o_tree.size());
+  EXPECT_EQ(s_tree.empty(), o_tree.empty());
 }
 
 int main(int argc, char **argv) {
