@@ -98,15 +98,13 @@ TEST(MapConstructors, Operator_equal) {
 
   s21::Map<int, int>& m2 = m1;
 
-  auto m1i = m1.begin();
-  auto m2i = m2.begin();
-  ++++++m1i;
-  ++++++m2i;
-  // for (; m1i != m1.end() && m2i != m2.end(); ++m1i, ++m2i) {
-    //  why sega when use cycle????????
-    EXPECT_EQ((*m1i).first, (*m2i).first);
-    EXPECT_EQ((*m1i).second, (*m2i).second);
-  // }
+  auto e = m1.end(); --e; auto i = m1.end();
+  do {
+    ++i;
+    EXPECT_EQ((*i).first, (*i).first);
+    EXPECT_EQ((*i).second, (*i).second);
+  }
+  while (i != e);
 
   EXPECT_EQ(m1.size(), m2.size());
   EXPECT_EQ(m1.empty(), m2.empty());
@@ -329,7 +327,7 @@ TEST(MapModifiers, InsertOrAssign) {
   EXPECT_EQ(s_tree.empty(), o_tree.empty());
 }
 
-TEST(AAAAAAAAA, Swap) {
+TEST(FixErase, Swap) {
   s21::Map<std::string, int> f_s_tree = {
       {"zero", 0}, {"one", 1}, {"two", 2},   {"three", 3}, {"four", 4},
       {"five", 5}, {"six", 6}, {"seven", 7}, {"eight", 8}, {"nine", 9}};
