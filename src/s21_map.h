@@ -40,13 +40,17 @@ Map(std::initializer_list<value_type> const &items) : Tree<Key, T>(items){}
 
 //
 
-// Map &operator=(const Map &other) {
-//     this->clear();
-//     auto e = other.end(); --e;
-//     for (auto it = other.begin(); it != e; ++it) this->insert_tree(*it);
-//     // for (auto it = other.begin(); it != other.end(); ++it) insert_tree(*it);
-//     return *this;
-// }
+Map &operator=(const Map &other) {
+    this->clear();
+    // for (auto i = other.begin(); i != other.end(); ++i) 
+    auto e = other.end(); --e; auto i = other.end();
+    do {
+      ++i;
+      insert_tree(*i);
+    }
+    while (i != e);
+      return *this;
+  }
 
 // Map(const Map &other): Tree<Key, T>(other) {
 //   *this = other;
@@ -346,9 +350,9 @@ T& operator[](const Key& key) { //   need to fix (add & to the element)
 
 
 void swap(Map& other) {
-  Map<Key, T> tmp = *this;
+  Map<Key, T>* tmp = this;
   *this = other;
-  other = tmp;
+  other = *tmp;
 }
 
 

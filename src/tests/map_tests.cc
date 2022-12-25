@@ -70,7 +70,7 @@ TEST(MapConstructors, Operator_equal) {
       {10, 1},   {20, 2}, {30, 3}, {40, 4},
       {50, 5}, {60, 6},  {70, 7}};
 
-  s21::Map<int, int> m2 = m1;
+  s21::Map<int, int>& m2 = m1;
 
   auto m1i = m1.begin();
   auto m2i = m2.begin();
@@ -338,8 +338,8 @@ TEST(AAAAAAAAA, Swap) {
     EXPECT_EQ((*si).second, (*oi).second);
   }
 
-  f_o_tree.swap(s_o_tree);
-  f_s_tree.swap(s_s_tree);
+  // f_o_tree.swap(s_o_tree);
+  // f_s_tree.swap(s_s_tree);
 
   // EXPECT_EQ(f_s_tree.size(), f_o_tree.size());
   // EXPECT_EQ(f_s_tree.empty(), f_o_tree.empty());

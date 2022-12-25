@@ -25,7 +25,7 @@ class tree_el_ {
   tree_el_* left;
   tree_el_* right;
 
-  // tree_el_() : tree_el_(Key(), T()){};
+  tree_el_() : tree_el_(Key(), T()){};
   tree_el_(std::pair<Key, T> val, TreeColor c,
   tree_el_<Key, T>* p, tree_el_<Key, T>* l, tree_el_<Key, T>* r) :
           values(val), color(c), parent(p), left(l), right(r) {};
@@ -55,22 +55,27 @@ public:
     }
   }
 
-  Tree &operator=(const Tree &other) {
-    this->clear();
-    // for (auto i = other.begin(); i != other.end(); ++i) 
-    auto e = other.end(); --e; auto i = other.end();
-    do {
-      ++i;
-      insert_tree(*i);
-    }
-    while (i != e);
-      return *this;
-  }
+  // Tree &operator=(const Tree &other) {
+  //   this->clear();
+  //   // for (auto i = other.begin(); i != other.end(); ++i) 
+  //   auto e = other.end(); --e; auto i = other.end();
+  //   do {
+  //     ++i;
+  //     insert_tree(*i);
+  //   }
+  //   while (i != e);
+  //     return *this;
+  // }
 
   // Tree(const Tree &other) {
   //   // *this = other;
   // }
 
+// void swap(Tree& other) {
+//   Tree<Key, T>* tmp = this;
+//   *this = other;
+//   other = *tmp;
+// }
 
 // void erase(iterator pos) {
 //   if (size() > 1) {
