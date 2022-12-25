@@ -209,8 +209,8 @@ TEST(MapModifiers, InsertPair) {
   EXPECT_EQ(s_tree.size(), o_tree.size());
   EXPECT_EQ(s_tree.empty(), o_tree.empty());
 
-  // s_tree.clear();
-  // o_tree.clear();
+  s_tree.clear();
+  o_tree.clear();
 
   auto s_pr = s_tree.insert({"one", 0});
   auto o_pr = o_tree.insert({"one", 0});

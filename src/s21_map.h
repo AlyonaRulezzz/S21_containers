@@ -179,16 +179,26 @@ void erase(iterator pos) {
 }
 
 void clear() {
+  auto i = begin();  //////
+
   // for (auto i = begin(); i != end(); ++i) {
-  auto e = end(); ----e; auto i = end(); ++i;
-  do {
-    ++i;
-    // std::cout << (*i).first <<std::endl;
-    // this->print();
-    // std::cout << "-------------------------\n";
+  // auto e = end(); ----e; auto i = end(); ++i;
+  // auto e = end(); --e; auto i = end();
+  do {        std::cout << "\n" <<std::endl;
+    // ++i;
+    i = begin();  //////
+    std::cout << (*i).first << "\n" <<std::endl;
+    std::cout << "before erase";
+    this->print(); 
+    std::cout << "\n" <<std::endl;
     erase(i);
+    std::cout << "after erase";
+    this->print();
+    std::cout << "\n" <<std::endl;
+    std::cout << "-------------------------\n";
   }
-  while (i != e);
+  // while (i != e);
+  while (begin() != nullptr);
   if (this->root_) {delete this->root_;}
   if (this->end_) {delete this->end_;}
   this->root_ = nullptr;

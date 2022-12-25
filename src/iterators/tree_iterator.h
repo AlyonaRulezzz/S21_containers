@@ -54,6 +54,10 @@ class TreeIterator {
       }
       iter = iter->parent->parent;
     }
+    // } else if (iter->parent) {
+    //   iter = iter->parent;
+    // }
+    //
     return *this;
   }
 
