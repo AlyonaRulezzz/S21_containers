@@ -350,13 +350,22 @@ T& operator[](const Key& key) { //   need to fix (add & to the element)
   return element_value;
 }
 
-
 void swap(Map& other) {
   Map<Key, T>* tmp = this;
   *this = other;
   other = *tmp;
 }
 
+void merge(Map& other) {
+  auto e = other.end(); --e; auto i = other.end();
+  do {
+    ++i;
+    if ((insert((*i).first, (*i).second)).second == true) {
+      // other.erase(i);  //NEED TO FIX ERASE
+    }
+  }
+  while (i != e);
+}
 
 //  lookup
 bool contains(const Key& key) {
