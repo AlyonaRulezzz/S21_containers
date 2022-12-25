@@ -43,26 +43,52 @@ TEST(Map_iterator, initializer_list_operator_dereferencing_plusplus_minusminus_b
   EXPECT_EQ(s.empty(), b.empty());
 }
 
-TEST(MapConstructors, Copy) { ///// there is no copy
-  // s21::Map<int, std::string> s_tree = {
-  //     {10, "ten"},   {20, "twenty"}, {30, "thirty"}, {40, "fourty"},
-  //     {50, "fifty"}, {60, "sixty"},  {70, "seventy"}};
-  // s21::Map<int, std::string> cp_s_tree = s_tree;
+TEST(MapConstructors, Copy) {
+  s21::Map<int, std::string> s_tree = {
+      {10, "ten"},   {20, "twenty"}, {30, "thirty"}, {40, "fourty"},
+      {50, "fifty"}, {60, "sixty"},  {70, "seventy"}};
+  // s21::Map<int, std::string>& cp_s_tree = s_tree;
+  s21::Map<int, std::string>& cp_s_tree(s_tree);
 
-  // std::map<int, std::string> o_tree = {
-  //     {10, "ten"},   {20, "twenty"}, {30, "thirty"}, {40, "fourty"},
-  //     {50, "fifty"}, {60, "sixty"},  {70, "seventy"}};
-  // std::map<int, std::string> cp_o_tree = o_tree;
+  std::map<int, std::string> o_tree = {
+      {10, "ten"},   {20, "twenty"}, {30, "thirty"}, {40, "fourty"},
+      {50, "fifty"}, {60, "sixty"},  {70, "seventy"}};
+  std::map<int, std::string> cp_o_tree = o_tree;
 
-  // auto si = cp_s_tree.begin();
-  // auto oi = cp_o_tree.begin();
-  // for (; si != cp_s_tree.end() && oi != cp_o_tree.end(); ++si, ++oi) {
-  //   EXPECT_EQ((*si).first, (*oi).first);
-  //   EXPECT_EQ((*si).second, (*oi).second);
-  // }
+  auto si = cp_s_tree.begin();
+  auto oi = cp_o_tree.begin();
+  for (; si != cp_s_tree.end() && oi != cp_o_tree.end(); ++si, ++oi) {
+    EXPECT_EQ((*si).first, (*oi).first);
+    EXPECT_EQ((*si).second, (*oi).second);
+  }
 
-  // EXPECT_EQ(cp_s_tree.size(), cp_o_tree.size());
-  // EXPECT_EQ(cp_s_tree.empty(), cp_o_tree.empty());
+  EXPECT_EQ(cp_s_tree.size(), cp_o_tree.size());
+  EXPECT_EQ(cp_s_tree.empty(), cp_o_tree.empty());
+}
+
+TEST(MapConstructors, Move) {
+  s21::Map<int, std::string> s_tree = {
+      {10, "ten"},   {20, "twenty"}, {30, "thirty"}, {40, "fourty"},
+      {50, "fifty"}, {60, "sixty"},  {70, "seventy"}};
+  s21::Map<int, std::string> mv_s_tree = std::move(s_tree);
+
+  std::map<int, std::string> o_tree = {
+      {10, "ten"},   {20, "twenty"}, {30, "thirty"}, {40, "fourty"},
+      {50, "fifty"}, {60, "sixty"},  {70, "seventy"}};
+  std::map<int, std::string> mv_o_tree = std::move(o_tree);
+
+  auto si = mv_s_tree.begin();
+  auto oi = mv_o_tree.begin();
+  for (; si != mv_s_tree.end() && oi != mv_o_tree.end(); ++si, ++oi) {
+    EXPECT_EQ((*si).first, (*oi).first);
+    EXPECT_EQ((*si).second, (*oi).second);
+  }
+
+  EXPECT_EQ(mv_s_tree.size(), mv_o_tree.size());
+  EXPECT_EQ(mv_s_tree.empty(), mv_o_tree.empty());
+
+  EXPECT_EQ(s_tree.size(), o_tree.size());
+  EXPECT_EQ(s_tree.empty(), o_tree.empty());
 }
 
 TEST(MapConstructors, Operator_equal) {
@@ -338,8 +364,8 @@ TEST(AAAAAAAAA, Swap) {
     EXPECT_EQ((*si).second, (*oi).second);
   }
 
-  // f_o_tree.swap(s_o_tree);
-  // f_s_tree.swap(s_s_tree);
+  f_o_tree.swap(s_o_tree);
+  f_s_tree.swap(s_s_tree);
 
   // EXPECT_EQ(f_s_tree.size(), f_o_tree.size());
   // EXPECT_EQ(f_s_tree.empty(), f_o_tree.empty());

@@ -35,18 +35,20 @@ Map(std::initializer_list<value_type> const &items) : Tree<Key, T>(items){}
 // }
 
 // Map(const Map &other) : Tree<Key, T>(other) {}
-
+  Map(const Map &other) {
+    *this = other;
+  }
 
 
 //
 
-Map &operator=(const Map &other) {
-    this->clear();
+Map& operator=(const Map &other) {
+    // this->clear();  //NEED TO FIX THIS (FIX ERASE)
     // for (auto i = other.begin(); i != other.end(); ++i) 
     auto e = other.end(); --e; auto i = other.end();
     do {
       ++i;
-      insert_tree(*i);
+      this->insert_tree(*i);
     }
     while (i != e);
       return *this;
@@ -56,20 +58,20 @@ Map &operator=(const Map &other) {
 //   *this = other;
 // }
 
-// Map(Map &&m) {
-//   *this = std::move(m);
-// }
+Map(Map &&m) {
+  *this = std::move(m);
+}
 
-// Map<Key, T> &operator=(Map &&m) {
-//   this->clear();
-//   this->root_ = m.root_;
-//   this->end_ = m.end_;
+Map<Key, T> &operator=(Map &&m) {
+  // this->clear();  //  Does clear really need hear???   NEED TO FIX THIS (FIX ERASE)
+  this->root_ = m.root_;
+  this->end_ = m.end_;
 
-//   m.root_ = nullptr;
-//   m.end_ = nullptr;
-//   return *this;
-// }
-// //
+  m.root_ = nullptr;
+  m.end_ = nullptr;
+  return *this;
+}
+//
 
 
 
