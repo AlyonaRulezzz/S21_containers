@@ -167,7 +167,7 @@ void erase(iterator pos) {
       if (pos == e/* --end() */) {
         this->end_->left = ite.iter;
       }
-// this->print();
+    // this->print();
       // if (pos.iter->parent) {
         if (pos.iter->parent->left && pos.iter->parent->left == pos.iter) {
           pos.iter->parent->left = nullptr;
@@ -189,27 +189,13 @@ void erase(iterator pos) {
       delete pos.iter;
     }
     pos.iter = nullptr;
-// this->print();
-
-    // if (pos.iter->left) {
-    //   pos.iter->left = nullptr;
-    // }
-    // if (pos.iter->right) {
-    //   pos.iter->right = nullptr;;
-    // }
+    // this->print();
 
   } else if (this->size() == 1) {
     delete this->root_;
     this->root_ = nullptr;
     delete this->end_;
     this->end_ = nullptr;
-
-    //     if (pos.iter->left) {
-    //   pos.iter->left = nullptr;
-    // }
-    // if (pos.iter->right) {
-    //   pos.iter->right = nullptr;;
-    // }
   }
 // this->print();
 // std::cout << this->size();
@@ -432,16 +418,29 @@ void swap(Map& other) {
   std::swap(this->end_, other.end_);
 }
 
+
+
 void merge(Map& other) {
+  // other.print();
   auto e = other.end(); --e; auto i = other.end();
-  do {
     ++i;
+    // auto i = other.begin();
+  do {
+      // std::cout << "\n" << (*i).first;
     if ((insert((*i).first, (*i).second)).second == true) {
-      // other.erase(i);  //NEED TO FIX ERASE
+      other.erase(i);  //NEED TO FIX ERASE
+      i = other.begin();
+      // std::cout << "\n\t" << (*i).first;
     }
   }
   while (i != e);
+
+  if ((insert((*i).first, (*i).second)).second == true) {
+    other.erase(i);  //NEED TO FIX ERASE
+  }
 }
+
+
 
 //  lookup
 bool contains(const Key& key) {
