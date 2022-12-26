@@ -131,10 +131,13 @@ TEST(FixErase, Erase) {
     EXPECT_EQ((*si).second, (*oi).second);
   }
 
-  auto s_it = s_tree.begin();
-  auto o_it = o_tree.begin();
-  ++ ++ ++ ++s_it;
-  ++ ++ ++ ++o_it;
+  // auto s_it = s_tree.begin();
+  // auto o_it = o_tree.begin();
+  // ++ ++ ++ ++s_it;
+  // ++ ++ ++ ++o_it;
+  auto s_it = s_tree.end();
+  auto o_it = o_tree.end();
+  --s_it; --o_it;
 
   s_tree.erase(s_it);
   o_tree.erase(o_it);
@@ -254,8 +257,8 @@ TEST(MapModifiers, InsertObjects) {
   EXPECT_EQ(s_tree.size(), o_tree.size());
   EXPECT_EQ(s_tree.empty(), o_tree.empty());
 
-  // s_tree.clear();
-  // o_tree.clear();
+  s_tree.clear();
+  o_tree.clear();
 
   auto s_pr = s_tree.insert("ten", 10);
   auto o_pr = o_tree.insert({"ten", 10});
@@ -327,7 +330,7 @@ TEST(MapModifiers, InsertOrAssign) {
   EXPECT_EQ(s_tree.empty(), o_tree.empty());
 }
 
-TEST(FixErase, Swap) {
+TEST(YFixErase, Swap) {
   s21::Map<std::string, int> f_s_tree = {
       {"zero", 0}, {"one", 1}, {"two", 2},   {"three", 3}, {"four", 4},
       {"five", 5}, {"six", 6}, {"seven", 7}, {"eight", 8}, {"nine", 9}};
@@ -348,6 +351,7 @@ TEST(FixErase, Swap) {
   EXPECT_EQ(f_s_tree.empty(), f_o_tree.empty());
   EXPECT_EQ(s_s_tree.size(), s_o_tree.size());
   EXPECT_EQ(s_s_tree.empty(), s_o_tree.empty());
+    // std::cout << "\n" << "f_s_tree.size()=" << f_s_tree.size() << "\n\n";
 
   auto si = f_s_tree.begin();
   auto oi = f_o_tree.begin();
@@ -362,26 +366,29 @@ TEST(FixErase, Swap) {
     EXPECT_EQ((*si).second, (*oi).second);
   }
 
-  f_o_tree.swap(s_o_tree);
   f_s_tree.swap(s_s_tree);
+  f_o_tree.swap(s_o_tree);
 
-  // EXPECT_EQ(f_s_tree.size(), f_o_tree.size());
-  // EXPECT_EQ(f_s_tree.empty(), f_o_tree.empty());
-  // EXPECT_EQ(s_s_tree.size(), s_o_tree.size());
-  // EXPECT_EQ(s_s_tree.empty(), s_o_tree.empty());
+  EXPECT_EQ(f_s_tree.size(), f_o_tree.size());
+  EXPECT_EQ(f_s_tree.empty(), f_o_tree.empty());
+  EXPECT_EQ(s_s_tree.size(), s_o_tree.size());
+  EXPECT_EQ(s_s_tree.empty(), s_o_tree.empty());
+    // std::cout << "\n" << "f_s_tree.size()=" << f_s_tree.size() << "\n\n";
+    // std::cout << "\n" << "s_s_tree.size()=" << s_s_tree.size() << "\n\n";
 
-  // si = f_s_tree.begin();
-  // oi = f_o_tree.begin();
-  // for (; si != f_s_tree.end() && oi != f_o_tree.end(); ++si, ++oi) {
-  //   EXPECT_EQ((*si).first, (*oi).first);
-  //   EXPECT_EQ((*si).second, (*oi).second);
-  // }
-  // si = s_s_tree.begin();
-  // oi = s_o_tree.begin();
-  // for (; si != s_s_tree.end() && oi != s_o_tree.end(); ++si, ++oi) {
-  //   EXPECT_EQ((*si).first, (*oi).first);
-  //   EXPECT_EQ((*si).second, (*oi).second);
-  // }
+
+  si = f_s_tree.begin();
+  oi = f_o_tree.begin();
+  for (; si != f_s_tree.end() && oi != f_o_tree.end(); ++si, ++oi) {
+    EXPECT_EQ((*si).first, (*oi).first);
+    EXPECT_EQ((*si).second, (*oi).second);
+  }
+  si = s_s_tree.begin();
+  oi = s_o_tree.begin();
+  for (; si != s_s_tree.end() && oi != s_o_tree.end(); ++si, ++oi) {
+    EXPECT_EQ((*si).first, (*oi).first);
+    EXPECT_EQ((*si).second, (*oi).second);
+  }
 }
 
 TEST(FixErase, Merge) {

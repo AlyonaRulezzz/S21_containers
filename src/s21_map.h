@@ -43,7 +43,8 @@ Map(std::initializer_list<value_type> const &items) : Tree<Key, T>(items){}
 //
 
 Map& operator=(const Map &other) {
-    // this->clear();  //NEED TO FIX THIS (FIX ERASE)
+    this->clear();  //NEED TO FIX THIS (FIX ERASE)
+    // std::cout << "\n" << "other.size()=" << other.size() << "\n";
     // for (auto i = other.begin(); i != other.end(); ++i) 
     auto e = other.end(); --e; auto i = other.end();
     do {
@@ -63,7 +64,7 @@ Map(Map &&m) {
 }
 
 Map<Key, T> &operator=(Map &&m) {
-  // this->clear();  //  Does clear really need hear???   NEED TO FIX THIS (FIX ERASE)
+  this->clear();  //  Does clear really need hear???   NEED TO FIX THIS (FIX ERASE)
   this->root_ = m.root_;
   this->end_ = m.end_;
 
@@ -135,33 +136,46 @@ MapIterator<Key, T> end() const noexcept{
 // }
 
 void erase(iterator pos) {
-  auto itb = ++begin();  //  ok
-  auto ite = ----end();  //  ok
   if (this->size() > 1) {
+    auto itb = ++begin();  //  ok
+    auto ite = ----end();  //  ok
+    auto e = --end(); ////////
     if (pos.iter == this->root_) {
       if (this->root_->left) {
         // this->root_->right->color = Red;  /////////////////////// ???????????
-        this->insert_tree(this->root_->left, this->root_->right);
+        if (this->root_->right) {
+          this->insert_tree(this->root_->left, this->root_->right);
+        }
         this->root_ = this->root_->left;
       } else {
         this->root_ = this->root_->right;
       }
       this->root_->parent = nullptr;
       this->root_->color = Black;
+
+      if (pos == begin()) {
+        this->end_->right = itb.iter;
+      }
+      if (pos == e/* --end() */) {
+        this->end_->left = ite.iter;
+      }
+
     } else {
       if (pos == begin()) {
         this->end_->right = itb.iter;
       }
-      if (pos == --end()) {
+      if (pos == e/* --end() */) {
         this->end_->left = ite.iter;
       }
-
-      if (pos.iter->parent->left && pos.iter->parent->left == pos.iter) {
-        pos.iter->parent->left = nullptr;
-      }
-      if (pos.iter->parent->right && pos.iter->parent->right == pos.iter) {
-        pos.iter->parent->right = nullptr;
-      }
+// this->print();
+      // if (pos.iter->parent) {
+        if (pos.iter->parent->left && pos.iter->parent->left == pos.iter) {
+          pos.iter->parent->left = nullptr;
+        }
+        if (pos.iter->parent->right && pos.iter->parent->right == pos.iter) {
+          pos.iter->parent->right = nullptr;
+        }
+      // }
 
       if (pos.iter->left) {
         this->insert_tree(this->root_, pos.iter->left);
@@ -170,39 +184,86 @@ void erase(iterator pos) {
         this->insert_tree(this->root_, pos.iter->right);
       }
     }
-  }
 
-  if (pos.iter) {
-    delete pos.iter;
+    if (pos.iter) {
+      delete pos.iter;
+    }
+    pos.iter = nullptr;
+// this->print();
+
+    // if (pos.iter->left) {
+    //   pos.iter->left = nullptr;
+    // }
+    // if (pos.iter->right) {
+    //   pos.iter->right = nullptr;;
+    // }
+
+  } else if (this->size() == 1) {
+    delete this->root_;
+    this->root_ = nullptr;
+    delete this->end_;
+    this->end_ = nullptr;
+
+    //     if (pos.iter->left) {
+    //   pos.iter->left = nullptr;
+    // }
+    // if (pos.iter->right) {
+    //   pos.iter->right = nullptr;;
+    // }
   }
-  pos.iter = nullptr;
+// this->print();
+// std::cout << this->size();
+
 }
 
 void clear() {
-  auto i = begin();  //////
+  if (!this->empty()) {
+    if (this->size() > 1) {    
+      auto i = begin();  //////
+      auto e = end(); --e;  //////
 
-  // for (auto i = begin(); i != end(); ++i) {
-  // auto e = end(); ----e; auto i = end(); ++i;
-  // auto e = end(); --e; auto i = end();
-  do {        std::cout << "\n" <<std::endl;
-    // ++i;
-    i = begin();  //////
-    std::cout << (*i).first << "\n" <<std::endl;
-    std::cout << "before erase";
-    this->print(); 
-    std::cout << "\n" <<std::endl;
-    erase(i);
-    std::cout << "after erase";
-    this->print();
-    std::cout << "\n" <<std::endl;
-    std::cout << "-------------------------\n";
-  }
-  // while (i != e);
-  while (begin() != nullptr);
-  if (this->root_) {delete this->root_;}
-  if (this->end_) {delete this->end_;}
-  this->root_ = nullptr;
-  this->end_ = nullptr;
+      // for (auto i = begin(); i != end(); ++i) {
+      // auto e = end(); ----e; auto i = end(); ++i;
+      // auto e = end(); --e; auto i = end();
+      do {        
+        // std::cout << "\n" <<std::endl;
+        // ++i;
+        i = begin();  //////
+        // std::cout << (*i).first << "\n" <<std::endl;
+        // std::cout << "before erase";
+        // this->print(); 
+        // std::cout << "\n" <<std::endl;
+        erase(i);
+        // std::cout << this->size();
+        // this->print();
+        // std::cout << "after erase";
+        // this->print();
+        // std::cout << "\n" <<std::endl;
+        // std::cout << "-------------------------\n";
+      }
+      // while (i != e);
+      // while (begin() != nullptr);
+      while (begin() != e);
+        // std::cout <<"\n" << "(*begin()).first=" << (begin()).iter << "\n" <<std::endl;
+        // std::cout << "(*e).first=" << (e).iter << "\n" <<std::endl;
+    }
+    // if (this->size() > 1) {    
+    delete this->root_;
+    delete this->end_;
+    this->root_ = nullptr;
+    this->end_ = nullptr;
+        // this->print();
+        // std::cout << this->size();
+    // }
+  } 
+  // else if (this->size() == 1) {
+    // erase(this->root_);
+  // }
+
+    // std::cout << "after erase";
+    // this->print();
+    // std::cout << "\n" <<std::endl;
+    // std::cout << "-------------------------\n";
 }
 
 std::pair<iterator, bool> insert(const value_type &value) {
@@ -361,9 +422,14 @@ T& operator[](const Key& key) { //   need to fix (add & to the element)
 }
 
 void swap(Map& other) {
-  Map<Key, T>* tmp = this;
-  *this = other;
-  other = *tmp;
+  // Map<Key, T> tmp = *this;
+  //   std::cout << "\n" << "tmp.size()=" << (*tmp).size() << "\n\n";
+  // *this = other;
+  //   std::cout << "\n" << "tmp.size()=" << (*tmp).size() << "\n\n";
+  // other = *tmp;
+
+  std::swap(this->root_, other.root_);
+  std::swap(this->end_, other.end_);
 }
 
 void merge(Map& other) {
