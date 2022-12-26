@@ -392,22 +392,34 @@ TEST(FixErase, Swap) {
 }
 
 TEST(YFixErase, Merge) {
-  s21::Map<int, std::string> ma {{1, "apple"}, {5, "pear"}, {10, "banana"}};
-  s21::Map<int, std::string> mb {{2, "zorro"}, {4, "batman"}, {5, "X"}, {8, "alpaca"}};
-  s21::Map<int, std::string> u;
-  u.merge(ma);
-  std::cout << "ma.size(): " << ma.size() << '\n';
-  u.merge(mb);
-  std::cout << "mb.size(): " << mb.size() << '\n';
-  std::cout << "mb.at(5): " << mb.at(5) << '\n';
-  
-  auto e = u.end(); --e; auto i = u.end();
-  do {
-    ++i;
-    std::cout << i.iter->values.first << ", " << i.iter->values.second << '\n';
-  }
-  while (i != e);
+  s21::Map<int, std::string> m1a {{1, "apple"}, {5, "pear"}, {10, "banana"}};
+  s21::Map<int, std::string> m1b {{2, "zorro"}, {4, "batman"}, {5, "X"}, {8, "alpaca"}};
+  s21::Map<int, std::string> u1;
 
+  std::map<int, std::string> m2a {{1, "apple"}, {5, "pear"}, {10, "banana"}};
+  std::map<int, std::string> m2b {{2, "zorro"}, {4, "batman"}, {5, "X"}, {8, "alpaca"}};
+  std::map<int, std::string> u2;
+  u1.merge(m1a);
+  u2.merge(m2a);
+
+  // std::cout << "ma1.size(): " << m1a.size() << '\n';
+  // u1.merge(m1b);
+  // std::cout << "mb1.size(): " << m1b.size() << '\n';
+  // std::cout << "mb1.at(5): " << m1b.at(5) << '\n';
+  
+  // auto e1 = u1.end(); --e1; auto i1 = u1.end();
+  // do {
+  //   ++i1;
+  //   std::cout << i.iter->values.first << ", " << i.iter->values.second << '\n';
+  // }
+  // while (i1 != e1);
+
+  auto i1 = u1.begin();
+  auto i2 = u2.begin();
+  for (; i1 != u1.end() && i2 != u2.end(); ++i1, ++i2) {
+    EXPECT_EQ((*i1).first, (*i2).first);
+    EXPECT_EQ((*i1).second, (*i2).second);
+  }
 
   s21::Map<std::string, int> f_s_tree = {
       {"zero", 0}, {"one", 1}, {"two", 2},   {"three", 3}, {"four", 4},
