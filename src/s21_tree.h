@@ -139,6 +139,10 @@ public:
     return size;
   }
 
+  // size_type max_size() const noexcept {
+  //   std::allocator<value_type> Alloc;
+  //   return Alloc.max_size();
+  // }
 
 
   //  dop function

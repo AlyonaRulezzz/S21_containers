@@ -8,7 +8,7 @@
 #include "../s21_map.h"
 #include "../iterators/map_iterator.h"
 
-TEST(Constructor, Default) {
+TEST(MapConstructor, Default) {
   s21::Map<std::string, int> s;
   std::map<std::string, int> b;
 
@@ -16,7 +16,7 @@ TEST(Constructor, Default) {
   EXPECT_EQ(s.empty(), b.empty());
 }
 
-TEST(Map_iterator, initializer_list_operator_dereferencing_plusplus_minusminus_begin_end) {
+TEST(MapIterator, initializer_list_operator_dereferencing_plusplus_minusminus_begin_end) {
   s21::Map<int, std::string> s = {
       {10, "ten"},   {20, "twenty"}, {30, "thirty"}, {40, "fourty"},
       {50, "fifty"}, {60, "sixty"},  {70, "seventy"}};
@@ -391,7 +391,7 @@ TEST(FixErase, Swap) {
   }
 }
 
-TEST(YFixErase, Merge) {
+TEST(FixErase, Merge) {
   s21::Map<int, std::string> m1a {{1, "apple"}, {5, "pear"}, {10, "banana"}};
   s21::Map<int, std::string> m1b {{2, "zorro"}, {4, "batman"}, {5, "X"}, {8, "alpaca"}};
   s21::Map<int, std::string> u1;
@@ -476,6 +476,75 @@ TEST(YFixErase, Merge) {
     EXPECT_EQ((*si).second, (*oi).second);
   }
 }
+
+TEST(YMapCapacity, Max_size) {
+  s21::Map<std::string, int> s = {
+      {"ten", 10},   {"twenty", 20}, {"thirty", 30}, {"fourty", 40},
+      {"fifty", 50}, {"sixty", 60},  {"seventy", 70}};
+  std::map<std::string, int> b = {
+      {"ten", 10},   {"twenty", 20}, {"thirty", 30}, {"fourty", 40},
+      {"fifty", 50}, {"sixty", 60},  {"seventy", 70}};
+
+  // s21::Map<int, int> s = {
+  //   {10, 1},   {20, 2}, {30, 3}, {40, 4},
+  //   {50, 5}, {60, 6},  {70, 7}};
+
+  // std::map<int, int> b = {
+  //   {10, 1},   {20, 2}, {30, 3}, {40, 4},
+  //   {50, 5}, {60, 6},  {70, 7}};
+
+  EXPECT_EQ(s.max_size(), b.max_size());
+}
+
+TEST(MapModifiers, Emplace) {
+  s21::Map<std::string, int> s_tree = {
+      {"zero", 0}, {"one", 1}, {"two", 2},   {"three", 3}, {"four", 4},
+      {"five", 5}, {"six", 6}, {"seven", 7}, {"eight", 8}, {"nine", 9}};
+
+  std::map<std::string, int> o_tree = {
+      {"zero", 0}, {"one", 1}, {"two", 2},   {"three", 3}, {"four", 4},
+      {"five", 5}, {"six", 6}, {"seven", 7}, {"eight", 8}, {"nine", 9}};
+
+  EXPECT_EQ(s_tree.size(), o_tree.size());
+  EXPECT_EQ(s_tree.empty(), o_tree.empty());
+
+  auto v = s_tree.emplace(std::pair<std::string, int>{"eleven", 11},
+                          std::pair<std::string, int>{"twelve", 12},
+                          std::pair<std::string, int>{"nine", 13},
+                          std::pair<std::string, int>{"thirteen", 13});
+
+  auto p1 = o_tree.emplace("eleven", 11);
+  auto p2 = o_tree.emplace("twelve", 12);
+  auto p3 = o_tree.emplace("nine", 13);
+  auto p4 = o_tree.emplace("thirteen", 13);
+
+  EXPECT_EQ((*(v[0].first)).first, (*(p1.first)).first);
+  EXPECT_EQ((*(v[0].first)).second, (*(p1.first)).second);
+  EXPECT_EQ(v[0].second, p1.second);
+
+  EXPECT_EQ((*(v[1].first)).first, (*(p2.first)).first);
+  EXPECT_EQ((*(v[1].first)).second, (*(p2.first)).second);
+  EXPECT_EQ(v[1].second, p2.second);
+
+  EXPECT_EQ((*(v[2].first)).first, (*(p3.first)).first);
+  EXPECT_EQ((*(v[2].first)).second, (*(p3.first)).second);
+  EXPECT_EQ(v[2].second, p3.second);
+
+  EXPECT_EQ((*(v[3].first)).first, (*(p4.first)).first);
+  EXPECT_EQ((*(v[3].first)).second, (*(p4.first)).second);
+  EXPECT_EQ(v[3].second, p4.second);
+
+  EXPECT_EQ(s_tree.size(), o_tree.size());
+  EXPECT_EQ(s_tree.empty(), o_tree.empty());
+
+  auto si = s_tree.begin();
+  auto oi = o_tree.begin();
+  for (; si != s_tree.end() && oi != o_tree.end(); ++si, ++oi) {
+    EXPECT_EQ((*si).first, (*oi).first);
+    EXPECT_EQ((*si).second, (*oi).second);
+  }
+}
+
 
 
 int main(int argc, char **argv) {

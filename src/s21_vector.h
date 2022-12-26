@@ -120,10 +120,10 @@ class Vector {
 
   size_type size() const noexcept { return size_; }
 
-  size_type max_size() const noexcept {
-    std::allocator<value_type> Alloc;
-    return Alloc.max_size();
-  }
+  // size_type max_size() const noexcept {
+  //   std::allocator<value_type> Alloc;
+  //   return Alloc.max_size();
+  // }
 
   void reserve(size_type new_capacity) {
     if (new_capacity > max_size()) {

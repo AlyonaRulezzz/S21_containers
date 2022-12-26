@@ -74,6 +74,18 @@ Map<Key, T> &operator=(Map &&m) {
 }
 //
 
+~Map() {
+  clear();
+
+}
+
+
+// capacity
+size_type max_size() const noexcept {
+  std::allocator<std::pair<Key, T>> Alloc;
+  // std::allocator<value_type> Alloc;
+  return Alloc.max_size() / 9 * 5;
+}
 
 
 //  iterators
@@ -134,6 +146,8 @@ MapIterator<Key, T> end() const noexcept{
 //   }
 //   pos.iter = nullptr;
 // }
+
+
 
 void erase(iterator pos) {
   if (this->size() > 1) {
@@ -456,6 +470,15 @@ bool contains(const Key& key) {
   }
   while (i != e);
   return false;
+}
+
+template <typename... Args>
+std::vector<std::pair<iterator,bool>> emplace(Args&&... args) {
+  std::vector<std::pair<iterator, bool>> out;
+  for (auto &i:{args...}) {
+    out.push_back(insert(i));
+  }
+  return out;
 }
 
 
