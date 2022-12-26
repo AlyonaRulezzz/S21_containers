@@ -431,6 +431,8 @@ void merge(Map& other) {
       other.erase(i);  //NEED TO FIX ERASE
       i = other.begin();
       // std::cout << "\n\t" << (*i).first;
+    } else {
+      ++i;
     }
   }
   while (i != e);

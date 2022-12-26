@@ -392,21 +392,21 @@ TEST(FixErase, Swap) {
 }
 
 TEST(YFixErase, Merge) {
-  // s21::Map<int, std::string> ma {{1, "apple"}, {5, "pear"}, {10, "banana"}};
-  // s21::Map<int, std::string> mb {{2, "zorro"}, {4, "batman"}, {5, "X"}, {8, "alpaca"}};
-  // s21::Map<int, std::string> u;
-  // u.merge(ma);
-  // std::cout << "ma.size(): " << ma.size() << '\n';
-  // u.merge(mb);
-  // std::cout << "mb.size(): " << mb.size() << '\n';
-  // std::cout << "mb.at(5): " << mb.at(5) << '\n';
+  s21::Map<int, std::string> ma {{1, "apple"}, {5, "pear"}, {10, "banana"}};
+  s21::Map<int, std::string> mb {{2, "zorro"}, {4, "batman"}, {5, "X"}, {8, "alpaca"}};
+  s21::Map<int, std::string> u;
+  u.merge(ma);
+  std::cout << "ma.size(): " << ma.size() << '\n';
+  u.merge(mb);
+  std::cout << "mb.size(): " << mb.size() << '\n';
+  std::cout << "mb.at(5): " << mb.at(5) << '\n';
   
-  // auto e = u.end(); --e; auto i = u.end();
-  // do {
-  //   ++i;
-  //   std::cout << i.iter->values.first << ", " << i.iter->values.second << '\n';
-  // }
-  // while (i != e);
+  auto e = u.end(); --e; auto i = u.end();
+  do {
+    ++i;
+    std::cout << i.iter->values.first << ", " << i.iter->values.second << '\n';
+  }
+  while (i != e);
 
 
   s21::Map<std::string, int> f_s_tree = {
