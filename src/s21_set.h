@@ -1,9 +1,9 @@
-#ifndef S21_MAP_H_
-#define S21_MAP_H_
+#ifndef S21_SET_H_
+#define S21_SET_H_
 
 #include "s21_tree.h"
 #include "iterators/tree_iterator.h"
-#include "iterators/map_iterator.h"
+#include "iterators/set_iterator.h"
 
 #include <initializer_list>
 #include <stdexcept>
@@ -13,27 +13,34 @@
 using std::out_of_range;
 
 namespace s21 {
-template <typename Key, typename T>
-class Map : public Tree<Key, T> {
+template <typename Key, typename T = int>
+class Set : public Tree<Key, T> {
  public:
   using key_type = Key;
-  using mapped_type = T;
-  using value_type = std::pair<const key_type, mapped_type>;
+  using value_type = Key;
   using reference = value_type &;
   using const_reference = const value_type &;
-  using iterator = MapIterator<Key, T>;
+  using iterator = SetIterator<Key, T>;
   using size_type = size_t;
 
-//  Map Member functions
-Map() : Tree<Key, T>() {}
+//  Set Member functions
+Set() : Tree<Key, T>() {}
 
-Map(std::initializer_list<value_type> const &items) : Tree<Key, T>(items){}
+// Set(std::initializer_list<value_type> const &items) : Tree<Key, T>(items){}
+Set(std::initializer_list<Key> const& items) {
+  this->root_ = nullptr;
+  this->end_ = nullptr;
+  //  it's STD INIT LIST begin & end
+  for (auto i = items.begin(); i != items.end(); ++i) {
+    this->insert_tree(*i);
+  }
+}
 
-Map(const Map &other) {
+Set(const Set &other) {
   *this = other;
 }
 
-Map& operator=(const Map &other) {
+Set& operator=(const Set &other) {
     this->clear();
     auto e = other.end(); --e; auto i = other.end();
     do {
@@ -44,11 +51,11 @@ Map& operator=(const Map &other) {
       return *this;
   }
 
-Map(Map &&m) {
+Set(Set &&m) {
   *this = std::move(m);
 }
 
-Map<Key, T> &operator=(Map &&m) {
+Set<Key, T> &operator=(Set &&m) {
   this->clear();
   this->root_ = m.root_;
   this->end_ = m.end_;
@@ -58,37 +65,37 @@ Map<Key, T> &operator=(Map &&m) {
   return *this;
 }
 
-~Map() {
+~Set() {
   clear();
 }
 
 
-//  element access
-T& at(const Key& key) {
-  if (search(key) == nullptr) {
-    throw std::out_of_range("No elements with such key");
-  }
-  return search(key)->values.second;
-}
+// //  element access
+// T& at(const Key& key) {
+//   if (search(key) == nullptr) {
+//     throw std::out_of_range("No elements with such key");
+//   }
+//   return search(key)->values.second;
+// }
 
 
- T& operator[](const Key& key) {
-  if (search(key) == nullptr) {
-    return (*(insert({key, T()}).first)).second;
-  } else {
-    return search(key)->values.second;
-  }
-}
+//  T& operator[](const Key& key) {
+//   if (search(key) == nullptr) {
+//     return (*(insert({key, T()}).first)).second;
+//   } else {
+//     return search(key)->values.second;
+//   }
+// }
 
 
 //  iterators
-MapIterator<Key, T> begin() const noexcept {
-  MapIterator<Key, T> iterator(this->end_->right);
+SetIterator<Key, T> begin() const noexcept {
+  SetIterator<Key, T> iterator(this->end_->right);
   return iterator;
 }
 
-MapIterator<Key, T> end() const noexcept{
-  MapIterator<Key, T> iterator(this->end_);
+SetIterator<Key, T> end() const noexcept{
+  SetIterator<Key, T> iterator(this->end_);
   return iterator;
 }
 
@@ -96,7 +103,7 @@ MapIterator<Key, T> end() const noexcept{
 // capacity
 size_type max_size() const noexcept {
   std::allocator<std::pair<Key, T>> Alloc;
-  return Alloc.max_size() / 9 * 5;
+  return Alloc.max_size() / 8 * 5 + 1;
 }
 
 
@@ -181,38 +188,17 @@ void clear() {
 }
 
 
-std::pair<iterator, bool> insert(const value_type &value) {
+std::pair<iterator, bool> insert(const Key &value) {
   bool insertion = false;
-  if (search(value.first) == nullptr) {
+  if (search(value) == nullptr) {
     this->insert_tree(value);
     insertion = true;
   }
-  return std::make_pair(iterator(search(value.first)), insertion);
+  return std::make_pair(iterator(search(value)), insertion);
 }
 
 
-std::pair<iterator, bool> insert(const Key& key, const T& obj) {
-  std::pair<Key, T> value = {key, obj};
-  return insert(value);
-}
-
-
-std::pair<iterator, bool> insert_or_assign(const Key& key, const T& obj) {
-  std::pair<Key, T> value = {key, obj};
-  bool insertion = false;
-
-  if (search(value.first) == nullptr) {
-    this->insert_tree(value);
-    insertion = true;
-  } else {
-    (search(value.first))->values.second = value.second;
-  }
-
-  return std::make_pair(iterator(search(value.first)), insertion);
-}
-
-
-void swap(Map& other) {
+void swap(Set& other) {
   // Map<Key, T> tmp = *this;
   //   std::cout << "\n" << "tmp.size()=" << (*tmp).size() << "\n\n";
   // *this = other;
@@ -225,11 +211,11 @@ void swap(Map& other) {
 
 
 
-void merge(Map& other) {
+void merge(Set& other) {
   auto e = other.end(); --e; auto i = other.end();
     ++i;
   do {
-    if ((insert((*i).first, (*i).second)).second == true) {
+    if ((insert(*i)).second == true) {
       other.erase(i);
       i = other.begin();
     } else {
@@ -238,7 +224,7 @@ void merge(Map& other) {
   }
   while (i != e);
 
-  if ((insert((*i).first, (*i).second)).second == true) {
+  if ((insert(*i)).second == true) {
     other.erase(i);
   }
 }
@@ -246,20 +232,25 @@ void merge(Map& other) {
 
 
 //  lookup
+iterator find(const Key& key) {
+  return iterator(this->search_tree(this->root_, key));
+}
+
+
 bool contains(const Key& key) {
   return this->contains_tree(this->root_, key);
 }
 
 
-// bonus
-template <typename... Args>
-std::vector<std::pair<iterator,bool>> emplace(Args&&... args) {
-  std::vector<std::pair<iterator, bool>> out;
-  for (auto &i:{args...}) {
-    out.push_back(insert(i));
-  }
-  return out;
-}
+// // bonus
+// template <typename... Args>
+// std::vector<std::pair<iterator,bool>> emplace(Args&&... args) {
+//   std::vector<std::pair<iterator, bool>> out;
+//   for (auto &i:{args...}) {
+//     out.push_back(insert(i));
+//   }
+//   return out;
+// }
 
 
 // dop
@@ -272,4 +263,4 @@ tree_el_<Key, T>*  search(const Key& key) {
 };
 }  // namespace s21
 
-#endif  // S21_MAP_H_
+#endif  // S21_SET_H_

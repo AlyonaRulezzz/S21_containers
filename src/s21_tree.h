@@ -117,6 +117,30 @@ void insert_tree(const std::pair<Key, T> val) {
   }
   root_->color = Black;
 }
+// for Set
+void insert_tree(const Key k) {
+  std::pair<Key, T> val = {k, 0};
+  tree_el_<Key, T>* new_node = new tree_el_<Key, T>(val, Red, nullptr, nullptr, nullptr);
+
+  if (empty()) {
+    root_ = new_node;
+    if (end_ == nullptr) {
+      end_ = new tree_el_<Key, T>(val, Red, nullptr, new_node, new_node);
+    }
+  } else {
+    insert_tree(root_, new_node);
+
+    if (new_node->values.first > end_->left->values.first) {
+      end_->left = new_node;
+    }
+    if (new_node->values.first < end_->right->values.first) {
+      end_->right = new_node;
+    }
+
+  }
+  root_->color = Black;
+}
+//
 
 void balance(tree_el_<Key, T>* new_node) {
   if (new_node) {  

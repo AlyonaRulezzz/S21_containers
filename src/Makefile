@@ -10,18 +10,19 @@ FLAGS = -Wall -Werror -Wextra -lstdc++ -std=c++17 -lgtest -Wno-unused -g
 
 VECTOR = tests/vector_tests.cc
 MAP = tests/map_tests.cc
+SET = tests/set_tests.cc
 
 # HEADER = s21_containers.h
 
 # 
-CONTAINERS = $(VECTOR) $(MAP)
+CONTAINERS = $(VECTOR) $(MAP) $(SET)
 
 all: test
 
 re: clean test
 
 # 
-test: vector_test map_test
+test: vector_test map_test set_test
 
 vector_test: vector_test.o
 	$(CC) $(FLAGS) vector_test.o -o test_vector
@@ -37,7 +38,12 @@ map_test: map_test.o
 map_test.o:
 	$(CC) $(FLAGS) -c $(MAP) -o map_test.o
 
+set_test: set_test.o
+	$(CC) $(FLAGS) set_test.o -o test_set
+	./test_set --gtest_brief=1
 
+set_test.o:
+	$(CC) $(FLAGS) -c $(SET) -o set_test.o
 
 gcov_report: gcov_test.info
 	@genhtml -o report/ gcov_test.info
@@ -67,4 +73,6 @@ style:
 
 leak:
 	# CK_FORK=no leaks -atExit -- ./test_vector
-	CK_FORK=no leaks -atExit -- ./test_map
+	# CK_FORK=no leaks -atExit -- ./test_map
+	CK_FORK=no leaks -atExit -- ./test_set
+

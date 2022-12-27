@@ -166,7 +166,7 @@ TEST(MapElementAccess, At) {
   EXPECT_EQ(8, m1.at("eight"));
   EXPECT_EQ(9, m1.at("nine"));
 
-  // EXPECT_ANY_THROW(m1.at("SSD"));
+  EXPECT_ANY_THROW(m1.at("SSD"));
 
 }
 
