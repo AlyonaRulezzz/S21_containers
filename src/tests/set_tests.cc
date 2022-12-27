@@ -376,54 +376,49 @@ TEST(YSetCapacity, Max_size) {
   EXPECT_EQ(s.max_size(), b.max_size());
 }
 
-// TEST(SetModifiers, Emplace) {
-//   s21::Set<std::string> s_tree = {
-//       {"zero", 0}, {"one", 1}, {"two", 2},   {"three", 3}, {"four", 4},
-//       {"five", 5}, {"six", 6}, {"seven", 7}, {"eight", 8}, {"nine", 9}};
+TEST(SetModifiers, Emplace) {
+  s21::Set<std::string> s_tree = {
+      {"zero"}, {"one"}, {"two"},   {"three"}, {"four"},
+      {"five"}, {"six"}, {"seven"}, {"eight"}, {"nine"}};
 
-//   std::set<std::string> o_tree = {
-//       {"zero", 0}, {"one", 1}, {"two", 2},   {"three", 3}, {"four", 4},
-//       {"five", 5}, {"six", 6}, {"seven", 7}, {"eight", 8}, {"nine", 9}};
+  std::set<std::string> o_tree = {
+      {"zero"}, {"one"}, {"two"},   {"three"}, {"four"},
+      {"five"}, {"six"}, {"seven"}, {"eight"}, {"nine"}};
 
-//   EXPECT_EQ(s_tree.size(), o_tree.size());
-//   EXPECT_EQ(s_tree.empty(), o_tree.empty());
+  EXPECT_EQ(s_tree.size(), o_tree.size());
+  EXPECT_EQ(s_tree.empty(), o_tree.empty());
 
-//   auto v = s_tree.emplace(std::pair<std::string>{"eleven", 11},
-//                           std::pair<std::string>{"twelve", 12},
-//                           std::pair<std::string>{"nine", 13},
-//                           std::pair<std::string>{"thirteen", 13});
+  auto v = s_tree.emplace("eleven",
+                          "twelve",
+                          "nine",
+                          "thirteen");
 
-//   auto p1 = o_tree.emplace("eleven", 11);
-//   auto p2 = o_tree.emplace("twelve", 12);
-//   auto p3 = o_tree.emplace("nine", 13);
-//   auto p4 = o_tree.emplace("thirteen", 13);
+  auto p0 = o_tree.emplace("eleven");
+  auto p1 = o_tree.emplace("twelve");
+  auto p2 = o_tree.emplace("nine");
+  auto p3 = o_tree.emplace("thirteen");
 
-//   EXPECT_EQ((*(v[0].first)).first, (*(p1.first)).first);
-//   EXPECT_EQ((*(v[0].first)).second, (*(p1.first)).second);
-//   EXPECT_EQ(v[0].second, p1.second);
+  EXPECT_EQ((*(v[0].first)), (*(p0.first)));
+  EXPECT_EQ(v[0].second, p0.second);
 
-//   EXPECT_EQ((*(v[1].first)).first, (*(p2.first)).first);
-//   EXPECT_EQ((*(v[1].first)).second, (*(p2.first)).second);
-//   EXPECT_EQ(v[1].second, p2.second);
+  EXPECT_EQ((*(v[1].first)), (*(p1.first)));
+  EXPECT_EQ(v[1].second, p1.second);
 
-//   EXPECT_EQ((*(v[2].first)).first, (*(p3.first)).first);
-//   EXPECT_EQ((*(v[2].first)).second, (*(p3.first)).second);
-//   EXPECT_EQ(v[2].second, p3.second);
+  EXPECT_EQ((*(v[2].first)), (*(p2.first)));
+  EXPECT_EQ(v[2].second, p2.second);
 
-//   EXPECT_EQ((*(v[3].first)).first, (*(p4.first)).first);
-//   EXPECT_EQ((*(v[3].first)).second, (*(p4.first)).second);
-//   EXPECT_EQ(v[3].second, p4.second);
+  EXPECT_EQ((*(v[3].first)), (*(p3.first)));
+  EXPECT_EQ(v[3].second, p3.second);
 
-//   EXPECT_EQ(s_tree.size(), o_tree.size());
-//   EXPECT_EQ(s_tree.empty(), o_tree.empty());
+  EXPECT_EQ(s_tree.size(), o_tree.size());
+  EXPECT_EQ(s_tree.empty(), o_tree.empty());
 
-//   auto si = s_tree.begin();
-//   auto oi = o_tree.begin();
-//   for (; si != s_tree.end() && oi != o_tree.end(); ++si, ++oi) {
-//     EXPECT_EQ((*si), (*oi));
-//     EXPECT_EQ((*si).second, (*oi).second);
-//   }
-// }
+  auto si = s_tree.begin();
+  auto oi = o_tree.begin();
+  for (; si != s_tree.end() && oi != o_tree.end(); ++si, ++oi) {
+    EXPECT_EQ((*si), (*oi));
+  }
+}
 
 
 int main(int argc, char **argv) {

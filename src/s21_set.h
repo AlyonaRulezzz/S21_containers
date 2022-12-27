@@ -243,14 +243,14 @@ bool contains(const Key& key) {
 
 
 // // bonus
-// template <typename... Args>
-// std::vector<std::pair<iterator,bool>> emplace(Args&&... args) {
-//   std::vector<std::pair<iterator, bool>> out;
-//   for (auto &i:{args...}) {
-//     out.push_back(insert(i));
-//   }
-//   return out;
-// }
+template <typename... Args>
+std::vector<std::pair<iterator,bool>> emplace(Args&&... args) {
+  std::vector<std::pair<iterator, bool>> out;
+  for (auto &i:{args...}) {
+    out.push_back(insert(i));
+  }
+  return out;
+}
 
 
 // dop
