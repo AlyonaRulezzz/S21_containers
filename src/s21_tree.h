@@ -258,8 +258,6 @@ tree_el_<Key, T>*  search_tree(tree_el_<Key, T>* node, const Key& key) {
   while (node != NULL) {
 
     if (node->values.first == key) {
-      // node = NULL;
-      // break;
       return node;
 
     } else if (key < node->values.first && node->left) {

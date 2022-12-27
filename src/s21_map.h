@@ -64,48 +64,13 @@ Map<Key, T> &operator=(Map &&m) {
 
 
 //  element access
-// T& at(const Key& key) {
-//   T* element_value = nullptr;
-//   int count = 0;
-//   auto e = end(); --e; auto i = end();
-//   do {
-//     ++i;
-//   // std::cout << (*i).first  << std::endl;
-//     if ((*i).first == key) {
-//       element_value = &((*i).second);
-//       count++;
-//       break;
-//     }
-//   }
-//   while (i != e);
-//   if (count == 0) {
-//     throw std::out_of_range("No elements with such key");
-//   }
-//   return *element_value;
-// }
 T& at(const Key& key) {
-  T* element_value = nullptr;
-  int count = 0;
-  auto e = end(); --e; auto i = end();
-  do {
-    ++i;
-  // std::cout << (*i).first  << std::endl;
-    if ((*i).first == key) {
-      element_value = &((*i).second);
-      count++;
-      break;
-    }
-  }
-  while (i != e);
-  if (count == 0) {
+  if (search(key) == nullptr) {
     throw std::out_of_range("No elements with such key");
   }
-  return *element_value;
+  return search(key)->values.second;
 }
 
-tree_el_<Key, T>*  search(const Key& key) {
-  return this->search_tree(this->root_, key);
-}
 
 T& operator[](const Key& key) {
   T* element_value = nullptr;
@@ -348,6 +313,13 @@ std::vector<std::pair<iterator,bool>> emplace(Args&&... args) {
   }
   return out;
 }
+
+
+// dop
+tree_el_<Key, T>*  search(const Key& key) {
+  return this->search_tree(this->root_, key);
+}
+
 
 
 };
