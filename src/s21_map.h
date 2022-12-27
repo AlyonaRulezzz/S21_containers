@@ -64,6 +64,25 @@ Map<Key, T> &operator=(Map &&m) {
 
 
 //  element access
+// T& at(const Key& key) {
+//   T* element_value = nullptr;
+//   int count = 0;
+//   auto e = end(); --e; auto i = end();
+//   do {
+//     ++i;
+//   // std::cout << (*i).first  << std::endl;
+//     if ((*i).first == key) {
+//       element_value = &((*i).second);
+//       count++;
+//       break;
+//     }
+//   }
+//   while (i != e);
+//   if (count == 0) {
+//     throw std::out_of_range("No elements with such key");
+//   }
+//   return *element_value;
+// }
 T& at(const Key& key) {
   T* element_value = nullptr;
   int count = 0;
@@ -82,6 +101,10 @@ T& at(const Key& key) {
     throw std::out_of_range("No elements with such key");
   }
   return *element_value;
+}
+
+tree_el_<Key, T>*  search(const Key& key) {
+  return this->search_tree(this->root_, key);
 }
 
 T& operator[](const Key& key) {
@@ -120,7 +143,6 @@ MapIterator<Key, T> end() const noexcept{
 // capacity
 size_type max_size() const noexcept {
   std::allocator<std::pair<Key, T>> Alloc;
-  // std::allocator<value_type> Alloc;
   return Alloc.max_size() / 9 * 5;
 }
 

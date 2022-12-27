@@ -233,28 +233,47 @@ void print(tree_el_<Key, T>* node)const {
 
 public:
 bool contains_tree(tree_el_<Key, T>* node, const Key& key) {
-  // int equal = 0;
   while (node != NULL) {
 
     if (node->values.first == key) {
-      // equal = 1;
       node = NULL;
       return true;
-    } else if (key < node->values.first && node->left/*  && equal == 0 */) {
+
+    } else if (key < node->values.first && node->left) {
       node = node->left;
-      // contains_tree(node->left, key);
-    } else if (key > node->values.first && node->right/*  && equal == 0 */) {
+
+    } else if (key > node->values.first && node->right) {
       node = node->right;
-      // contains_tree(node->right, key);
+
     } else {
       break;
     }
 
-    // contains_tree(node->left, key);
-    // contains_tree(node->right, key);
+  }
+  return false;
+}
+
+
+tree_el_<Key, T>*  search_tree(tree_el_<Key, T>* node, const Key& key) {
+  while (node != NULL) {
+
+    if (node->values.first == key) {
+      // node = NULL;
+      // break;
+      return node;
+
+    } else if (key < node->values.first && node->left) {
+      node = node->left;
+
+    } else if (key > node->values.first && node->right) {
+      node = node->right;
+
+    } else {
+      break;
+    }
 
   }
-  return /* equal ? true :  */false;
+  return nullptr;
 }
 
 

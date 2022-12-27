@@ -200,6 +200,16 @@ TEST(MapLookup, Contains) {
   EXPECT_EQ(s_tree.contains("seventy"), false);
 }
 
+// TEST(MapDop, Search) {
+//   s21::Map<std::string, int> s_tree = {
+//       {"zero", 0}, {"one", 1}, {"two", 2},   {"three", 3}, {"four", 4},
+//       {"five", 5}, {"six", 6}, {"seven", 7}, {"eight", 8}, {"nine", 9}};
+
+//   EXPECT_EQ(s_tree.contains("zero"), true);
+//   EXPECT_EQ(s_tree.contains("seven"), true);
+//   EXPECT_EQ(s_tree.contains("seventy"), false);
+// }
+
 TEST(MapModifiers, InsertPair) {
   s21::Map<std::string, int> s_tree
   // ;
@@ -534,4 +544,11 @@ TEST(MapModifiers, Emplace) {
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
+
+
+  // s21::Map<std::string, int> m = {
+  //     {"zero", 0}, {"one", 1}, {"two", 2},   {"three", 3}, {"four", 4},
+  //     {"five", 5}, {"six", 6}, {"seven", 7}, {"eight", 8}, {"nine", 9}};
+
+  // std::cout << m.search("ninety");
 }
