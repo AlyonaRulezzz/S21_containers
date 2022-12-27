@@ -8,6 +8,9 @@
 #include "../s21_map.h"
 #include "../iterators/map_iterator.h"
 
+#include <vector>
+#include <iostream>
+
 TEST(MapConstructor, Default) {
   s21::Map<std::string, int> s;
   std::map<std::string, int> b;
@@ -163,7 +166,7 @@ TEST(MapElementAccess, At) {
   EXPECT_EQ(8, m1.at("eight"));
   EXPECT_EQ(9, m1.at("nine"));
 
-  EXPECT_ANY_THROW(m1.at("SSD"));
+  // EXPECT_ANY_THROW(m1.at("SSD"));
 
 }
 
@@ -181,8 +184,8 @@ TEST(MapElementAccess, Brackets) {
   EXPECT_EQ(s_tree.size(), o_tree.size());
   EXPECT_EQ(s_tree.empty(), o_tree.empty());
 
-  s_tree["SSD"] //   need to fix (add & to the element)
-  ;
+  // s_tree["SSD"]
+  // ;
   // = "yyyyy";
   EXPECT_EQ(s_tree["SSD"], o_tree["SSD"]);
 }
@@ -192,6 +195,7 @@ TEST(MapLookup, Contains) {
       {"zero", 0}, {"one", 1}, {"two", 2},   {"three", 3}, {"four", 4},
       {"five", 5}, {"six", 6}, {"seven", 7}, {"eight", 8}, {"nine", 9}};
 
+  EXPECT_EQ(s_tree.contains("zero"), true);
   EXPECT_EQ(s_tree.contains("seven"), true);
   EXPECT_EQ(s_tree.contains("seventy"), false);
 }
@@ -402,18 +406,6 @@ TEST(FixErase, Merge) {
   u1.merge(m1a);
   u2.merge(m2a);
 
-  // std::cout << "ma1.size(): " << m1a.size() << '\n';
-  // u1.merge(m1b);
-  // std::cout << "mb1.size(): " << m1b.size() << '\n';
-  // std::cout << "mb1.at(5): " << m1b.at(5) << '\n';
-  
-  // auto e1 = u1.end(); --e1; auto i1 = u1.end();
-  // do {
-  //   ++i1;
-  //   std::cout << i.iter->values.first << ", " << i.iter->values.second << '\n';
-  // }
-  // while (i1 != e1);
-
   auto i1 = u1.begin();
   auto i2 = u2.begin();
   for (; i1 != u1.end() && i2 != u2.end(); ++i1, ++i2) {
@@ -471,6 +463,7 @@ TEST(FixErase, Merge) {
   }
   // si = s_s_tree.begin(); //  cos now it is empty
   oi = s_o_tree.begin();
+  // std::cout << (*oi).second;
   for (; si != s_s_tree.end() && oi != s_o_tree.end(); ++si, ++oi) {
     EXPECT_EQ((*si).first, (*oi).first);
     EXPECT_EQ((*si).second, (*oi).second);
@@ -484,14 +477,6 @@ TEST(YMapCapacity, Max_size) {
   std::map<std::string, int> b = {
       {"ten", 10},   {"twenty", 20}, {"thirty", 30}, {"fourty", 40},
       {"fifty", 50}, {"sixty", 60},  {"seventy", 70}};
-
-  // s21::Map<int, int> s = {
-  //   {10, 1},   {20, 2}, {30, 3}, {40, 4},
-  //   {50, 5}, {60, 6},  {70, 7}};
-
-  // std::map<int, int> b = {
-  //   {10, 1},   {20, 2}, {30, 3}, {40, 4},
-  //   {50, 5}, {60, 6},  {70, 7}};
 
   EXPECT_EQ(s.max_size(), b.max_size());
 }
@@ -546,143 +531,7 @@ TEST(MapModifiers, Emplace) {
 }
 
 
-
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
-
-  // s21::Map<std::string, int> s_tree
-  // // ;
-  //  = {
-  //     {"zero", 0}, {"one", 1}, {"two", 2},   {"three", 3}, {"four", 4},
-  //     {"five", 5}, {"six", 6}, {"seven", 7}, {"eight", 8}, {"nine", 9}};
-
-  // auto e = s_tree.end(); --e; auto i = s_tree.end();
-  // // do {
-  //   // ++i;
-  //   std::cout << (*e).first <<std::endl;
-  //   s_tree.erase(e);
-    // ++e;
-    // std::cout << (*e).first <<std::endl;
-    // std::cout << (*e).first <<std::endl;
-    // std::cout << (*e).first <<std::endl;
-    // std::cout << (*e).first <<std::endl;
-    // std::cout << (*e).first <<std::endl;
-  // }
-  // while (i != e);
-
-  // s_tree.clear();
-  // s_tree.print();
 }
-
-
-///////////////////////////////
-#include <iostream>
-
-// int main() {
-//   // s21::Map<int, int> m1 = {
-//   //     {10, 1},   {20, 2}, {30, 3}, {40, 4},
-//   //     {50, 5}, {60, 6},  {70, 7}};
-
-//   s21::Map<std::string, int> m1 = {
-//       {"zero", 0}, {"one", 1}, {"two", 2},   {"three", 3}, {"four", 4},
-//       {"five", 5}, {"six", 6}, {"seven", 7}, {"eight", 8}, {"nine", 9}, {"zzz", 10}};
-
-//   std::map<std::string, int> m2 = {
-//         {"zero", 0}, {"one", 1}, {"two", 2},   {"three", 3}, {"four", 4},
-//       {"five", 5}, {"six", 6}, {"seven", 7}, {"eight", 8}, {"nine", 9}, {"zzz", 10}};
-
-// //   std::map<int, int> m2 = {
-// //       {10, 1}
-// // //   };
-// //       ,   {20, 2}, {30, 3}, {40, 4},
-// //       {50, 5}, {60, 6},  {70, 7}};
-// //     // auto iter1 = m1.end();
-// //     auto iter2 = m2.end();
-// //     ----iter2;
-// //     m2.insert_tree({80, 8});
-// // //     // v1.insert_tree(iter1, 11);
-// // //     v2.insert_tree(iter2, 11);
-
-// // //     for (size_t i = 0; i < v2.size(); ++i) {
-// // //       EXPECT_EQ(v2.at(i), v2.at(i));
-// // //       std::cout << v2.at(i) << std::endl;
-// // //   }
-
-// // //     iter1 = v1.begin();
-// // //     iter2 = v2.begin();
-// // //     // v1.insert_tree(iter1 + 5, 11);
-// // //     v2.insert_tree(iter2 + 5, 1001);
-
-// // //   for (size_t i = 0; i < v2.size(); ++i) {
-// // //     EXPECT_EQ(v2.at(i), v2.at(i));
-// // //     std::cout << v2.at(i) << std::endl;
-// // //   }
-
-//   // for (auto iter1 = m1.begin(); iter1 != m1.end(); ++iter1) {
-//     auto iter1 = ++++++++++++++++++++m1.begin();
-//     // auto iter1 = --------m1.end();
-
-//   std::cout << iter1.iter->values.first << ' ' << iter1.iter->values.second << std::endl;
-//   // }
-//   std::cout << '\n' << std::endl;
-//   for (auto iter2 = m2.begin(); iter2 != m2.end(); ++iter2) {
-//     // EXPECT_EQ(m1.at(i), m2.at(i));
-//   std::cout << iter2->first << ' ' << iter2->second << std::endl;
-//   }
-
-// // s21::Tree<int, int> t1;
-// // t1.print();
-
-// // s21::Map<int, int> m1;
-// // m1.insert_tree({24, 1});
-// // m1.insert_tree({5, 2});
-// // m1.insert_tree({1, 2});
-// // m1.insert_tree({15, 2});
-// // m1.insert_tree({3, 2});
-// // m1.insert_tree({8, 2});
-// // // m1.insert_tree({11, 2});
-// // m1.print();
-// // // auto iter1 = --(++++m1.begin());
-// // auto iter1 = m1.begin();
-// // auto iter2 = m1.end();
-
-// // --iter2;
-
-// // std::cout << iter1.iter->values.first << std::endl;
-// // std::cout << iter2.iter->values.first << std::endl;
-
-// // m1.erase(iter1);
-// // iter1 = m1.begin();
-// // ++++iter1;
-// // m1.erase(iter1);
-// // m1.erase(iter2);
-
-// // std::cout << m1.size() << std::endl;
-
-// // iter1 = m1.begin();  //  change after erase
-// // iter2 = m1.end();
-// // --iter2;
-// // std::cout << iter1.iter->values.first << std::endl;
-// // std::cout << iter2.iter->values.first << std::endl;
-
-// // m1.print();
-
-// // // std::cout << m2.end()._M_node << std::endl;
-// // // std::cout << m2.end()._M_node->_M_left << std::endl;
-// // // std::cout << m2.end()._M_node->_M_right << std::endl;
-// // // std::cout << m2.end()._M_node->_M_parent << std::endl;
-// // // std::cout << (--m2.end())._M_node << std::endl;
-// // std::cout << m2.begin()._M_node << std::endl;
-// // std::cout << (m2.end())._M_node->_M_left << std::endl;
-
-// // std::cout << (--m2.end())._M_node << std::endl;
-// // std::cout << (m2.end())._M_node->_M_right << std::endl;
-// // // std::cout << (--m2.end())._M_node->_M_parent << std::endl;
-// // // std::cout << (--m2.end())._M_node->_M_left << std::endl;
-// // // std::cout << (--m2.end())._M_node->_M_right << std::endl;
-
-// // m2.end();
-
-// return 0;
-// }

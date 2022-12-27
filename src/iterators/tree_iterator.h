@@ -54,10 +54,6 @@ class TreeIterator {
       }
       iter = iter->parent->parent;
     }
-    // } else if (iter->parent) {
-    //   iter = iter->parent;
-    // }
-    //
     return *this;
   }
 
@@ -72,15 +68,11 @@ class TreeIterator {
         iter = iter->left;
       }
     } else if (iter->parent && iter == iter->parent->right) {
-      // while (iter->parent && iter->parent->parent && iter->parent == iter->parent->parent->right) {
-      //   iter = iter->parent->parent;
-      // }
       iter = iter->parent;
     } else if (iter->parent && iter == iter->parent->left) {
       while (iter->parent && iter->parent->parent && iter->parent == iter->parent->parent->right) {
         iter = iter->parent->parent;
       }
-      // iter = iter->parent;
     }
     return *this;
   }

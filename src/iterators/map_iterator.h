@@ -21,10 +21,8 @@ class MapIterator : public TreeIterator<Key, T> {
 
   // iterator's constructor
   MapIterator() : TreeIterator<Key, T>() {}
-  // { this->iter = nullptr; }
 
   MapIterator(tree_el_<Key, T>* cur_iter) : TreeIterator<Key, T>(cur_iter) {}
-  // { this->iter = cur_iter; }
 
 
 };

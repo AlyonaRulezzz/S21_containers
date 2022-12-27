@@ -41,7 +41,7 @@ protected:
 public:
   using size_type = size_t;
   using iterator = TreeIterator<Key, T>;
-  // void print();
+
   // constructor
   Tree() : root_(nullptr), end_(nullptr) {
   }
@@ -55,79 +55,6 @@ public:
     }
   }
 
-  // Tree &operator=(const Tree &other) {
-  //   this->clear();
-  //   // for (auto i = other.begin(); i != other.end(); ++i) 
-  //   auto e = other.end(); --e; auto i = other.end();
-  //   do {
-  //     ++i;
-  //     insert_tree(*i);
-  //   }
-  //   while (i != e);
-  //     return *this;
-  // }
-
-  // Tree(const Tree &other) {
-  //   // *this = other;
-  // }
-
-// void swap(Tree& other) {
-//   Tree<Key, T>* tmp = this;
-//   *this = other;
-//   other = *tmp;
-// }
-
-// void erase(iterator pos) {
-//   if (size() > 1) {
-//     if (pos.iter == root_) {
-//       if (root_->left) {
-//         insert_tree(root_->left, root_->right);
-//         root_ = root_->left;
-//       } else {
-//         root_ = root_->right;
-//       }
-//       root_->parent = nullptr;
-//       root_->color = Black;
-//     } else {
-//       if (pos.iter == begin()) {
-//         end_->right = ++begin();
-//       }
-//       // if (pos == end()) {
-//       //   end_->left = --end();
-//       // }
-
-//       if (pos.iter->parent->left == pos.iter) {
-//         pos.iter->parent->left = nullptr;
-//       }
-//       if (pos.iter->parent->right == pos.iter) {
-//         pos.iter->parent->right = nullptr;
-//       }
-
-//       if (pos.iter->left) {
-//         insert_tree(root_, pos.iter->left);
-//       }
-//       if (pos.iter->right) {
-//         insert_tree(root_, pos.iter->right);
-//       }
-//     }
-//   }
-
-//   delete pos.iter;
-//   pos.iter = nullptr;
-// }
-
-
-
-  //   //  iterators
-  // TreeIterator<Key, T> begin() const noexcept {
-  //   TreeIterator<Key, T> iterator(this->end_->right);
-  //   return iterator;
-  // }
-
-  // TreeIterator<Key, T> end() const noexcept{
-  //   TreeIterator<Key, T> iterator(this->end_);
-  //   return iterator;
-  // }
 
   //  tree capacity
   bool empty()  const noexcept {
@@ -139,11 +66,6 @@ public:
     return size;
   }
 
-  // size_type max_size() const noexcept {
-  //   std::allocator<value_type> Alloc;
-  //   return Alloc.max_size();
-  // }
-
 
   //  dop function
   int counter(tree_el_<Key, T> *cur_el) const {
@@ -153,12 +75,6 @@ public:
     return 1 + counter(cur_el->left) + counter(cur_el->right);
   }
 
-  // int counter(tree_el_<Key, T> *cur_el) const {
-  //   if (cur_el == nullptr) {
-  //     return 0;
-  //   }
-  //   for (; begin())
-  // }
 
 //  tree balancing & insert_tree
 void insert_tree(tree_el_<Key, T>* root_, tree_el_<Key, T>* new_node) {
@@ -178,18 +94,16 @@ void insert_tree(tree_el_<Key, T>* root_, tree_el_<Key, T>* new_node) {
     }
   }
   balance(new_node);
-
-  //////////
-
 }
 
 void insert_tree(const std::pair<Key, T> val) {
   tree_el_<Key, T>* new_node = new tree_el_<Key, T>(val, Red, nullptr, nullptr, nullptr);
-  tree_el_<Key, T>* new_end = new tree_el_<Key, T>(val, Red, nullptr, new_node, new_node);
 
   if (empty()) {
     root_ = new_node;
-    end_ = new_end;
+    if (end_ == nullptr) {
+      end_ = new tree_el_<Key, T>(val, Red, nullptr, new_node, new_node);
+    }
   } else {
     insert_tree(root_, new_node);
 
@@ -317,6 +231,31 @@ void print(tree_el_<Key, T>* node)const {
 	print(node->right);
 }
 
+public:
+bool contains_tree(tree_el_<Key, T>* node, const Key& key) {
+  // int equal = 0;
+  while (node != NULL) {
+
+    if (node->values.first == key) {
+      // equal = 1;
+      node = NULL;
+      return true;
+    } else if (key < node->values.first && node->left/*  && equal == 0 */) {
+      node = node->left;
+      // contains_tree(node->left, key);
+    } else if (key > node->values.first && node->right/*  && equal == 0 */) {
+      node = node->right;
+      // contains_tree(node->right, key);
+    } else {
+      break;
+    }
+
+    // contains_tree(node->left, key);
+    // contains_tree(node->right, key);
+
+  }
+  return /* equal ? true :  */false;
+}
 
 
 };
