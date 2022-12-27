@@ -232,28 +232,6 @@ void print(tree_el_<Key, T>* node)const {
 }
 
 public:
-bool contains_tree(tree_el_<Key, T>* node, const Key& key) {
-  while (node != NULL) {
-
-    if (node->values.first == key) {
-      node = NULL;
-      return true;
-
-    } else if (key < node->values.first && node->left) {
-      node = node->left;
-
-    } else if (key > node->values.first && node->right) {
-      node = node->right;
-
-    } else {
-      break;
-    }
-
-  }
-  return false;
-}
-
-
 tree_el_<Key, T>*  search_tree(tree_el_<Key, T>* node, const Key& key) {
   while (node != NULL) {
 
@@ -273,6 +251,12 @@ tree_el_<Key, T>*  search_tree(tree_el_<Key, T>* node, const Key& key) {
   }
   return nullptr;
 }
+
+
+bool contains_tree(tree_el_<Key, T>* node, const Key& key) {
+  return (search_tree(root_, key)) ? true : false;
+}
+
 
 
 };

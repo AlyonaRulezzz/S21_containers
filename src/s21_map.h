@@ -72,24 +72,12 @@ T& at(const Key& key) {
 }
 
 
-T& operator[](const Key& key) {
-  T* element_value = nullptr;
-  int count = 0;
-  // for (auto i = begin(); i != end(); ++i) {
-  auto e = end(); --e; auto i = end();
-  do {
-    ++i;
-    if ((*i).first == key) {
-      element_value = &((*i).second);
-      count++;
-      break;
-    }
+ T& operator[](const Key& key) {
+  if (search(key) == nullptr) {
+    return (*(insert({key, T()}).first)).second;
+  } else {
+    return search(key)->values.second;
   }
-  while (i != e);
-  if (count == 0) {
-    element_value = &(*(insert({key, T()}).first)).second;
-  }
-  return *element_value;
 }
 
 
