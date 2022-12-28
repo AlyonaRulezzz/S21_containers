@@ -8,7 +8,7 @@
             "name": "(lldb) Запустить",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/Users/milkfist/cp/CPP2_s21_containers-TRAIN/src/test_map",
+            "program": "/Users/milkfist/cp/CPP2_s21_containers-TRAIN/src/test_multiset",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",

@@ -11,18 +11,19 @@ FLAGS = -Wall -Werror -Wextra -lstdc++ -std=c++17 -lgtest -Wno-unused -g
 VECTOR = tests/vector_tests.cc
 MAP = tests/map_tests.cc
 SET = tests/set_tests.cc
+MULTISET = tests/multiset_tests.cc
 
 # HEADER = s21_containers.h
 
 # 
-CONTAINERS = $(VECTOR) $(MAP) $(SET)
+CONTAINERS = $(VECTOR) $(MAP) $(SET) $(MULTISET)
 
 all: test
 
 re: clean test
 
 # 
-test: vector_test map_test set_test
+test: vector_test map_test set_test multiset_test
 
 vector_test: vector_test.o
 	$(CC) $(FLAGS) vector_test.o -o test_vector
@@ -44,6 +45,14 @@ set_test: set_test.o
 
 set_test.o:
 	$(CC) $(FLAGS) -c $(SET) -o set_test.o
+
+multiset_test: multiset_test.o
+	$(CC) $(FLAGS) multiset_test.o -o test_multiset
+	./test_multiset 
+	# --gtest_brief=1
+
+multiset_test.o:
+	$(CC) $(FLAGS) -c $(MULTISET) -o multiset_test.o
 
 gcov_report: gcov_test.info
 	@genhtml -o report/ gcov_test.info
@@ -74,5 +83,5 @@ style:
 leak:
 	# CK_FORK=no leaks -atExit -- ./test_vector
 	# CK_FORK=no leaks -atExit -- ./test_map
-	CK_FORK=no leaks -atExit -- ./test_set
-
+	# CK_FORK=no leaks -atExit -- ./test_set
+	CK_FORK=no leaks -atExit -- ./test_multiset

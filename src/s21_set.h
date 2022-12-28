@@ -153,9 +153,9 @@ void erase(iterator pos) {
       }
     }
 
-    // if (pos.iter) {
+    if (pos.iter) {
       delete pos.iter;
-    // }
+    }
 
     pos.iter = nullptr;
 

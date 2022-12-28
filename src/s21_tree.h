@@ -76,6 +76,20 @@ public:
   }
 
 
+  //  for multiset
+  int count_multiset(tree_el_<Key, T>* node, const Key& key) const {
+    if (node != NULL) {
+
+      if (node->values.first == key) {
+        return 1 + count_multiset(node->left, key) + count_multiset(node->right, key);
+      }
+
+      return count_multiset(node->left, key) + count_multiset(node->right, key);
+    }
+
+    return 0;
+  }
+
 //  tree balancing & insert_tree
 void insert_tree(tree_el_<Key, T>* root_, tree_el_<Key, T>* new_node) {
   if (new_node->values.first < root_->values.first) {
@@ -140,7 +154,53 @@ void insert_tree(const Key k) {
   }
   root_->color = Black;
 }
-//
+
+
+// for multiset
+void insert_tree_multiset(tree_el_<Key, T>* root_, tree_el_<Key, T>* new_node) {
+  if (new_node->values.first <= root_->values.first) {
+    if (root_->left == nullptr) {
+      root_->left = new_node;
+      new_node->parent = root_;
+    } else {
+      insert_tree_multiset(root_->left, new_node);
+    }
+  } else if (new_node->values.first > root_->values.first) {
+    if (root_->right == nullptr) {
+      root_->right = new_node;
+      new_node->parent = root_;
+    } else {
+      insert_tree_multiset(root_->right, new_node);
+    }
+  }
+  balance(new_node);
+}
+
+
+void insert_tree_multiset(const Key k) {
+  std::pair<Key, T> val = {k, 0};
+  tree_el_<Key, T>* new_node = new tree_el_<Key, T>(val, Red, nullptr, nullptr, nullptr);
+
+  if (empty()) {
+    root_ = new_node;
+    if (end_ == nullptr) {
+      end_ = new tree_el_<Key, T>(val, Red, nullptr, new_node, new_node);
+    }
+  } else {
+    insert_tree_multiset(root_, new_node);
+
+    if (new_node->values.first > end_->left->values.first) {
+      end_->left = new_node;
+    }
+    if (new_node->values.first < end_->right->values.first) {
+      end_->right = new_node;
+    }
+
+  }
+  root_->color = Black;
+}
+
+
 
 void balance(tree_el_<Key, T>* new_node) {
   if (new_node) {  

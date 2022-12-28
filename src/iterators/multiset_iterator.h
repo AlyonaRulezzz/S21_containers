@@ -1,5 +1,5 @@
-#ifndef S21_SET_ITERATOR_H_
-#define S21_SET_ITERATOR_H_
+#ifndef S21_MULTISET_ITERATOR_H_
+#define S21_MULTISET_ITERATOR_H_
 
 #include <initializer_list>
 #include <iostream>
@@ -7,25 +7,24 @@
 #include <stdexcept>
 #include "../s21_tree.h"
 #include "tree_iterator.h"
-#include "../s21_set.h"
-// #include "../s21_multiset.h"
+#include "../s21_multiset.h"
 
 using std::out_of_range;
 
 namespace s21 {
 template <typename Key, typename T = int>
-class SetIterator : public TreeIterator<Key, T> {
+class MultisetIterator : public TreeIterator<Key, T> {
  public:
  // iterator's operator
   Key& operator*() { return this->iter->values.first; }
 
   // iterator's constructor
-  SetIterator() : TreeIterator<Key, T>() {}
+  MultisetIterator() : TreeIterator<Key, T>() {}
 
-  SetIterator(tree_el_<Key, T>* cur_iter) : TreeIterator<Key, T>(cur_iter) {}
+  MultisetIterator(tree_el_<Key, T>* cur_iter) : TreeIterator<Key, T>(cur_iter) {}
 
 
 };
 }  // namespace s21
 
-#endif  // S21_SET_ITERATOR_H_
+#endif  // S21_MULTISET_ITERATOR_H_
