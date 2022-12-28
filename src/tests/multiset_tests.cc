@@ -178,7 +178,7 @@ TEST(MultisetLookup, Contains) {
   EXPECT_EQ(s_tree.contains("seventy"), false);
 }
 
-TEST(MultisetModifiers, Insert) {  //  NEED TO FIX THIS
+TEST(MultisetModifiers, Insert_clear) {  //  NEED TO FIX THIS
   // s21::Multiset<double> v = {1,  1, 1, 2,  -3, 20, -5, 1, -6, 8, 42,
   //                             26,  8, 8,  8};
   // std::multiset<double> vc = { 1,  1, 1, 2,  -3, 20, -5, 1, -6, 8, 42,
@@ -199,8 +199,12 @@ TEST(MultisetModifiers, Insert) {  //  NEED TO FIX THIS
     ASSERT_EQ(*x, *y);
   }
 
+  v.clear();
+  vc.clear();
 
-
+  for (; y != vc.end(); ++x, ++y) {
+    ASSERT_EQ(*x, *y);
+  }
 
 //   // s21::Multiset<double> v = {-3, 1, -5, 42, 2, -6, 8, 20, 26};
 //   // std::multiset<double> vc = {-3, 1, -5, 42, 2, -6, 8, 20, 26};
@@ -475,49 +479,52 @@ TEST(MultisetLookup, Equal_range) {  //  NEED TO FIX THIS
 }
 
 
-// TEST(MultisetModifiers, Emplace) {
-//   s21::Multiset<std::string> s_tree = {
-//       {"zero"}, {"one"}, {"two"},   {"three"}, {"four"},
-//       {"five"}, {"six"}, {"seven"}, {"eight"}, {"nine"}};
+TEST(MultisetModifiers, Emplace) {
+  s21::Multiset<double> v = {1,  1, 2, 1, 2,  -3, 20, -5, 1, -6, 8, 42,
+                              26,  8, 8,  8};
+  std::multiset<double> vc = { 1,  1, 2, 1, 2,  -3, 20, -5, 1, -6, 8, 42,
+                              26, 8, 8,  8};
+  v.emplace(15);
+  vc.emplace(15);
+  v.erase(v.begin());
+  vc.erase(vc.begin());
+  auto x = v.begin();
+  auto y = vc.begin();
+  // v.print();
+  for (; y != vc.end(); ++x, ++y) {
+    ASSERT_EQ(*x, *y);
+  }
 
-//   std::multiset<std::string> o_tree = {
-//       {"zero"}, {"one"}, {"two"},   {"three"}, {"four"},
-//       {"five"}, {"six"}, {"seven"}, {"eight"}, {"nine"}};
+  v.clear();
+  vc.clear();
 
-//   EXPECT_EQ(s_tree.size(), o_tree.size());
-//   EXPECT_EQ(s_tree.empty(), o_tree.empty());
+  for (; y != vc.end(); ++x, ++y) {
+    ASSERT_EQ(*x, *y);
+  }
 
-//   auto v = s_tree.emplace("eleven",
-//                           "twelve",
-//                           "nine",
-//                           "thirteen");
 
-//   auto p0 = o_tree.emplace("eleven");
-//   auto p1 = o_tree.emplace("twelve");
-//   auto p2 = o_tree.emplace("nine");
-//   auto p3 = o_tree.emplace("thirteen");
+  // s21::Multiset<double> s = {-3, 1, -5, 42, 2, -6, 8, 20, 26};
+  // std::multiset<double> o = {-3, 1, -5, 42, 2, -6, 8, 20, 26};
 
-//   EXPECT_EQ((*(v[0].first)), (*(p0.first)));
-//   EXPECT_EQ(v[0].second, p0.second);
+  // auto r = s.emplace(100, 200, 42, 400);
 
-//   EXPECT_EQ((*(v[1].first)), (*(p1.first)));
-//   EXPECT_EQ(v[1].second, p1.second);
+  // auto pr1 = o.emplace(100);
+  // auto pr2 = o.emplace(200);
+  // auto pr3 = o.emplace(42);
+  // auto pr4 = o.emplace(400);
 
-//   EXPECT_EQ((*(v[2].first)), (*(p2.first)));
-//   EXPECT_EQ(v[2].second, p2.second);
+  // EXPECT_EQ(*(r[0]), *(pr1));
+  // EXPECT_EQ(r[0].second, pr1.second);
 
-//   EXPECT_EQ((*(v[3].first)), (*(p3.first)));
-//   EXPECT_EQ(v[3].second, p3.second);
+  // EXPECT_EQ(*(r[1].first), *(pr2.first));
+  // EXPECT_EQ(r[1].second, pr2.second);
 
-//   EXPECT_EQ(s_tree.size(), o_tree.size());
-//   EXPECT_EQ(s_tree.empty(), o_tree.empty());
+  // EXPECT_EQ(*(r[2].first), *(pr3.first));
+  // EXPECT_EQ(r[2].second, pr3.second);
 
-//   auto si = s_tree.begin();
-//   auto oi = o_tree.begin();
-//   for (; si != s_tree.end() && oi != o_tree.end(); ++si, ++oi) {
-//     EXPECT_EQ((*si), (*oi));
-//   }
-// }
+  // EXPECT_EQ(*(r[3].first), *(pr4.first));
+  // EXPECT_EQ(r[3].second, pr4.second);
+}
 
 
 int main(int argc, char **argv) {

@@ -27,21 +27,24 @@ test: vector_test map_test set_test multiset_test
 
 vector_test: vector_test.o
 	$(CC) $(FLAGS) vector_test.o -o test_vector
-	./test_vector --gtest_brief=1
+	./test_vector 
+	# --gtest_brief=1
 
 vector_test.o:
 	$(CC) $(FLAGS) -c $(VECTOR) -o vector_test.o
 
 map_test: map_test.o
 	$(CC) $(FLAGS) map_test.o -o test_map
-	./test_map --gtest_brief=1
+	./test_map 
+	# --gtest_brief=1
 
 map_test.o:
 	$(CC) $(FLAGS) -c $(MAP) -o map_test.o
 
 set_test: set_test.o
 	$(CC) $(FLAGS) set_test.o -o test_set
-	./test_set --gtest_brief=1
+	./test_set 
+	# --gtest_brief=1
 
 set_test.o:
 	$(CC) $(FLAGS) -c $(SET) -o set_test.o

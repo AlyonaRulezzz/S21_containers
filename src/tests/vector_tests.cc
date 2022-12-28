@@ -348,17 +348,18 @@ TEST(Vector_dop, emplace) {
 
   auto pos2 = v2.end();
   pos2 -= 1;
-  v2.emplace(pos2, 9, 1, 4, 12, -6, 2, 7, 10);
-  // v2.emplace(pos2, 9, -1);
+  // v2.emplace(pos2, 9, 1, 4, 12, -6, 2, 7, 10);
+  v2.emplace(pos2, 9, -1);
 
-  EXPECT_EQ(v2.size(), 12);
-  EXPECT_EQ(v2.at(6), 12);
+  EXPECT_EQ(v2.size(), 6);
+  EXPECT_EQ(v2.at(0), -2);
+  EXPECT_EQ(v2.at(4), -1);
 
-  // std::cout << '\n' << std::endl;
-  // for (size_t i = 0; i < v2.size(); ++i) {
-  //   // EXPECT_EQ(v2.at(i), v2.at(i));
-  //   std::cout << v2.at(i) << std::endl;
-  // }
+  std::cout << '\n' << std::endl;
+  for (size_t i = 0; i < v2.size(); ++i) {
+    EXPECT_EQ(v2.at(i), v2.at(i));
+    // std::cout << v2.at(i) << std::endl;
+  }
 }
 
 int main(int argc, char **argv) {
