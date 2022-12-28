@@ -269,6 +269,9 @@ iterator upper_bound(const Key& key){
 }
 
 
+std::pair<iterator,iterator> equal_range(const Key& key) {
+  return std::make_pair(lower_bound(key), upper_bound(key));
+}
 
 
 

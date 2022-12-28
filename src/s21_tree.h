@@ -376,9 +376,10 @@ tree_el_<Key, T>* search_tree_multiset(tree_el_<Key, T>* node, const Key& key) {
 Key upper_bound_tree_multiset(tree_el_<Key, T>* node, const Key& key) {
   while (node != NULL) {
 
-  if (key < node->values.first) {
+  if (key <= node->values.first) {
     if (node->left) {
-      if ((node->values.first - key) > (key - node->left->values.first)) {
+      if ((node->values.first - key) > (key - node->left->values.first) &&
+            (key != node->left->values.first)) {
         node = node->left;
       } else {
         return node->values.first;
