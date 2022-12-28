@@ -259,9 +259,16 @@ iterator lower_bound(const Key& key) {
   if (this->contains(key)) {
     return iterator(this->search_multiset(key));
   } else {
-    return iterator(this->search_multiset(this->find_near_greater_key_multiset(key)));
+    return upper_bound(key);
   }
 }
+
+
+iterator upper_bound(const Key& key){
+  return iterator(this->search_multiset(this->upper_bound_multiset(key)));
+}
+
+
 
 
 

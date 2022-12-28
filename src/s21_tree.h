@@ -373,7 +373,7 @@ tree_el_<Key, T>* search_tree_multiset(tree_el_<Key, T>* node, const Key& key) {
 }
 
 
-Key find_near_greater_key_tree_multiset(tree_el_<Key, T>* node, const Key& key) {
+Key upper_bound_tree_multiset(tree_el_<Key, T>* node, const Key& key) {
   while (node != NULL) {
 
   if (key < node->values.first) {
