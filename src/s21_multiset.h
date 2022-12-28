@@ -72,7 +72,7 @@ Multiset<Key, T> &operator=(Multiset &&m) {
 // }
 
 
-// //  iterators
+//  iterators
 // SetIterator<Key, T> begin() const noexcept {
 //   SetIterator<Key, T> iterator(this->end_->right);
 //   return iterator;
@@ -221,9 +221,9 @@ Multiset<Key, T> &operator=(Multiset &&m) {
 // }
 
 
-bool contains(const Key& key) {
-  return this->contains_tree(this->root_, key);
-}
+// bool contains(const Key& key) {
+//   return this->contains_tree(this->root_, key);
+// }
 
 
 // // // bonus
@@ -250,11 +250,18 @@ iterator insert_m(const value_type& value) {
 }
 
 
-size_type count(const Key& key) {
+size_type count(const Key& key) const {
   return this->count_multiset(this->root_, key);
 }
 
 
+iterator lower_bound(const Key& key) {
+  if (this->contains(key)) {
+    return iterator(this->search_multiset(key));
+  } else {
+    return iterator(this->search_multiset(this->find_near_greater_key_multiset(key)));
+  }
+}
 
 
 

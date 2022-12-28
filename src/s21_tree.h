@@ -90,6 +90,15 @@ public:
     return 0;
   }
 
+  //  for multiset
+  // tree_el_<Key, T>* set_root_() {
+  //   return root_;
+  // }
+
+//   tree_el_<Key, T>*  lower_bound_tree(tree_el_<Key, T>* node, const Key& key) {
+//     if ()
+// }
+
 //  tree balancing & insert_tree
 void insert_tree(tree_el_<Key, T>* root_, tree_el_<Key, T>* new_node) {
   if (new_node->values.first < root_->values.first) {
@@ -336,6 +345,62 @@ tree_el_<Key, T>*  search_tree(tree_el_<Key, T>* node, const Key& key) {
   return nullptr;
 }
 
+
+//  for multiset
+tree_el_<Key, T>* search_tree_multiset(tree_el_<Key, T>* node, const Key& key) {
+  int cnt = 0;
+  while (node != NULL) {
+
+    if (node->values.first == key) {
+      ++cnt;
+      if (cnt == count_multiset(node, key)) {
+        return node;
+      }
+
+    } else if (key < node->values.first && node->left) {
+      node = node->left;
+
+    } else if (key > node->values.first && node->right) {
+      node = node->right;
+
+    } 
+    // else {
+    //   break;
+    // }
+
+  }
+  return nullptr;
+}
+
+
+Key find_near_greater_key_tree_multiset(tree_el_<Key, T>* node, const Key& key) {
+  while (node != NULL) {
+
+  if (key < node->values.first) {
+    if (node->left) {
+      if ((node->values.first - key) > (key - node->left->values.first)) {
+        node = node->left;
+      } else {
+        return node->values.first;
+      }
+    } else {
+      return node->values.first;
+    }
+      
+  } else if (key > node->values.first) {
+    if (node->right) {
+      node = node->right;
+    } else {
+      return Key();
+    }
+  } 
+    // else {
+    //   break;
+    // }
+
+  }
+  return Key();
+}
 
 bool contains_tree(tree_el_<Key, T>* node, const Key& key) {
   return (search_tree(root_, key)) ? true : false;

@@ -418,6 +418,26 @@ TEST(MultisetLookup, Count) {  //  NEED TO FIX THIS
   EXPECT_EQ(v.count(-100), vc.count(-100));
 }
 
+TEST(MultisetLookup, Lower_bound) {
+  s21::Multiset<double> v = /* {2,  -3, 20, -5, 1, -6, 8, 42,
+                              26, 1,  1,  1,  8, 8,  8}; */
+                              { 1,  1, 2, 1, 2,  -3, 20, -5, 1, -6, 8, 42,
+                              26,  8, 8,  8};
+                              // {1, 3, 5, 8, 15, 24};
+  // auto x = v.lower_bound(8);
+  // --x;
+  ASSERT_EQ(*(v.lower_bound(8)), 8);
+  ASSERT_EQ(*(v.lower_bound(2)), 2);
+  ASSERT_EQ(*(v.lower_bound(-3)), -3);
+  ASSERT_EQ(*(v.lower_bound(20)), 20);
+
+  ASSERT_EQ(*(v.lower_bound(-2)), 1);
+  ASSERT_EQ(*(v.lower_bound(38)), 42);
+  ASSERT_EQ(*(v.lower_bound(-12)), -6);
+
+  // ASSERT_EQ(*(v.lower_bound(43)), 0);
+}
+
 
 // TEST(MultisetModifiers, Emplace) {
 //   s21::Multiset<std::string> s_tree = {

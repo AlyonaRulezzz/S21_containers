@@ -259,6 +259,14 @@ tree_el_<Key, T>*  search(const Key& key) {
 }
 
 
+tree_el_<Key, T>*  search_multiset(const Key& key) {
+  return this->search_tree_multiset(this->root_, key);
+}
+
+Key find_near_greater_key_multiset(const Key& key) {
+  return this->find_near_greater_key_tree_multiset(this->root_, key);
+}
+
 
 };
 }  // namespace s21
